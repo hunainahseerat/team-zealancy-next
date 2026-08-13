@@ -1,0 +1,122 @@
+// ============================================================
+// Shared TypeScript types for Team Zealancy CMS
+// These field names align with WordPress ACF field naming conventions
+// ============================================================
+
+export type JobStatus = 'active' | 'paused' | 'archived';
+export type ApplicationStatus = 'new' | 'reviewing' | 'shortlisted' | 'rejected' | 'hired';
+
+export interface Job {
+  id: string;
+  slug: string; // URL-friendly identifier, e.g. "creative-video-editor"
+  title: string;
+  department: string;
+  type: 'Full-time' | 'Part-time' | 'Internship' | 'Contract';
+  mode: 'Remote' | 'Hybrid' | 'On-site';
+  experience: string;
+  description: string;
+  responsibilities?: string[];
+  requirements?: string[];
+  niceToHave?: string[];
+  status: JobStatus;
+  isUrgent: boolean;
+  urgentLabel?: string;
+  postedAt: string; // ISO date string
+  updatedAt: string;
+}
+
+export interface Application {
+  id: string;
+  jobId: string;
+  jobTitle: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  linkedin?: string;
+  portfolio?: string;
+  coverLetter: string;
+  resumeFileName: string;
+  status: ApplicationStatus;
+  submittedAt: string; // ISO date string
+  notes?: string;
+}
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  bio: string;
+  avatarUrl?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
+  order: number;
+  isVisible: boolean;
+}
+
+export interface Benefit {
+  id: string;
+  icon: string; // SVG path string or icon name
+  title: string;
+  description: string;
+  order: number;
+}
+
+export interface FaqItem {
+  id: string;
+  question: string;
+  answer: string;
+  order: number;
+  isVisible: boolean;
+}
+
+export interface HiringStep {
+  id: string;
+  number: string; // e.g. "01"
+  title: string;
+  description: string;
+  order: number;
+}
+
+export interface Voice {
+  id: string;
+  quote: string;
+  name: string;
+  role: string;
+  initials: string;
+  order: number;
+  isVisible: boolean;
+}
+
+export interface HeroRotatorWord {
+  id: string;
+  word: string;
+  order: number;
+}
+
+export interface SiteSettings {
+  siteName: string;
+  tagline: string;
+  contactEmail: string;
+  whatsappNumber: string;
+  instagramUrl: string;
+  linkedinUrl: string;
+  locationCity: string;
+  locationCountry: string;
+  isOpenToWork: boolean;
+  heroHeadlinePrefix: string;
+  heroHeadlineSuffix: string;
+  heroSubtext: string;
+  metaTitle: string;
+  metaDescription: string;
+  canonicalUrl: string;
+  ogImageUrl: string;
+}
+
+export interface DashboardStats {
+  totalJobs: number;
+  activeJobs: number;
+  totalApplications: number;
+  newApplicationsThisWeek: number;
+  teamSize: number;
+  openPositions: number;
+}
