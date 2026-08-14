@@ -8,7 +8,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Usman Laghari',
     role: 'Senior Project Manager',
     quote: '"Managing complex productions daily — this team makes it genuinely exciting to deliver."',
-    wistiaId: '76pq9sletd', 
+    wistiaId: '76pq9sletd',
     bgClass: 'g-violet',
   },
   {
@@ -143,7 +143,7 @@ export default function TeamVoices() {
       for (let i = 0; i < slides.length; i++) {
         const dot = document.createElement('button');
         dot.type = 'button';
-        dot.setAttribute('aria-label', Go to testimonial ${i + 1});
+        dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
 
         dot.addEventListener('click', () => {
           const step = slides[0].getBoundingClientRect().width + 16;
@@ -220,22 +220,25 @@ export default function TeamVoices() {
               <div
                 key={item.id}
                 className="voice reveal"
-                onClick={() => setPlayingId(isPlaying ? null : item.id)}
-                style={{ cursor: 'pointer' }}
+                style={{ position: 'relative' }}
               >
                 <div
-                  className={vid ${item.bgClass}}
+                  className={`vid ${item.bgClass}`}
                   style={{
                     position: 'relative',
                     overflow: 'hidden',
                     width: '100%',
                     height: '100%',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => {
+                    if (!isPlaying) setPlayingId(item.id);
                   }}
                 >
                   {isPlaying ? (
                     <iframe
-                      src={https://fast.wistia.net/embed/iframe/${item.wistiaId}?autoPlay=true}
-                      title={${item.name} Voice Story}
+                      src={`https://fast.wistia.net/embed/iframe/${item.wistiaId}?autoPlay=1&videoFoam=true`}
+                      title={`${item.name} Voice Story`}
                       allow="autoplay; fullscreen"
                       allowTransparency={true}
                       frameBorder="0"
@@ -246,7 +249,8 @@ export default function TeamVoices() {
                         left: 0,
                         width: '100%',
                         height: '100%',
-                        borderRadius: 'inherit',
+                        zIndex: 10,
+                        border: 'none',
                       }}
                     />
                   ) : (
@@ -264,7 +268,7 @@ export default function TeamVoices() {
                       position: 'absolute',
                       top: 10,
                       left: 12,
-                      zIndex: 3,
+                      zIndex: isPlaying ? 0 : 3,
                       fontSize: '11px',
                       fontWeight: 700,
                       letterSpacing: '.12em',
