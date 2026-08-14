@@ -16,16 +16,16 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Fazeel Chaudry',
     role: 'Founder & CEO',
-    avatarUrl: '/assets/team/leader-01.jpg',
+    avatarUrl: '/assets/team/leader-01.jpg?v=2',
     bgClass: 'g-royal',
-    bio: "A founder on paper, but more of a mentor to the team. Afraz started as a freelance video editor at 19 and built Zealancy from scratch. Today he's focused on building a team where people take ownership, grow fast, and become better at their craft.",
+    bio: "A founder on paper, but more of a mentor to the team. Fazeel started as a freelance video editor at 19 and built Zealancy from scratch. Today he's focused on building a team where people take ownership, grow fast, and become better at their craft.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
     linkedinUrl: 'https://www.linkedin.com/company/zealancy',
   },
   {
     name: 'Shehroz Khan',
     role: 'Head of Fulfillment',
-    avatarUrl: '/assets/team/leader-02.jpg',
+    avatarUrl: '/assets/team/leader-02.jpg?v=2',
     bgClass: 'g-violet',
     bio: 'The person who makes sure things actually happen. Shehroz left film school to go all-in on Zealancy and brought experience managing large teams and coaching creatives. From solving problems to building systems, he keeps the machine moving.',
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -34,7 +34,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Aribah Siddiqui',
     role: 'Head of Growth',
-    avatarUrl: '/assets/team/leader-04.jpg',
+    avatarUrl: '/assets/team/leader-04.jpg?v=2',
     bgClass: 'g-dusk',
     bio: "Aribah is the person behind Zealancy's growth engine. She works across marketing, sales, and strategy to bring in the right opportunities and turn creative work into measurable results.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -43,7 +43,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Kamal Ahmed',
     role: 'Executive Creative Director',
-    avatarUrl: '/assets/team/leader-03.jpg',
+    avatarUrl: '/assets/team/leader-03.jpg?v=2',
     bgClass: 'g-plum',
     bio: "The person behind the quality bar at Zealancy. Kamal leads our creative team, challenges ideas, and pushes everyone to think bigger. He's the one making sure good work becomes great work.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -58,22 +58,28 @@ interface LeadershipProps {
 export default function Leadership({ members }: LeadershipProps) {
   const displayLeaders: LeaderItem[] =
     members && members.length > 0
-      ? members.filter((m) => m.isVisible).map((m, idx) => ({
-          name: m.name,
-          role: m.role,
-          bio: m.bio,
+      ? members.filter((m) => m.isVisible).map((m, idx) => {
+          // Fix 1: Force name change if database still has "Afraz"
+          const cleanName = m.name.includes('Afraz') ? 'Fazeel Chaudry' : m.name;
 
-          // IMPORTANT:
-          // Always use the local leadership images.
-          // This prevents old database avatar URLs from overriding them.
-          avatarUrl: `/assets/team/leader-${String(idx + 1).padStart(2, '0')}.jpg`,
+          // Fix 2: Replace "Afraz" in bio text if database contains old bio
+          const cleanBio = m.bio ? m.bio.replace(/Afraz/g, 'Fazeel') : '';
 
-          bgClass: BG_CLASSES[idx % BG_CLASSES.length],
-          instagramUrl:
-            m.instagramUrl || 'https://www.instagram.com/teamzealancy/',
-          linkedinUrl:
-            m.linkedinUrl || 'https://www.linkedin.com/company/zealancy',
-        }))
+          return {
+            name: cleanName,
+            role: m.role,
+            bio: cleanBio,
+
+            // Fix 3: Added ?v=2 cache-buster query parameter to force images to refresh
+            avatarUrl: `/assets/team/leader-${String(idx + 1).padStart(2, '0')}.jpg?v=2`,
+
+            bgClass: BG_CLASSES[idx % BG_CLASSES.length],
+            instagramUrl:
+              m.instagramUrl || 'https://www.instagram.com/teamzealancy/',
+            linkedinUrl:
+              m.linkedinUrl || 'https://www.linkedin.com/company/zealancy',
+          };
+        })
       : DEFAULT_LEADERS;
 
   return (
