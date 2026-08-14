@@ -14,7 +14,7 @@ const BG_CLASSES = ['g-royal', 'g-violet', 'g-dusk', 'g-plum'];
 
 const DEFAULT_LEADERS: LeaderItem[] = [
   {
-    name: 'Afraz Chaudry',
+    name: 'Fazeel Chaudry',
     role: 'Founder & CEO',
     avatarUrl: '/assets/team/leader-01.jpg',
     bgClass: 'g-royal',
