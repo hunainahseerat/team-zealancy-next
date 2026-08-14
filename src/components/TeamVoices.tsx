@@ -103,8 +103,8 @@ const TEAM_VOICES_DATA = [
 
 export default function TeamVoices() {
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const dotWrapRef = useRef<HTMLDivElement>(null);
   const [playingId, setPlayingId] = useState<string | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const handlePrev = () => {
     const scroller = scrollerRef.current;
@@ -126,63 +126,51 @@ export default function TeamVoices() {
     });
   };
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
+  const scrollToSlide = (index: number) => {
     const scroller = scrollerRef.current;
-    const dotWrap = dotWrapRef.current;
-    if (!scroller || !dotWrap) return;
+    if (!scroller) return;
+    const slides = scroller.querySelectorAll<HTMLElement>('.voice');
+    if (!slides.length) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    const behavior = reduceMotion ? 'auto' : 'smooth';
+    const step = slides[0].getBoundingClientRect().width + 16;
+    scroller.scrollTo({
+      left: index * step,
+      behavior: reduceMotion ? 'auto' : 'smooth',
+    });
+  };
 
-    const slides = scroller.querySelectorAll<HTMLElement>('.voice');
-    dotWrap.innerHTML = '';
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
 
-    if (slides.length) {
-      for (let i = 0; i < slides.length; i++) {
-        const dot = document.createElement('button');
-        dot.type = 'button';
-        dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
+    let dotQueued = false;
 
-        dot.addEventListener('click', () => {
-          const step = slides[0].getBoundingClientRect().width + 16;
-          scroller.scrollTo({ left: i * step, behavior });
-        });
+    const syncDots = () => {
+      const slides = scroller.querySelectorAll<HTMLElement>('.voice');
+      if (!slides.length) return;
+      const step = slides[0].getBoundingClientRect().width + 16;
+      const idx = step > 0 ? Math.round(scroller.scrollLeft / step) : 0;
+      const clampedIdx = Math.max(0, Math.min(idx, TEAM_VOICES_DATA.length - 1));
+      setActiveIndex(clampedIdx);
+      dotQueued = false;
+    };
 
-        dotWrap.appendChild(dot);
+    const onScroll = () => {
+      if (!dotQueued) {
+        dotQueued = true;
+        requestAnimationFrame(syncDots);
       }
+    };
 
-      const dots = dotWrap.querySelectorAll<HTMLButtonElement>('button');
-      let dotQueued = false;
+    scroller.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', syncDots);
+    syncDots();
 
-      function syncDots() {
-        const step = slides[0].getBoundingClientRect().width + 16;
-        const idx = step > 0 ? Math.round(scroller!.scrollLeft / step) : 0;
-        const clampedIdx = Math.max(0, Math.min(idx, dots.length - 1));
-
-        dots.forEach((dot, k) => {
-          dot.classList.toggle('on', k === clampedIdx);
-        });
-        dotQueued = false;
-      }
-
-      const onScroll = () => {
-        if (!dotQueued) {
-          dotQueued = true;
-          requestAnimationFrame(syncDots);
-        }
-      };
-
-      scroller.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', syncDots);
-      syncDots();
-
-      return () => {
-        scroller.removeEventListener('scroll', onScroll);
-        window.removeEventListener('resize', syncDots);
-      };
-    }
+    return () => {
+      scroller.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', syncDots);
+    };
   }, []);
 
   return (
@@ -202,7 +190,7 @@ export default function TeamVoices() {
         </div>
 
         <div className="voice-head">
-          <span className="vt">Team voices (12 stories)</span>
+          <span className="vt">Team voices ({TEAM_VOICES_DATA.length} stories)</span>
           <div className="voice-nav">
             <button id="vPrev" aria-label="Previous" onClick={handlePrev}>
               ‹
@@ -217,11 +205,7 @@ export default function TeamVoices() {
           {TEAM_VOICES_DATA.map((item) => {
             const isPlaying = playingId === item.id;
             return (
-              <div
-                key={item.id}
-                className="voice reveal"
-                style={{ position: 'relative' }}
-              >
+              <div key={item.id} className="voice reveal" style={{ position: 'relative' }}>
                 <div
                   className={`vid ${item.bgClass}`}
                   style={{
@@ -229,7 +213,7 @@ export default function TeamVoices() {
                     overflow: 'hidden',
                     width: '100%',
                     height: '100%',
-                    cursor: 'pointer',
+                    cursor: isPlaying ? 'default' : 'pointer',
                   }}
                   onClick={() => {
                     if (!isPlaying) setPlayingId(item.id);
@@ -237,7 +221,7 @@ export default function TeamVoices() {
                 >
                   {isPlaying ? (
                     <iframe
-                      src={`https://fast.wistia.net/embed/iframe/${item.wistiaId}?autoPlay=1&videoFoam=true`}
+                      src={`https://fast.wistia.net/embed/iframe/${item.wistiaId}?autoplay=1&videoFoam=true`}
                       title={`${item.name} Voice Story`}
                       allow="autoplay; fullscreen"
                       allowTransparency={true}
@@ -294,13 +278,18 @@ export default function TeamVoices() {
           })}
         </div>
 
-        <div
-          className="vdots"
-          id="vdots"
-          ref={dotWrapRef}
-          role="tablist"
-          aria-label="Testimonial position"
-        ></div>
+        {/* Declarative Dot Navigation */}
+        <div className="vdots" role="tablist" aria-label="Testimonial position">
+          {TEAM_VOICES_DATA.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              aria-label={`Go to testimonial ${i + 1}`}
+              className={i === activeIndex ? 'on' : ''}
+              onClick={() => scrollToSlide(i)}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
