@@ -112,7 +112,7 @@ export default function WhyWeExist() {
             The internet is full of <em>average</em> content. We're not interested in making more of it.
           </h2>
           <p>
-            We exist to help the top 1% of creators build work they're proud of, with a team that pushes each other to become ridiculously good at their craft.
+            We exist help the top 1% of creators build work they're proud of, with a team that pushes each other to become ridiculously good at their craft.
           </p>
         </div>
         <div className="stats" ref={statWrapRef}>
