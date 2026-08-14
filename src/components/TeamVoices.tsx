@@ -8,7 +8,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Usman Laghari',
     role: 'Senior Project Manager',
     quote: '"Managing complex productions daily — this team makes it genuinely exciting to deliver."',
-    wistiaId: '76pq9sletd',
+    youtubeId: 'xPf0A7xCH9o',
     bgClass: 'g-violet',
   },
   {
@@ -16,7 +16,7 @@ const TEAM_VOICES_DATA = [
     name: 'Shehroz Khan',
     role: 'Head of Fulfilment',
     quote: '"I oversee delivery for some of the biggest channels in the world. The scale here is real."',
-    wistiaId: 'xyrx926yn6',
+    youtubeId: '',
     bgClass: 'g-plum',
   },
   {
@@ -24,7 +24,7 @@ const TEAM_VOICES_DATA = [
     name: 'Fahad Ansari',
     role: 'Junior Video Editor',
     quote: '"No politics, no ego. Just people who care about the craft."',
-    wistiaId: 'ckriomzxeu',
+    youtubeId: '',
     bgClass: 'g-dusk',
   },
   {
@@ -32,7 +32,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Aqib',
     role: 'Junior Video Editor',
     quote: '"I\'ve grown more here in one year than anywhere else I\'ve worked."',
-    wistiaId: '74spvaapv9',
+    youtubeId: '',
     bgClass: 'g-slate',
   },
   {
@@ -40,7 +40,7 @@ const TEAM_VOICES_DATA = [
     name: 'Moazam Naqvi',
     role: 'Content Creator',
     quote: '"Creating content that reaches millions — every single week. The opportunity here is unmatched."',
-    wistiaId: 'buwj25t5ln',
+    youtubeId: '',
     bgClass: 'g-royal',
   },
   {
@@ -48,7 +48,7 @@ const TEAM_VOICES_DATA = [
     name: 'Ashar Ullah Khan',
     role: 'OPS Manager',
     quote: '"The speed of execution here is unlike any agency I\'ve been part of."',
-    wistiaId: 'doiu7dd9iw',
+    youtubeId: '',
     bgClass: 'g-violet',
   },
   {
@@ -56,7 +56,7 @@ const TEAM_VOICES_DATA = [
     name: 'Shayan',
     role: 'Junior Video Editor',
     quote: '"High standards and full support — you\'re pushed to be genuinely great here."',
-    wistiaId: '43o80cxtqj',
+    youtubeId: '',
     bgClass: 'g-plum',
   },
   {
@@ -64,7 +64,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Izhan Khan',
     role: 'Accountant',
     quote: '"Numbers meet creativity. Working behind the scenes of industry-leading productions."',
-    wistiaId: 'hccsfag3s7',
+    youtubeId: '',
     bgClass: 'g-dusk',
   },
   {
@@ -72,7 +72,7 @@ const TEAM_VOICES_DATA = [
     name: 'Syed Junaid Hussain',
     role: 'Assistant Video Editor',
     quote: '"Every edit matters. This team has taught me that obsession over detail is the standard."',
-    wistiaId: 'ai9gc5r5f5',
+    youtubeId: '',
     bgClass: 'g-slate',
   },
   {
@@ -80,7 +80,7 @@ const TEAM_VOICES_DATA = [
     name: 'Kamal Ahmed',
     role: 'Lead Video Editor',
     quote: '"Leading edits for channels with hundreds of millions of views — real work, real impact."',
-    wistiaId: 'ew2xs2jo5a',
+    youtubeId: '',
     bgClass: 'g-royal',
   },
   {
@@ -88,7 +88,7 @@ const TEAM_VOICES_DATA = [
     name: 'Syed Zeeshan Ali',
     role: 'Intern Video Editor',
     quote: '"From day one I was working on real productions. The learning curve is steep and worth it."',
-    wistiaId: 'tf6vvsadtv',
+    youtubeId: '',
     bgClass: 'g-violet',
   },
   {
@@ -96,7 +96,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Ali Akbar',
     role: 'Admin Assistant',
     quote: '"I keep the engine running. Zealancy moves fast and it\'s energising to be part of it."',
-    wistiaId: '1wnmxc9c5q',
+    youtubeId: '',
     bgClass: 'g-plum',
   },
 ];
@@ -229,38 +229,54 @@ export default function TeamVoices() {
                     overflow: 'hidden',
                     width: '100%',
                     height: '100%',
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => {
-                    if (!isPlaying) setPlayingId(item.id);
                   }}
                 >
-                  {isPlaying ? (
+                  {isPlaying && item.youtubeId ? (
                     <iframe
-                      src={`https://fast.wistia.net/embed/iframe/${item.wistiaId}?autoPlay=1&videoFoam=true`}
+                      src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&enablejsapi=1&rel=0&playsinline=1`}
                       title={`${item.name} Voice Story`}
-                      allow="autoplay; fullscreen"
-                      allowTransparency={true}
-                      frameBorder="0"
-                      scrolling="no"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
                       style={{
                         position: 'absolute',
                         top: 0,
                         left: 0,
                         width: '100%',
                         height: '100%',
-                        zIndex: 10,
+                        zIndex: 20,
                         border: 'none',
                       }}
                     />
                   ) : (
-                    <span
-                      className="play"
-                      style={{
-                        zIndex: 2,
-                        pointerEvents: 'none',
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (item.youtubeId) {
+                          setPlayingId(item.id);
+                        }
                       }}
-                    />
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        width: '100%',
+                        height: '100%',
+                        background: 'transparent',
+                        border: 'none',
+                        cursor: item.youtubeId ? 'pointer' : 'default',
+                        zIndex: 10,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                      aria-label={`Play ${item.name} video`}
+                    >
+                      <span
+                        className="play"
+                        style={{
+                          pointerEvents: 'none',
+                        }}
+                      />
+                    </button>
                   )}
 
                   <span
@@ -268,7 +284,7 @@ export default function TeamVoices() {
                       position: 'absolute',
                       top: 10,
                       left: 12,
-                      zIndex: isPlaying ? 0 : 3,
+                      zIndex: isPlaying ? 0 : 5,
                       fontSize: '11px',
                       fontWeight: 700,
                       letterSpacing: '.12em',
