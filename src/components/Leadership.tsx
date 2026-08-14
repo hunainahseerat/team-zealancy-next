@@ -16,7 +16,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Fazeel Chaudry',
     role: 'Founder & CEO',
-    avatarUrl: '/assets/team/leader-01.jpg?v=2',
+    avatarUrl: '/assets/team/leader-01.jpg?v=4',
     bgClass: 'g-royal',
     bio: "A founder on paper, but more of a mentor to the team. Fazeel started as a freelance video editor at 19 and built Zealancy from scratch. Today he's focused on building a team where people take ownership, grow fast, and become better at their craft.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -25,7 +25,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Shehroz Khan',
     role: 'Head of Fulfillment',
-    avatarUrl: '/assets/team/leader-02.jpg?v=2',
+    avatarUrl: '/assets/team/leader-02.jpg?v=4',
     bgClass: 'g-violet',
     bio: 'The person who makes sure things actually happen. Shehroz left film school to go all-in on Zealancy and brought experience managing large teams and coaching creatives. From solving problems to building systems, he keeps the machine moving.',
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -34,7 +34,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Aribah Siddiqui',
     role: 'Head of Growth',
-    avatarUrl: '/assets/team/leader-04.jpg?v=2',
+    avatarUrl: '/assets/team/leader-04.jpg?v=4',
     bgClass: 'g-dusk',
     bio: "Aribah is the person behind Zealancy's growth engine. She works across marketing, sales, and strategy to bring in the right opportunities and turn creative work into measurable results.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -43,7 +43,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Kamal Ahmed',
     role: 'Executive Creative Director',
-    avatarUrl: '/assets/team/leader-03.jpg?v=2',
+    avatarUrl: '/assets/team/leader-03.jpg?v=4',
     bgClass: 'g-plum',
     bio: "The person behind the quality bar at Zealancy. Kamal leads our creative team, challenges ideas, and pushes everyone to think bigger. He's the one making sure good work becomes great work.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -56,23 +56,24 @@ interface LeadershipProps {
 }
 
 export default function Leadership({ members }: LeadershipProps) {
+  const IMAGE_MAP = [
+    '/assets/team/leader-01.jpg?v=4',
+    '/assets/team/leader-02.jpg?v=4',
+    '/assets/team/leader-04.jpg?v=4',
+    '/assets/team/leader-03.jpg?v=4',
+  ];
+
   const displayLeaders: LeaderItem[] =
     members && members.length > 0
       ? members.filter((m) => m.isVisible).map((m, idx) => {
-          // Fix 1: Force name change if database still has "Afraz"
           const cleanName = m.name.includes('Afraz') ? 'Fazeel Chaudry' : m.name;
-
-          // Fix 2: Replace "Afraz" in bio text if database contains old bio
           const cleanBio = m.bio ? m.bio.replace(/Afraz/g, 'Fazeel') : '';
 
           return {
             name: cleanName,
             role: m.role,
             bio: cleanBio,
-
-            // Fix 3: Added ?v=2 cache-buster query parameter to force images to refresh
-            avatarUrl: `/assets/team/leader-${String(idx + 1).padStart(2, '0')}.jpg?v=2`,
-
+            avatarUrl: IMAGE_MAP[idx] || `/assets/team/leader-0${idx + 1}.jpg?v=4`,
             bgClass: BG_CLASSES[idx % BG_CLASSES.length],
             instagramUrl:
               m.instagramUrl || 'https://www.instagram.com/teamzealancy/',
@@ -95,30 +96,62 @@ export default function Leadership({ members }: LeadershipProps) {
 
         <div className="lead-grid">
           {displayLeaders.map((leader, index) => (
-            <article key={index} className="lcard reveal">
-              <div className={`lph ${leader.bgClass || ''}`}>
+            <article
+              key={index}
+              className="lcard reveal"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
+                borderRadius: '16px',
+                overflow: 'hidden',
+              }}
+            >
+              {/* Image Container with Fixed 4:5 Aspect Ratio */}
+              <div
+                className={`lph ${leader.bgClass || ''}`}
+                style={{
+                  width: '100%',
+                  aspectRatio: '4 / 5',
+                  overflow: 'hidden',
+                  position: 'relative',
+                  flexShrink: 0,
+                }}
+              >
                 <img
                   src={leader.avatarUrl}
                   alt={`${leader.name} — ${leader.role}`}
-                  width={400}
-                  height={500}
                   loading="lazy"
                   decoding="async"
                   style={{
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
+                    objectPosition: 'center top',
                     display: 'block',
                   }}
                 />
               </div>
 
-              <div className="lbody">
-                <h3 className="ln">{leader.name}</h3>
+              {/* Body Content with Flexbox alignment */}
+              <div
+                className="lbody"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  flexGrow: 1,
+                  padding: '24px',
+                }}
+              >
+                <h3 className="ln" style={{ margin: '0 0 4px 0' }}>
+                  {leader.name}
+                </h3>
 
-                <div className="lr">{leader.role}</div>
+                <div className="lr" style={{ marginBottom: '16px' }}>
+                  {leader.role}
+                </div>
 
-                <div className="lsoc">
+                <div className="lsoc" style={{ marginBottom: '16px' }}>
                   <a
                     href={leader.instagramUrl}
                     target="_blank"
@@ -130,6 +163,8 @@ export default function Leadership({ members }: LeadershipProps) {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="1.7"
+                      width="20"
+                      height="20"
                     >
                       <rect
                         x="3"
@@ -155,13 +190,13 @@ export default function Leadership({ members }: LeadershipProps) {
                     rel="noopener noreferrer"
                     aria-label={`${leader.name} on LinkedIn`}
                   >
-                    <svg viewBox="0 0 24 24" fill="currentColor">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
                       <path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4 0 4.75 2.5 4.75 5.8V21h-4v-5.2c0-1.24-.02-2.84-1.9-2.84-1.9 0-2.2 1.36-2.2 2.75V21h-4z" />
                     </svg>
                   </a>
                 </div>
 
-                <p>{leader.bio}</p>
+                <p style={{ marginTop: 'auto', lineHeight: '1.6' }}>{leader.bio}</p>
               </div>
             </article>
           ))}
