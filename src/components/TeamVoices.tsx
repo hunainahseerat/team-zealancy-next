@@ -8,7 +8,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Usman Laghari',
     role: 'Senior Project Manager',
     quote: '"Managing complex productions daily — this team makes it genuinely exciting to deliver."',
-    wistiaId: '76pq9sletd', 
+    wistiaId: '76pq9sletd',
     bgClass: 'g-violet',
   },
   {
@@ -143,7 +143,7 @@ export default function TeamVoices() {
       for (let i = 0; i < slides.length; i++) {
         const dot = document.createElement('button');
         dot.type = 'button';
-        dot.setAttribute('aria-label', Go to testimonial ${i + 1});
+        dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
 
         dot.addEventListener('click', () => {
           const step = slides[0].getBoundingClientRect().width + 16;
@@ -224,7 +224,7 @@ export default function TeamVoices() {
                 style={{ cursor: 'pointer' }}
               >
                 <div
-                  className={vid ${item.bgClass}}
+                  className={`vid ${item.bgClass}`}
                   style={{
                     position: 'relative',
                     overflow: 'hidden',
@@ -234,8 +234,8 @@ export default function TeamVoices() {
                 >
                   {isPlaying ? (
                     <iframe
-                      src={https://fast.wistia.net/embed/iframe/${item.wistiaId}?autoPlay=true}
-                      title={${item.name} Voice Story}
+                      src={`https://fast.wistia.net/embed/iframe/${item.wistiaId}?autoPlay=true`}
+                      title={`${item.name} Voice Story`}
                       allow="autoplay; fullscreen"
                       allowTransparency={true}
                       frameBorder="0"
