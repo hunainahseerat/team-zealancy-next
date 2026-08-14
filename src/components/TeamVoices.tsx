@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Script from 'next/script';
 
 const TEAM_VOICES_DATA = [
   {
@@ -105,7 +104,7 @@ const TEAM_VOICES_DATA = [
 export default function TeamVoices() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const dotWrapRef = useRef<HTMLDivElement>(null);
-  const [playingId, setPlayingId] = useState<string | null>(null);
+  const [activeVideo, setActiveVideo] = useState<{ id: string; name: string } | null>(null);
 
   const handlePrev = () => {
     const scroller = scrollerRef.current;
@@ -187,151 +186,170 @@ export default function TeamVoices() {
   }, []);
 
   return (
-    <>
-      <Script src="https://fast.wistia.net/assets/external/E-v1.js" strategy="lazyOnload" />
-
-      <section className="section" id="team-voices">
-        <div className="wrap">
-          <div className="chapter reveal">
-            <span className="cnum">02</span>
-            <span className="clab">Team Voices</span>
-            <span className="cline"></span>
-          </div>
-          <div className="sec-head reveal" style={{ marginBottom: '32px' }}>
-            <span className="label">Team voices</span>
-            <h2>
-              Don&apos;t take our word. Hear what your <em>co-workers</em> say.
-            </h2>
-            <p>The people already here, in their own words.</p>
-          </div>
-
-          <div className="voice-head">
-            <span className="vt">Team voices (12 stories)</span>
-            <div className="voice-nav">
-              <button id="vPrev" aria-label="Previous" onClick={handlePrev}>
-                ‹
-              </button>
-              <button id="vNext" aria-label="Next" onClick={handleNext}>
-                ›
-              </button>
-            </div>
-          </div>
-
-          <div className="voice-scroller" id="voices" ref={scrollerRef}>
-            {TEAM_VOICES_DATA.map((item) => {
-              const isPlaying = playingId === item.id;
-              return (
-                <div
-                  key={item.id}
-                  className="voice reveal"
-                  style={{ position: 'relative' }}
-                >
-                  <div
-                    className={`vid ${item.bgClass}`}
-                    style={{
-                      position: 'relative',
-                      overflow: 'hidden',
-                      width: '100%',
-                      height: '100%',
-                      minHeight: '380px',
-                    }}
-                  >
-                    {isPlaying ? (
-                      <div
-                        style={{
-                          position: 'absolute',
-                          inset: 0,
-                          width: '100%',
-                          height: '100%',
-                          zIndex: 25,
-                        }}
-                      >
-                        <iframe
-                          src={`https://fast.wistia.net/embed/iframe/${item.wistiaId}?autoPlay=1&muted=false`}
-                          title={`${item.name} Voice Story`}
-                          allow="autoplay; fullscreen"
-                          allowTransparency={true}
-                          frameBorder="0"
-                          scrolling="no"
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            display: 'block',
-                            border: 'none',
-                          }}
-                        />
-                      </div>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setPlayingId(item.id);
-                        }}
-                        style={{
-                          position: 'absolute',
-                          inset: 0,
-                          width: '100%',
-                          height: '100%',
-                          background: 'transparent',
-                          border: 'none',
-                          cursor: 'pointer',
-                          zIndex: 20,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                        aria-label={`Play ${item.name} video`}
-                      >
-                        <span
-                          className="play"
-                          style={{
-                            pointerEvents: 'none',
-                          }}
-                        />
-                      </button>
-                    )}
-
-                    <span
-                      style={{
-                        position: 'absolute',
-                        top: 10,
-                        left: 12,
-                        zIndex: isPlaying ? 5 : 22,
-                        fontSize: '11px',
-                        fontWeight: 700,
-                        letterSpacing: '.12em',
-                        color: 'rgba(255,255,255,0.85)',
-                        background: 'rgba(0,0,0,0.45)',
-                        padding: '3px 8px',
-                        borderRadius: '999px',
-                        backdropFilter: 'blur(4px)',
-                        pointerEvents: 'none',
-                      }}
-                    >
-                      VOICE {item.id}
-                    </span>
-                  </div>
-
-                  <div className="vb">
-                    <div className="vn">{item.name}</div>
-                    <div className="vr">{item.role}</div>
-                    <p className="vq">{item.quote}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <div
-            className="vdots"
-            id="vdots"
-            ref={dotWrapRef}
-            role="tablist"
-            aria-label="Testimonial position"
-          ></div>
+    <section className="section" id="team-voices">
+      <div className="wrap">
+        <div className="chapter reveal">
+          <span className="cnum">02</span>
+          <span className="clab">Team Voices</span>
+          <span className="cline"></span>
         </div>
-      </section>
-    </>
+        <div className="sec-head reveal" style={{ marginBottom: '32px' }}>
+          <span className="label">Team voices</span>
+          <h2>
+            Don&apos;t take our word. Hear what your <em>co-workers</em> say.
+          </h2>
+          <p>The people already here, in their own words.</p>
+        </div>
+
+        <div className="voice-head">
+          <span className="vt">Team voices (12 stories)</span>
+          <div className="voice-nav">
+            <button id="vPrev" aria-label="Previous" onClick={handlePrev}>
+              ‹
+            </button>
+            <button id="vNext" aria-label="Next" onClick={handleNext}>
+              ›
+            </button>
+          </div>
+        </div>
+
+        <div className="voice-scroller" id="voices" ref={scrollerRef}>
+          {TEAM_VOICES_DATA.map((item) => (
+            <div
+              key={item.id}
+              className="voice reveal"
+              style={{ position: 'relative' }}
+            >
+              <div
+                className={`vid ${item.bgClass}`}
+                style={{
+                  position: 'relative',
+                  overflow: 'hidden',
+                  width: '100%',
+                  height: '100%',
+                  cursor: 'pointer',
+                }}
+                onClick={() => setActiveVideo({ id: item.wistiaId, name: item.name })}
+              >
+                <span
+                  className="play"
+                  style={{
+                    zIndex: 2,
+                    pointerEvents: 'none',
+                  }}
+                />
+
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: 10,
+                    left: 12,
+                    zIndex: 3,
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    letterSpacing: '.12em',
+                    color: 'rgba(255,255,255,0.85)',
+                    background: 'rgba(0,0,0,0.45)',
+                    padding: '3px 8px',
+                    borderRadius: '999px',
+                    backdropFilter: 'blur(4px)',
+                    pointerEvents: 'none',
+                  }}
+                >
+                  VOICE {item.id}
+                </span>
+              </div>
+
+              <div className="vb">
+                <div className="vn">{item.name}</div>
+                <div className="vr">{item.role}</div>
+                <p className="vq">{item.quote}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div
+          className="vdots"
+          id="vdots"
+          ref={dotWrapRef}
+          role="tablist"
+          aria-label="Testimonial position"
+        ></div>
+      </div>
+
+      {/* Modern High-Performance Video Modal */}
+      {activeVideo && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 999999,
+            background: 'rgba(0, 0, 0, 0.85)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+          }}
+          onClick={() => setActiveVideo(null)}
+        >
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '420px',
+              aspectRatio: '9/16',
+              background: '#000',
+              borderRadius: '16px',
+              overflow: 'hidden',
+              boxShadow: '0 25px 50px -12px rgba(0,0,0,0.7)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setActiveVideo(null)}
+              style={{
+                position: 'absolute',
+                top: '12px',
+                right: '12px',
+                zIndex: 100,
+                background: 'rgba(0, 0, 0, 0.6)',
+                color: '#fff',
+                border: 'none',
+                width: '36px',
+                height: '36px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                fontSize: '18px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              aria-label="Close video"
+            >
+              ✕
+            </button>
+
+            {/* Direct Wistia Embed Player */}
+            <iframe
+              src={`https://fast.wistia.net/embed/iframe/${activeVideo.id}?autoPlay=1`}
+              title={`${activeVideo.name} Voice Story`}
+              allow="autoplay; fullscreen"
+              allowTransparency={true}
+              frameBorder="0"
+              scrolling="no"
+              style={{
+                width: '100%',
+                height: '100%',
+                border: 'none',
+                display: 'block',
+              }}
+            />
+          </div>
+        </div>
+      )}
+    </section>
   );
 }
