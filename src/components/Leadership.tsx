@@ -16,7 +16,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Fazeel Chaudry',
     role: 'Founder & CEO',
-    avatarUrl: '/assets/team/leader-01.jpg?v=4',
+    avatarUrl: '/assets/team/leader-01.jpg?v=5',
     bgClass: 'g-royal',
     bio: "A founder on paper, but more of a mentor to the team. Fazeel started as a freelance video editor at 19 and built Zealancy from scratch. Today he's focused on building a team where people take ownership, grow fast, and become better at their craft.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -25,7 +25,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Shehroz Khan',
     role: 'Head of Fulfillment',
-    avatarUrl: '/assets/team/leader-02.jpg?v=4',
+    avatarUrl: '/assets/team/leader-02.jpg?v=5',
     bgClass: 'g-violet',
     bio: 'The person who makes sure things actually happen. Shehroz left film school to go all-in on Zealancy and brought experience managing large teams and coaching creatives. From solving problems to building systems, he keeps the machine moving.',
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -34,7 +34,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Aribah Siddiqui',
     role: 'Head of Growth',
-    avatarUrl: '/assets/team/leader-04.jpg?v=4',
+    avatarUrl: '/assets/team/leader-03.jpg?v=5', // Aribah gets leader-03.jpg
     bgClass: 'g-dusk',
     bio: "Aribah is the person behind Zealancy's growth engine. She works across marketing, sales, and strategy to bring in the right opportunities and turn creative work into measurable results.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -43,7 +43,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Kamal Ahmed',
     role: 'Executive Creative Director',
-    avatarUrl: '/assets/team/leader-03.jpg?v=4',
+    avatarUrl: '/assets/team/leader-04.jpg?v=5', // Kamal gets leader-04.jpg
     bgClass: 'g-plum',
     bio: "The person behind the quality bar at Zealancy. Kamal leads our creative team, challenges ideas, and pushes everyone to think bigger. He's the one making sure good work becomes great work.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -56,11 +56,12 @@ interface LeadershipProps {
 }
 
 export default function Leadership({ members }: LeadershipProps) {
+  // Corrected mapping: 3rd slot gets leader-03.jpg, 4th slot gets leader-04.jpg
   const IMAGE_MAP = [
-    '/assets/team/leader-01.jpg?v=4',
-    '/assets/team/leader-02.jpg?v=4',
-    '/assets/team/leader-04.jpg?v=4',
-    '/assets/team/leader-03.jpg?v=4',
+    '/assets/team/leader-01.jpg?v=5', // Slot 1: Fazeel
+    '/assets/team/leader-02.jpg?v=5', // Slot 2: Shehroz
+    '/assets/team/leader-03.jpg?v=5', // Slot 3: Aribah
+    '/assets/team/leader-04.jpg?v=5', // Slot 4: Kamal
   ];
 
   const displayLeaders: LeaderItem[] =
@@ -73,7 +74,7 @@ export default function Leadership({ members }: LeadershipProps) {
             name: cleanName,
             role: m.role,
             bio: cleanBio,
-            avatarUrl: IMAGE_MAP[idx] || `/assets/team/leader-0${idx + 1}.jpg?v=4`,
+            avatarUrl: IMAGE_MAP[idx] || `/assets/team/leader-0${idx + 1}.jpg?v=5`,
             bgClass: BG_CLASSES[idx % BG_CLASSES.length],
             instagramUrl:
               m.instagramUrl || 'https://www.instagram.com/teamzealancy/',
@@ -107,7 +108,6 @@ export default function Leadership({ members }: LeadershipProps) {
                 overflow: 'hidden',
               }}
             >
-              {/* Image Container with Fixed 4:5 Aspect Ratio */}
               <div
                 className={`lph ${leader.bgClass || ''}`}
                 style={{
@@ -133,7 +133,6 @@ export default function Leadership({ members }: LeadershipProps) {
                 />
               </div>
 
-              {/* Body Content with Flexbox alignment */}
               <div
                 className="lbody"
                 style={{
