@@ -8,7 +8,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Usman Laghari',
     role: 'Senior Project Manager',
     quote: '"Managing complex productions daily — this team makes it genuinely exciting to deliver."',
-    wistiaId: '76pq9sletd',
+    youtubeId: 'xPf0A7xCH9o', // e.g. 'dQw4w9WgXcQ' ya Unlisted video ID
     bgClass: 'g-violet',
   },
   {
@@ -16,7 +16,7 @@ const TEAM_VOICES_DATA = [
     name: 'Shehroz Khan',
     role: 'Head of Fulfilment',
     quote: '"I oversee delivery for some of the biggest channels in the world. The scale here is real."',
-    wistiaId: 'xyrx926yn6',
+    youtubeId: '',
     bgClass: 'g-plum',
   },
   {
@@ -24,7 +24,7 @@ const TEAM_VOICES_DATA = [
     name: 'Fahad Ansari',
     role: 'Junior Video Editor',
     quote: '"No politics, no ego. Just people who care about the craft."',
-    wistiaId: 'ckriomzxeu',
+    youtubeId: '',
     bgClass: 'g-dusk',
   },
   {
@@ -32,7 +32,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Aqib',
     role: 'Junior Video Editor',
     quote: '"I\'ve grown more here in one year than anywhere else I\'ve worked."',
-    wistiaId: '74spvaapv9',
+    youtubeId: '',
     bgClass: 'g-slate',
   },
   {
@@ -40,7 +40,7 @@ const TEAM_VOICES_DATA = [
     name: 'Moazam Naqvi',
     role: 'Content Creator',
     quote: '"Creating content that reaches millions — every single week. The opportunity here is unmatched."',
-    wistiaId: 'buwj25t5ln',
+    youtubeId: '',
     bgClass: 'g-royal',
   },
   {
@@ -48,7 +48,7 @@ const TEAM_VOICES_DATA = [
     name: 'Ashar Ullah Khan',
     role: 'OPS Manager',
     quote: '"The speed of execution here is unlike any agency I\'ve been part of."',
-    wistiaId: 'doiu7dd9iw',
+    youtubeId: '',
     bgClass: 'g-violet',
   },
   {
@@ -56,7 +56,7 @@ const TEAM_VOICES_DATA = [
     name: 'Shayan',
     role: 'Junior Video Editor',
     quote: '"High standards and full support — you\'re pushed to be genuinely great here."',
-    wistiaId: '43o80cxtqj',
+    youtubeId: '',
     bgClass: 'g-plum',
   },
   {
@@ -64,7 +64,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Izhan Khan',
     role: 'Accountant',
     quote: '"Numbers meet creativity. Working behind the scenes of industry-leading productions."',
-    wistiaId: 'hccsfag3s7',
+    youtubeId: '',
     bgClass: 'g-dusk',
   },
   {
@@ -72,7 +72,7 @@ const TEAM_VOICES_DATA = [
     name: 'Syed Junaid Hussain',
     role: 'Assistant Video Editor',
     quote: '"Every edit matters. This team has taught me that obsession over detail is the standard."',
-    wistiaId: 'ai9gc5r5f5',
+    youtubeId: '',
     bgClass: 'g-slate',
   },
   {
@@ -80,7 +80,7 @@ const TEAM_VOICES_DATA = [
     name: 'Kamal Ahmed',
     role: 'Lead Video Editor',
     quote: '"Leading edits for channels with hundreds of millions of views — real work, real impact."',
-    wistiaId: 'ew2xs2jo5a',
+    youtubeId: '',
     bgClass: 'g-royal',
   },
   {
@@ -88,7 +88,7 @@ const TEAM_VOICES_DATA = [
     name: 'Syed Zeeshan Ali',
     role: 'Intern Video Editor',
     quote: '"From day one I was working on real productions. The learning curve is steep and worth it."',
-    wistiaId: 'tf6vvsadtv',
+    youtubeId: '',
     bgClass: 'g-violet',
   },
   {
@@ -96,15 +96,15 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Ali Akbar',
     role: 'Admin Assistant',
     quote: '"I keep the engine running. Zealancy moves fast and it\'s energising to be part of it."',
-    wistiaId: '1wnmxc9c5q',
+    youtubeId: '',
     bgClass: 'g-plum',
   },
 ];
 
 export default function TeamVoices() {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const dotWrapRef = useRef<HTMLDivElement>(null);
   const [playingId, setPlayingId] = useState<string | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
 
   const handlePrev = () => {
     const scroller = scrollerRef.current;
@@ -126,51 +126,63 @@ export default function TeamVoices() {
     });
   };
 
-  const scrollToSlide = (index: number) => {
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const scroller = scrollerRef.current;
-    if (!scroller) return;
-    const slides = scroller.querySelectorAll<HTMLElement>('.voice');
-    if (!slides.length) return;
+    const dotWrap = dotWrapRef.current;
+    if (!scroller || !dotWrap) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    const step = slides[0].getBoundingClientRect().width + 16;
-    scroller.scrollTo({
-      left: index * step,
-      behavior: reduceMotion ? 'auto' : 'smooth',
-    });
-  };
+    const behavior = reduceMotion ? 'auto' : 'smooth';
 
-  useEffect(() => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
+    const slides = scroller.querySelectorAll<HTMLElement>('.voice');
+    dotWrap.innerHTML = '';
 
-    let dotQueued = false;
+    if (slides.length) {
+      for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
 
-    const syncDots = () => {
-      const slides = scroller.querySelectorAll<HTMLElement>('.voice');
-      if (!slides.length) return;
-      const step = slides[0].getBoundingClientRect().width + 16;
-      const idx = step > 0 ? Math.round(scroller.scrollLeft / step) : 0;
-      const clampedIdx = Math.max(0, Math.min(idx, TEAM_VOICES_DATA.length - 1));
-      setActiveIndex(clampedIdx);
-      dotQueued = false;
-    };
+        dot.addEventListener('click', () => {
+          const step = slides[0].getBoundingClientRect().width + 16;
+          scroller.scrollTo({ left: i * step, behavior });
+        });
 
-    const onScroll = () => {
-      if (!dotQueued) {
-        dotQueued = true;
-        requestAnimationFrame(syncDots);
+        dotWrap.appendChild(dot);
       }
-    };
 
-    scroller.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', syncDots);
-    syncDots();
+      const dots = dotWrap.querySelectorAll<HTMLButtonElement>('button');
+      let dotQueued = false;
 
-    return () => {
-      scroller.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', syncDots);
-    };
+      function syncDots() {
+        const step = slides[0].getBoundingClientRect().width + 16;
+        const idx = step > 0 ? Math.round(scroller!.scrollLeft / step) : 0;
+        const clampedIdx = Math.max(0, Math.min(idx, dots.length - 1));
+
+        dots.forEach((dot, k) => {
+          dot.classList.toggle('on', k === clampedIdx);
+        });
+        dotQueued = false;
+      }
+
+      const onScroll = () => {
+        if (!dotQueued) {
+          dotQueued = true;
+          requestAnimationFrame(syncDots);
+        }
+      };
+
+      scroller.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', syncDots);
+      syncDots();
+
+      return () => {
+        scroller.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', syncDots);
+      };
+    }
   }, []);
 
   return (
@@ -190,7 +202,7 @@ export default function TeamVoices() {
         </div>
 
         <div className="voice-head">
-          <span className="vt">Team voices ({TEAM_VOICES_DATA.length} stories)</span>
+          <span className="vt">Team voices (12 stories)</span>
           <div className="voice-nav">
             <button id="vPrev" aria-label="Previous" onClick={handlePrev}>
               ‹
@@ -205,7 +217,11 @@ export default function TeamVoices() {
           {TEAM_VOICES_DATA.map((item) => {
             const isPlaying = playingId === item.id;
             return (
-              <div key={item.id} className="voice reveal" style={{ position: 'relative' }}>
+              <div
+                key={item.id}
+                className="voice reveal"
+                style={{ position: 'relative' }}
+              >
                 <div
                   className={`vid ${item.bgClass}`}
                   style={{
@@ -213,20 +229,20 @@ export default function TeamVoices() {
                     overflow: 'hidden',
                     width: '100%',
                     height: '100%',
-                    cursor: isPlaying ? 'default' : 'pointer',
+                    cursor: 'pointer',
                   }}
                   onClick={() => {
-                    if (!isPlaying) setPlayingId(item.id);
+                    if (!isPlaying && item.youtubeId) {
+                      setPlayingId(item.id);
+                    }
                   }}
                 >
-                  {isPlaying ? (
+                  {isPlaying && item.youtubeId ? (
                     <iframe
-                      src={`https://fast.wistia.net/embed/iframe/${item.wistiaId}?autoplay=1&videoFoam=true`}
+                      src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
                       title={`${item.name} Voice Story`}
-                      allow="autoplay; fullscreen"
-                      allowTransparency={true}
-                      frameBorder="0"
-                      scrolling="no"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
                       style={{
                         position: 'absolute',
                         top: 0,
@@ -278,18 +294,13 @@ export default function TeamVoices() {
           })}
         </div>
 
-        {/* Declarative Dot Navigation */}
-        <div className="vdots" role="tablist" aria-label="Testimonial position">
-          {TEAM_VOICES_DATA.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              aria-label={`Go to testimonial ${i + 1}`}
-              className={i === activeIndex ? 'on' : ''}
-              onClick={() => scrollToSlide(i)}
-            />
-          ))}
-        </div>
+        <div
+          className="vdots"
+          id="vdots"
+          ref={dotWrapRef}
+          role="tablist"
+          aria-label="Testimonial position"
+        ></div>
       </div>
     </section>
   );
