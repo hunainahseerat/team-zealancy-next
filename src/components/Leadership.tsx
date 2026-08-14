@@ -18,7 +18,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
     role: 'Founder & CEO',
     avatarUrl: '/assets/team/leader-01.jpg',
     bgClass: 'g-royal',
-    bio: 'A founder on paper, but more of a mentor to the team. Afraz started as a freelance video editor at 19 and built Zealancy from scratch. Today he\'s focused on building a team where people take ownership, grow fast, and become better at their craft.',
+    bio: "A founder on paper, but more of a mentor to the team. Afraz started as a freelance video editor at 19 and built Zealancy from scratch. Today he's focused on building a team where people take ownership, grow fast, and become better at their craft.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
     linkedinUrl: 'https://www.linkedin.com/company/zealancy',
   },
@@ -34,9 +34,9 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Aribah Siddiqui',
     role: 'Head of Growth',
-    avatarUrl: '/assets/team/Leader-04.jpg',
+    avatarUrl: '/assets/team/leader-04.jpg',
     bgClass: 'g-dusk',
-    bio: 'Aribah is the person behind Zealancy\'s growth engine. She works across marketing, sales, and strategy to bring in the right opportunities and turn creative work into measurable results.',
+    bio: "Aribah is the person behind Zealancy's growth engine. She works across marketing, sales, and strategy to bring in the right opportunities and turn creative work into measurable results.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
     linkedinUrl: 'https://www.linkedin.com/company/zealancy',
   },
@@ -45,7 +45,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
     role: 'Executive Creative Director',
     avatarUrl: '/assets/team/leader-03.jpg',
     bgClass: 'g-plum',
-    bio: 'The person behind the quality bar at Zealancy. Kamal leads our creative team, challenges ideas, and pushes everyone to think bigger. He\'s the one making sure good work becomes great work.',
+    bio: "The person behind the quality bar at Zealancy. Kamal leads our creative team, challenges ideas, and pushes everyone to think bigger. He's the one making sure good work becomes great work.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
     linkedinUrl: 'https://www.linkedin.com/company/zealancy',
   },
@@ -56,27 +56,37 @@ interface LeadershipProps {
 }
 
 export default function Leadership({ members }: LeadershipProps) {
-  const displayLeaders: LeaderItem[] = members && members.length > 0
-    ? members.filter(m => m.isVisible).map((m, idx) => ({
-        name: m.name,
-        role: m.role,
-        bio: m.bio,
-        avatarUrl: m.avatarUrl || DEFAULT_LEADERS[idx % DEFAULT_LEADERS.length].avatarUrl,
-        bgClass: m.avatarUrl ? '' : BG_CLASSES[idx % BG_CLASSES.length],
-        instagramUrl: m.instagramUrl || 'https://www.instagram.com/teamzealancy/',
-        linkedinUrl: m.linkedinUrl || 'https://www.linkedin.com/company/zealancy',
-      }))
-    : DEFAULT_LEADERS;
+  const displayLeaders: LeaderItem[] =
+    members && members.length > 0
+      ? members.filter((m) => m.isVisible).map((m, idx) => ({
+          name: m.name,
+          role: m.role,
+          bio: m.bio,
+
+          // IMPORTANT:
+          // Always use the local leadership images.
+          // This prevents old database avatar URLs from overriding them.
+          avatarUrl: `/assets/team/leader-${String(idx + 1).padStart(2, '0')}.jpg`,
+
+          bgClass: BG_CLASSES[idx % BG_CLASSES.length],
+          instagramUrl:
+            m.instagramUrl || 'https://www.instagram.com/teamzealancy/',
+          linkedinUrl:
+            m.linkedinUrl || 'https://www.linkedin.com/company/zealancy',
+        }))
+      : DEFAULT_LEADERS;
 
   return (
     <section className="section" id="core-leadership">
       <div className="wrap">
         <div className="sec-head reveal">
           <span className="label">Core Leadership</span>
+
           <h2>
             The people behind the <em>work.</em>
           </h2>
         </div>
+
         <div className="lead-grid">
           {displayLeaders.map((leader, index) => (
             <article key={index} className="lcard reveal">
@@ -88,12 +98,20 @@ export default function Leadership({ members }: LeadershipProps) {
                   height={500}
                   loading="lazy"
                   decoding="async"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
                 />
               </div>
+
               <div className="lbody">
                 <h3 className="ln">{leader.name}</h3>
+
                 <div className="lr">{leader.role}</div>
+
                 <div className="lsoc">
                   <a
                     href={leader.instagramUrl}
@@ -101,12 +119,30 @@ export default function Leadership({ members }: LeadershipProps) {
                     rel="noopener noreferrer"
                     aria-label={`${leader.name} on Instagram`}
                   >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
-                      <rect x="3" y="3" width="18" height="18" rx="5" />
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.7"
+                    >
+                      <rect
+                        x="3"
+                        y="3"
+                        width="18"
+                        height="18"
+                        rx="5"
+                      />
                       <circle cx="12" cy="12" r="4" />
-                      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                      <circle
+                        cx="17.5"
+                        cy="6.5"
+                        r="1"
+                        fill="currentColor"
+                        stroke="none"
+                      />
                     </svg>
                   </a>
+
                   <a
                     href={leader.linkedinUrl}
                     target="_blank"
@@ -118,6 +154,7 @@ export default function Leadership({ members }: LeadershipProps) {
                     </svg>
                   </a>
                 </div>
+
                 <p>{leader.bio}</p>
               </div>
             </article>
