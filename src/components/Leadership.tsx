@@ -16,7 +16,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Fazeel Chaudry',
     role: 'Founder & CEO',
-    avatarUrl: '/assets/team/leader-01.jpg?v=10',
+    avatarUrl: '/assets/team/Fazeel.jpg',
     bgClass: 'g-royal',
     bio: "A founder on paper, but more of a mentor to the team. Fazeel started as a freelance video editor at 19 and built Zealancy from scratch. Today he's focused on building a team where people take ownership, grow fast, and become better at their craft.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -25,7 +25,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Shehroz Khan',
     role: 'Head of Fulfillment',
-    avatarUrl: '/assets/team/leader-02.jpg?v=10',
+    avatarUrl: '/assets/team/Shehroz.jpg',
     bgClass: 'g-violet',
     bio: 'The person who makes sure things actually happen. Shehroz left film school to go all-in on Zealancy and brought experience managing large teams and coaching creatives. From solving problems to building systems, he keeps the machine moving.',
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -34,7 +34,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Aribah Siddiqui',
     role: 'Head of Growth',
-    avatarUrl: '/assets/team/leader-04.jpg?v=10', // Scarf girl picture
+    avatarUrl: '/assets/team/Aribah.jpg',
     bgClass: 'g-dusk',
     bio: "Aribah is the person behind Zealancy's growth engine. She works across marketing, sales, and strategy to bring in the right opportunities and turn creative work into measurable results.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -43,7 +43,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Kamal Ahmed',
     role: 'Executive Creative Director',
-    avatarUrl: '/assets/team/leader-03.jpg?v=10', // Black top girl picture
+    avatarUrl: '/assets/team/Kamal.jpg',
     bgClass: 'g-plum',
     bio: "The person behind the quality bar at Zealancy. Kamal leads our creative team, challenges ideas, and pushes everyone to think bigger. He's the one making sure good work becomes great work.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -56,8 +56,7 @@ interface LeadershipProps {
 }
 
 export default function Leadership({ members }: LeadershipProps) {
-  // BYPASS ALL DATABASE PROPS FOR NOW:
-  // Force local ARRAY to render directly
+  // Directly render local array to prevent database prop overriding
   const displayLeaders = DEFAULT_LEADERS;
 
   return (
@@ -75,7 +74,7 @@ export default function Leadership({ members }: LeadershipProps) {
           className="lead-grid"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
             gap: '24px',
             alignItems: 'stretch',
           }}
@@ -93,7 +92,7 @@ export default function Leadership({ members }: LeadershipProps) {
                 boxSizing: 'border-box',
               }}
             >
-              {/* Image Frame with strict Aspect Ratio */}
+              {/* Image Frame: Fixed 4:5 Aspect Ratio for Uniform Image Height */}
               <div
                 className={`lph ${leader.bgClass || ''}`}
                 style={{
@@ -119,7 +118,7 @@ export default function Leadership({ members }: LeadershipProps) {
                 />
               </div>
 
-              {/* Card Body */}
+              {/* Card Body: Aligned Padding and Typography */}
               <div
                 className="lbody"
                 style={{
