@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Script from 'next/script';
 
 const TEAM_VOICES_DATA = [
   {
@@ -8,7 +9,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Usman Laghari',
     role: 'Senior Project Manager',
     quote: '"Managing complex productions daily — this team makes it genuinely exciting to deliver."',
-    youtubeId: 'xPf0A7xCH9o',
+    wistiaId: '76pq9sletd',
     bgClass: 'g-violet',
   },
   {
@@ -16,7 +17,7 @@ const TEAM_VOICES_DATA = [
     name: 'Shehroz Khan',
     role: 'Head of Fulfilment',
     quote: '"I oversee delivery for some of the biggest channels in the world. The scale here is real."',
-    youtubeId: '',
+    wistiaId: 'xyrx926yn6',
     bgClass: 'g-plum',
   },
   {
@@ -24,7 +25,7 @@ const TEAM_VOICES_DATA = [
     name: 'Fahad Ansari',
     role: 'Junior Video Editor',
     quote: '"No politics, no ego. Just people who care about the craft."',
-    youtubeId: '',
+    wistiaId: 'ckriomzxeu',
     bgClass: 'g-dusk',
   },
   {
@@ -32,7 +33,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Aqib',
     role: 'Junior Video Editor',
     quote: '"I\'ve grown more here in one year than anywhere else I\'ve worked."',
-    youtubeId: '',
+    wistiaId: '74spvaapv9',
     bgClass: 'g-slate',
   },
   {
@@ -40,7 +41,7 @@ const TEAM_VOICES_DATA = [
     name: 'Moazam Naqvi',
     role: 'Content Creator',
     quote: '"Creating content that reaches millions — every single week. The opportunity here is unmatched."',
-    youtubeId: '',
+    wistiaId: 'buwj25t5ln',
     bgClass: 'g-royal',
   },
   {
@@ -48,7 +49,7 @@ const TEAM_VOICES_DATA = [
     name: 'Ashar Ullah Khan',
     role: 'OPS Manager',
     quote: '"The speed of execution here is unlike any agency I\'ve been part of."',
-    youtubeId: '',
+    wistiaId: 'doiu7dd9iw',
     bgClass: 'g-violet',
   },
   {
@@ -56,7 +57,7 @@ const TEAM_VOICES_DATA = [
     name: 'Shayan',
     role: 'Junior Video Editor',
     quote: '"High standards and full support — you\'re pushed to be genuinely great here."',
-    youtubeId: '',
+    wistiaId: '43o80cxtqj',
     bgClass: 'g-plum',
   },
   {
@@ -64,7 +65,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Izhan Khan',
     role: 'Accountant',
     quote: '"Numbers meet creativity. Working behind the scenes of industry-leading productions."',
-    youtubeId: '',
+    wistiaId: 'hccsfag3s7',
     bgClass: 'g-dusk',
   },
   {
@@ -72,7 +73,7 @@ const TEAM_VOICES_DATA = [
     name: 'Syed Junaid Hussain',
     role: 'Assistant Video Editor',
     quote: '"Every edit matters. This team has taught me that obsession over detail is the standard."',
-    youtubeId: '',
+    wistiaId: 'ai9gc5r5f5',
     bgClass: 'g-slate',
   },
   {
@@ -80,7 +81,7 @@ const TEAM_VOICES_DATA = [
     name: 'Kamal Ahmed',
     role: 'Lead Video Editor',
     quote: '"Leading edits for channels with hundreds of millions of views — real work, real impact."',
-    youtubeId: '',
+    wistiaId: 'ew2xs2jo5a',
     bgClass: 'g-royal',
   },
   {
@@ -88,7 +89,7 @@ const TEAM_VOICES_DATA = [
     name: 'Syed Zeeshan Ali',
     role: 'Intern Video Editor',
     quote: '"From day one I was working on real productions. The learning curve is steep and worth it."',
-    youtubeId: '',
+    wistiaId: 'tf6vvsadtv',
     bgClass: 'g-violet',
   },
   {
@@ -96,7 +97,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Ali Akbar',
     role: 'Admin Assistant',
     quote: '"I keep the engine running. Zealancy moves fast and it\'s energising to be part of it."',
-    youtubeId: '',
+    wistiaId: '1wnmxc9c5q',
     bgClass: 'g-plum',
   },
 ];
@@ -186,138 +187,151 @@ export default function TeamVoices() {
   }, []);
 
   return (
-    <section className="section" id="team-voices">
-      <div className="wrap">
-        <div className="chapter reveal">
-          <span className="cnum">02</span>
-          <span className="clab">Team Voices</span>
-          <span className="cline"></span>
-        </div>
-        <div className="sec-head reveal" style={{ marginBottom: '32px' }}>
-          <span className="label">Team voices</span>
-          <h2>
-            Don&apos;t take our word. Hear what your <em>co-workers</em> say.
-          </h2>
-          <p>The people already here, in their own words.</p>
-        </div>
+    <>
+      <Script src="https://fast.wistia.net/assets/external/E-v1.js" strategy="lazyOnload" />
 
-        <div className="voice-head">
-          <span className="vt">Team voices (12 stories)</span>
-          <div className="voice-nav">
-            <button id="vPrev" aria-label="Previous" onClick={handlePrev}>
-              ‹
-            </button>
-            <button id="vNext" aria-label="Next" onClick={handleNext}>
-              ›
-            </button>
+      <section className="section" id="team-voices">
+        <div className="wrap">
+          <div className="chapter reveal">
+            <span className="cnum">02</span>
+            <span className="clab">Team Voices</span>
+            <span className="cline"></span>
           </div>
-        </div>
+          <div className="sec-head reveal" style={{ marginBottom: '32px' }}>
+            <span className="label">Team voices</span>
+            <h2>
+              Don&apos;t take our word. Hear what your <em>co-workers</em> say.
+            </h2>
+            <p>The people already here, in their own words.</p>
+          </div>
 
-        <div className="voice-scroller" id="voices" ref={scrollerRef}>
-          {TEAM_VOICES_DATA.map((item) => {
-            const isPlaying = playingId === item.id;
-            return (
-              <div
-                key={item.id}
-                className="voice reveal"
-                style={{ position: 'relative' }}
-              >
+          <div className="voice-head">
+            <span className="vt">Team voices (12 stories)</span>
+            <div className="voice-nav">
+              <button id="vPrev" aria-label="Previous" onClick={handlePrev}>
+                ‹
+              </button>
+              <button id="vNext" aria-label="Next" onClick={handleNext}>
+                ›
+              </button>
+            </div>
+          </div>
+
+          <div className="voice-scroller" id="voices" ref={scrollerRef}>
+            {TEAM_VOICES_DATA.map((item) => {
+              const isPlaying = playingId === item.id;
+              return (
                 <div
-                  className={`vid ${item.bgClass}`}
-                  style={{
-                    position: 'relative',
-                    overflow: 'hidden',
-                    width: '100%',
-                    height: '100%',
-                  }}
+                  key={item.id}
+                  className="voice reveal"
+                  style={{ position: 'relative' }}
                 >
-                  {isPlaying && item.youtubeId ? (
-                    <iframe
-                      src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&enablejsapi=1&rel=0&playsinline=1`}
-                      title={`${item.name} Voice Story`}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        zIndex: 20,
-                        border: 'none',
-                      }}
-                    />
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (item.youtubeId) {
-                          setPlayingId(item.id);
-                        }
-                      }}
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        width: '100%',
-                        height: '100%',
-                        background: 'transparent',
-                        border: 'none',
-                        cursor: item.youtubeId ? 'pointer' : 'default',
-                        zIndex: 10,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                      aria-label={`Play ${item.name} video`}
-                    >
-                      <span
-                        className="play"
-                        style={{
-                          pointerEvents: 'none',
-                        }}
-                      />
-                    </button>
-                  )}
-
-                  <span
+                  <div
+                    className={`vid ${item.bgClass}`}
                     style={{
-                      position: 'absolute',
-                      top: 10,
-                      left: 12,
-                      zIndex: isPlaying ? 0 : 5,
-                      fontSize: '11px',
-                      fontWeight: 700,
-                      letterSpacing: '.12em',
-                      color: 'rgba(255,255,255,0.85)',
-                      background: 'rgba(0,0,0,0.45)',
-                      padding: '3px 8px',
-                      borderRadius: '999px',
-                      backdropFilter: 'blur(4px)',
-                      pointerEvents: 'none',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      width: '100%',
+                      height: '100%',
+                      minHeight: '380px',
                     }}
                   >
-                    VOICE {item.id}
-                  </span>
-                </div>
+                    {isPlaying ? (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          inset: 0,
+                          width: '100%',
+                          height: '100%',
+                          zIndex: 25,
+                        }}
+                      >
+                        <iframe
+                          src={`https://fast.wistia.net/embed/iframe/${item.wistiaId}?autoPlay=1&muted=false`}
+                          title={`${item.name} Voice Story`}
+                          allow="autoplay; fullscreen"
+                          allowTransparency={true}
+                          frameBorder="0"
+                          scrolling="no"
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            display: 'block',
+                            border: 'none',
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setPlayingId(item.id);
+                        }}
+                        style={{
+                          position: 'absolute',
+                          inset: 0,
+                          width: '100%',
+                          height: '100%',
+                          background: 'transparent',
+                          border: 'none',
+                          cursor: 'pointer',
+                          zIndex: 20,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                        aria-label={`Play ${item.name} video`}
+                      >
+                        <span
+                          className="play"
+                          style={{
+                            pointerEvents: 'none',
+                          }}
+                        />
+                      </button>
+                    )}
 
-                <div className="vb">
-                  <div className="vn">{item.name}</div>
-                  <div className="vr">{item.role}</div>
-                  <p className="vq">{item.quote}</p>
+                    <span
+                      style={{
+                        position: 'absolute',
+                        top: 10,
+                        left: 12,
+                        zIndex: isPlaying ? 5 : 22,
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        letterSpacing: '.12em',
+                        color: 'rgba(255,255,255,0.85)',
+                        background: 'rgba(0,0,0,0.45)',
+                        padding: '3px 8px',
+                        borderRadius: '999px',
+                        backdropFilter: 'blur(4px)',
+                        pointerEvents: 'none',
+                      }}
+                    >
+                      VOICE {item.id}
+                    </span>
+                  </div>
+
+                  <div className="vb">
+                    <div className="vn">{item.name}</div>
+                    <div className="vr">{item.role}</div>
+                    <p className="vq">{item.quote}</p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+
+          <div
+            className="vdots"
+            id="vdots"
+            ref={dotWrapRef}
+            role="tablist"
+            aria-label="Testimonial position"
+          ></div>
         </div>
-
-        <div
-          className="vdots"
-          id="vdots"
-          ref={dotWrapRef}
-          role="tablist"
-          aria-label="Testimonial position"
-        ></div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
