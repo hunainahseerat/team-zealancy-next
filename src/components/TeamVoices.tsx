@@ -8,7 +8,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Usman Laghari',
     role: 'Senior Project Manager',
     quote: '"Managing complex productions daily — this team makes it genuinely exciting to deliver."',
-    videoUrl: '/assets/videos/team-voice-01.mp4',
+    wistiaId: '76pq9sletd', 
     bgClass: 'g-violet',
   },
   {
@@ -16,7 +16,7 @@ const TEAM_VOICES_DATA = [
     name: 'Shehroz Khan',
     role: 'Head of Fulfilment',
     quote: '"I oversee delivery for some of the biggest channels in the world. The scale here is real."',
-    videoUrl: '/assets/videos/team-voice-02.mp4',
+    wistiaId: 'xyrx926yn6',
     bgClass: 'g-plum',
   },
   {
@@ -24,7 +24,7 @@ const TEAM_VOICES_DATA = [
     name: 'Fahad Ansari',
     role: 'Junior Video Editor',
     quote: '"No politics, no ego. Just people who care about the craft."',
-    videoUrl: '/assets/videos/team-voice-03.mp4',
+    wistiaId: 'ckriomzxeu',
     bgClass: 'g-dusk',
   },
   {
@@ -32,7 +32,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Aqib',
     role: 'Junior Video Editor',
     quote: '"I\'ve grown more here in one year than anywhere else I\'ve worked."',
-    videoUrl: '/assets/videos/team-voice-04.mp4',
+    wistiaId: '74spvaapv9',
     bgClass: 'g-slate',
   },
   {
@@ -40,7 +40,7 @@ const TEAM_VOICES_DATA = [
     name: 'Moazam Naqvi',
     role: 'Content Creator',
     quote: '"Creating content that reaches millions — every single week. The opportunity here is unmatched."',
-    videoUrl: '/assets/videos/team-voice-05.mp4',
+    wistiaId: 'buwj25t5ln',
     bgClass: 'g-royal',
   },
   {
@@ -48,7 +48,7 @@ const TEAM_VOICES_DATA = [
     name: 'Ashar Ullah Khan',
     role: 'OPS Manager',
     quote: '"The speed of execution here is unlike any agency I\'ve been part of."',
-    videoUrl: '/assets/videos/team-voice-06.mp4',
+    wistiaId: 'doiu7dd9iw',
     bgClass: 'g-violet',
   },
   {
@@ -56,7 +56,7 @@ const TEAM_VOICES_DATA = [
     name: 'Shayan',
     role: 'Junior Video Editor',
     quote: '"High standards and full support — you\'re pushed to be genuinely great here."',
-    videoUrl: '/assets/videos/team-voice-07.mp4',
+    wistiaId: '43o80cxtqj',
     bgClass: 'g-plum',
   },
   {
@@ -64,7 +64,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Izhan Khan',
     role: 'Accountant',
     quote: '"Numbers meet creativity. Working behind the scenes of industry-leading productions."',
-    videoUrl: '/assets/videos/team-voice-08.mp4',
+    wistiaId: 'hccsfag3s7',
     bgClass: 'g-dusk',
   },
   {
@@ -72,7 +72,7 @@ const TEAM_VOICES_DATA = [
     name: 'Syed Junaid Hussain',
     role: 'Assistant Video Editor',
     quote: '"Every edit matters. This team has taught me that obsession over detail is the standard."',
-    videoUrl: '/assets/videos/team-voice-09.mp4',
+    wistiaId: 'ai9gc5r5f5',
     bgClass: 'g-slate',
   },
   {
@@ -80,7 +80,7 @@ const TEAM_VOICES_DATA = [
     name: 'Kamal Ahmed',
     role: 'Lead Video Editor',
     quote: '"Leading edits for channels with hundreds of millions of views — real work, real impact."',
-    videoUrl: '/assets/videos/team-voice-10.mp4',
+    wistiaId: 'ew2xs2jo5a',
     bgClass: 'g-royal',
   },
   {
@@ -88,7 +88,7 @@ const TEAM_VOICES_DATA = [
     name: 'Syed Zeeshan Ali',
     role: 'Intern Video Editor',
     quote: '"From day one I was working on real productions. The learning curve is steep and worth it."',
-    videoUrl: '/assets/videos/team-voice-11.mp4',
+    wistiaId: 'tf6vvsadtv',
     bgClass: 'g-violet',
   },
   {
@@ -96,7 +96,7 @@ const TEAM_VOICES_DATA = [
     name: 'Muhammad Ali Akbar',
     role: 'Admin Assistant',
     quote: '"I keep the engine running. Zealancy moves fast and it\'s energising to be part of it."',
-    videoUrl: '/assets/videos/team-voice-12.mp4',
+    wistiaId: '1wnmxc9c5q',
     bgClass: 'g-plum',
   },
 ];
@@ -143,7 +143,7 @@ export default function TeamVoices() {
       for (let i = 0; i < slides.length; i++) {
         const dot = document.createElement('button');
         dot.type = 'button';
-        dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
+        dot.setAttribute('aria-label', Go to testimonial ${i + 1});
 
         dot.addEventListener('click', () => {
           const step = slides[0].getBoundingClientRect().width + 16;
@@ -221,32 +221,50 @@ export default function TeamVoices() {
                 key={item.id}
                 className="voice reveal"
                 onClick={() => setPlayingId(isPlaying ? null : item.id)}
+                style={{ cursor: 'pointer' }}
               >
-                <div className={`vid ${item.bgClass}`} style={{ position: 'relative', overflow: 'hidden' }}>
-                  <video
-                    src={item.videoUrl}
-                    preload="metadata"
-                    playsInline
-                    controls={isPlaying}
-                    autoPlay={isPlaying}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      display: 'block',
-                      position: 'absolute',
-                      inset: 0,
-                    }}
-                  />
-                  {!isPlaying && (
-                    <span className="play" style={{ zIndex: 2, pointerEvents: 'none' }} />
+                <div
+                  className={vid ${item.bgClass}}
+                  style={{
+                    position: 'relative',
+                    overflow: 'hidden',
+                    width: '100%',
+                    height: '100%',
+                  }}
+                >
+                  {isPlaying ? (
+                    <iframe
+                      src={https://fast.wistia.net/embed/iframe/${item.wistiaId}?autoPlay=true}
+                      title={${item.name} Voice Story}
+                      allow="autoplay; fullscreen"
+                      allowTransparency={true}
+                      frameBorder="0"
+                      scrolling="no"
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 'inherit',
+                      }}
+                    />
+                  ) : (
+                    <span
+                      className="play"
+                      style={{
+                        zIndex: 2,
+                        pointerEvents: 'none',
+                      }}
+                    />
                   )}
+
                   <span
                     style={{
                       position: 'absolute',
                       top: 10,
                       left: 12,
-                      zIndex: 2,
+                      zIndex: 3,
                       fontSize: '11px',
                       fontWeight: 700,
                       letterSpacing: '.12em',
@@ -255,11 +273,13 @@ export default function TeamVoices() {
                       padding: '3px 8px',
                       borderRadius: '999px',
                       backdropFilter: 'blur(4px)',
+                      pointerEvents: 'none',
                     }}
                   >
                     VOICE {item.id}
                   </span>
                 </div>
+
                 <div className="vb">
                   <div className="vn">{item.name}</div>
                   <div className="vr">{item.role}</div>
