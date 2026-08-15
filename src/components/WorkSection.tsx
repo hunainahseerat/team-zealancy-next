@@ -232,6 +232,27 @@ export default function WorkSection() {
               </svg>
               <div className="axis"><span>Jan</span><span>Dec</span></div>
             </div>
+
+            {/* Card 9: Coding with Lewis */}
+            <div className="case reveal">
+              <div className="chead">
+                <div className="who">
+                  <span className="pfp g-dusk">
+                    <img src="/assets/work/coding-with-lewis.jpg" alt="Coding with Lewis" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover', display: 'block' }} />
+                  </span>
+                  <div>
+                    <div className="cn">Coding with Lewis</div>
+                    <div className="ch">Software &amp; Tech Education</div>
+                  </div>
+                </div>
+                <div className="subs">850K<span>Subs ↑</span></div>
+              </div>
+              <svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0,75 C120,70 240,55 340,35 C420,20 520,10 600,4 L600,80 L0,80 Z" fill="url(#sparkFill)" />
+                <path d="M0,75 C120,70 240,55 340,35 C420,20 520,10 600,4" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
+              </svg>
+              <div className="axis"><span>Jan</span><span>Dec</span></div>
+            </div>
           </div>
         </div>
 

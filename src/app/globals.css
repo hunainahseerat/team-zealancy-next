@@ -1,5 +1,5 @@
 @import url('https://fonts.cdnfonts.com/css/ethnocentric');
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;1,6..96,500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap');
 
 :root{
   --paper:#F4F1E9; --surface:#FBF9F3; --ink:#191521; --muted:#6C6575;
@@ -59,7 +59,7 @@ em{font-style:italic;color:var(--purple);font-weight:500}
 /* hero */
 .hero{padding:34px 0 26px;text-align:center}
 .hero .label{display:inline-block;margin-bottom:12px}
-.hero h1{font-family:'Ethnocentric Rg','Ethnocentric',sans-serif;font-weight:400;font-size:clamp(24px,3.5vw,44px);white-space:nowrap;letter-spacing:0.02em}
+.hero h1{font-family:"Inter",system-ui,sans-serif;font-weight:700;font-size:clamp(26px,4vw,52px);letter-spacing:-0.02em;line-height:1.15}
 .media{position:relative;border-radius:18px;overflow:hidden;background:#0c0912}
 .media .grade{position:absolute;inset:0}
 .media .play{position:absolute;inset:0;margin:auto;width:60px;height:60px;border-radius:50%;background:#fff;display:grid;place-items:center;z-index:2;box-shadow:0 8px 30px -8px rgba(0,0,0,.5);transition:transform .2s}
@@ -100,12 +100,12 @@ em{font-style:italic;color:var(--purple);font-weight:500}
 .cat h3{font-size:clamp(26px,3.6vw,38px);margin-top:8px}
 .cat .cd{color:var(--muted);font-size:15.5px;margin-top:14px;max-width:34ch}
 .cases{display:flex;flex-direction:column;gap:16px}
-.case{background:var(--black);color:var(--cream);border-radius:18px;padding:22px 24px 16px;transition:box-shadow .3s}
+.case{background:var(--black);color:var(--cream);border-radius:16px;padding:22px 24px 16px;transition:box-shadow .3s}
 .case:hover{box-shadow:0 20px 44px -24px rgba(93,45,176,.6)}
 .case .chead{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:8px}
 .case .who{display:flex;align-items:center;gap:12px}
 .case .pfp{width:42px;height:42px;border-radius:50%;flex:none}
-.case .cn{font-family:"Fraunces",serif;font-size:19px;font-weight:500}
+.case .cn{font-family:'Bodoni Moda',serif;font-weight:500;font-size:19px}
 .case .ch{font-size:12.5px;color:var(--muted-d)}
 .case .subs{font-family:"Fraunces",serif;font-size:19px;white-space:nowrap}
 .case .subs span{font-size:12px;color:var(--muted-d);font-family:"Inter",sans-serif;margin-left:5px}

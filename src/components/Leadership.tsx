@@ -14,18 +14,18 @@ const BG_CLASSES = ['g-royal', 'g-violet', 'g-dusk', 'g-plum'];
 
 const DEFAULT_LEADERS: LeaderItem[] = [
   {
-    name: 'Fazeel Chaudry',
+    name: 'Hamza Chaudhry',
     role: 'Founder & CEO',
-    avatarUrl: '/assets/team/Fazeel.jpg',
+    avatarUrl: '/assets/team/v2-hamza.jpg',
     bgClass: 'g-royal',
-    bio: "A founder on paper, but more of a mentor to the team. Fazeel started as a freelance video editor at 19 and built Zealancy from scratch. Today he's focused on building a team where people take ownership, grow fast, and become better at their craft.",
+    bio: "A founder on paper, but more of a mentor to the team. Hamza started as a freelance video editor at 19 and built Zealancy from scratch. Today he's focused on building a team where people take ownership, grow fast, and become better at their craft.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
     linkedinUrl: 'https://www.linkedin.com/company/zealancy',
   },
   {
     name: 'Shehroz Khan',
     role: 'Head of Fulfillment',
-    avatarUrl: '/assets/team/Shehroz.jpg',
+    avatarUrl: '/assets/team/v2-shehroz.jpg',
     bgClass: 'g-violet',
     bio: 'The person who makes sure things actually happen. Shehroz left film school to go all-in on Zealancy and brought experience managing large teams and coaching creatives. From solving problems to building systems, he keeps the machine moving.',
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -34,7 +34,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Aribah Siddiqui',
     role: 'Head of Growth',
-    avatarUrl: '/assets/team/Aribah.jpg',
+    avatarUrl: '/assets/team/v2-aribah.jpg',
     bgClass: 'g-dusk',
     bio: "Aribah is the person behind Zealancy's growth engine. She works across marketing, sales, and strategy to bring in the right opportunities and turn creative work into measurable results.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
@@ -43,7 +43,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Kamal Ahmed',
     role: 'Executive Creative Director',
-    avatarUrl: '/assets/team/Kamal.jpg',
+    avatarUrl: '/assets/team/v2-kamal.jpg',
     bgClass: 'g-plum',
     bio: "The person behind the quality bar at Zealancy. Kamal leads our creative team, challenges ideas, and pushes everyone to think bigger. He's the one making sure good work becomes great work.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',

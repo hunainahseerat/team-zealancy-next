@@ -28,15 +28,46 @@ export default function LoadingScreen() {
     <div
       className={`loading-screen ${progress >= 100 ? 'fade-out' : ''}`}
       aria-hidden={progress >= 100}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 9999,
+        background: '#09070d',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'opacity 0.4s ease, visibility 0.4s ease',
+      }}
     >
-      <div className="loading-content">
-        <div className="loading-logo">
-          Team Zealancy<span className="dot">.</span>
+      <div className="loading-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+        <div className="loading-logo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <img
+            src="/assets/logo/z-badge.svg"
+            alt="Team Zealancy Z Mark"
+            style={{ width: '56px', height: '56px', objectFit: 'contain', filter: 'drop-shadow(0 4px 16px rgba(123,79,214,0.4))' }}
+          />
         </div>
-        <div className="loading-bar-track">
+        <div
+          className="loading-bar-track"
+          style={{
+            width: '140px',
+            height: '2px',
+            background: 'rgba(255, 255, 255, 0.1)',
+            borderRadius: '2px',
+            overflow: 'hidden',
+            position: 'relative',
+          }}
+        >
           <div
             className="loading-bar-fill"
-            style={{ width: `${Math.min(progress, 100)}%` }}
+            style={{
+              height: '100%',
+              background: 'linear-gradient(90deg, #7B4FD6, #A885EE)',
+              width: `${Math.min(progress, 100)}%`,
+              transition: 'width 0.1s ease-out',
+              borderRadius: '2px',
+            }}
           ></div>
         </div>
       </div>

@@ -31,22 +31,27 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="bar">
-      <div className="wrap row">
-        {/* Logo → homepage with smooth scroll to top if already on homepage */}
+    <header className="bar" style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', background: 'rgba(0,0,0,0.8)' }}>
+      <div className="wrap row" style={{ gap: '24px', alignItems: 'center' }}>
+        {/* Logo → homepage with smooth scroll to top */}
         <Link
           href="/"
           className="logo-wrap"
           onClick={(e) => {
             setIsOpen(false);
-            if (typeof window !== 'undefined' && window.location.pathname === '/') {
+            if (typeof window !== 'undefined') {
               e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              if (window.location.pathname === '/') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              } else {
+                window.location.href = '/';
+              }
             }
           }}
-          style={{ display: 'inline-flex', alignItems: 'center' }}
+          style={{ display: 'inline-flex', alignItems: 'center', cursor: 'pointer' }}
+          aria-label="Scroll to top of Team Zealancy homepage"
         >
-          <img src="/assets/logo/logo.png" alt="Team Zealancy" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
+          <img src="/assets/logo/z-badge.svg" alt="Team Zealancy Z Badge Logo" style={{ height: '38px', width: '38px', objectFit: 'contain', borderRadius: '8px' }} />
         </Link>
 
         {/* Desktop CTA → careers page */}

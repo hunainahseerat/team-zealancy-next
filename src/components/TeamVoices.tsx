@@ -198,11 +198,9 @@ export default function TeamVoices() {
           <h2>
             Don&apos;t take our word. Hear what your <em>co-workers</em> say.
           </h2>
-          <p>The people already here, in their own words.</p>
         </div>
 
-        <div className="voice-head">
-          <span className="vt">Team voices (12 stories)</span>
+        <div className="voice-head" style={{ justifyContent: 'flex-end' }}>
           <div className="voice-nav">
             <button id="vPrev" aria-label="Previous" onClick={handlePrev}>
               ‹
