@@ -33,8 +33,19 @@ export default function Navbar() {
   return (
     <header className="bar">
       <div className="wrap row">
-        {/* Logo → homepage */}
-        <Link href="/" className="logo-wrap" onClick={() => setIsOpen(false)} style={{ display: 'inline-flex', alignItems: 'center' }}>
+        {/* Logo → homepage with smooth scroll to top if already on homepage */}
+        <Link
+          href="/"
+          className="logo-wrap"
+          onClick={(e) => {
+            setIsOpen(false);
+            if (typeof window !== 'undefined' && window.location.pathname === '/') {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
+          style={{ display: 'inline-flex', alignItems: 'center' }}
+        >
           <img src="/assets/logo/logo.png" alt="Team Zealancy" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
         </Link>
 

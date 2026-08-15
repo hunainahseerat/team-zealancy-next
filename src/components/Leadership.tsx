@@ -56,8 +56,17 @@ interface LeadershipProps {
 }
 
 export default function Leadership({ members }: LeadershipProps) {
-  // Directly render local array to prevent database prop overriding
-  const displayLeaders = DEFAULT_LEADERS;
+  const displayLeaders: LeaderItem[] = (members && members.length > 0)
+    ? members.map((m, i) => ({
+        name: m.name,
+        role: m.role,
+        avatarUrl: m.avatarUrl || DEFAULT_LEADERS[i % DEFAULT_LEADERS.length].avatarUrl,
+        bgClass: m.bgClass || DEFAULT_LEADERS[i % DEFAULT_LEADERS.length].bgClass,
+        bio: m.bio,
+        instagramUrl: m.instagramUrl || m.socials?.instagram || 'https://www.instagram.com/teamzealancy/',
+        linkedinUrl: m.linkedinUrl || m.socials?.linkedin || 'https://www.linkedin.com/company/zealancy',
+      }))
+    : DEFAULT_LEADERS;
 
   return (
     <section className="section" id="core-leadership">

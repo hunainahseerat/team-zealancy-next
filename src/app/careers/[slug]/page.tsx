@@ -24,7 +24,8 @@ export default async function CareerDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  const applyHref = `${FILLOUT_APPLY_URL}?role=${encodeURIComponent(job.title)}`;
+  const currentJob = job;
+  const applyHref = `${FILLOUT_APPLY_URL}?role=${encodeURIComponent(currentJob.title)}`;
 
   return (
     <main>
@@ -50,18 +51,18 @@ export default async function CareerDetailPage({ params }: PageProps) {
 
           <div className="sec-head" style={{ marginBottom: '32px' }}>
             <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
-              <span className="badge">{job.department}</span>
-              <span className="badge">{job.type}</span>
-              {job.location && <span className="badge">{job.location}</span>}
-              {job.isUrgent && <span className="badge badge-urgent">Urgent</span>}
+              <span className="badge">{currentJob.department}</span>
+              <span className="badge">{currentJob.type}</span>
+              {currentJob.location && <span className="badge">{currentJob.location}</span>}
+              {currentJob.isUrgent && <span className="badge badge-urgent">Urgent</span>}
             </div>
 
             <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', margin: '0 0 16px 0' }}>
-              {job.title}
+              {currentJob.title}
             </h1>
 
             <p style={{ fontSize: '18px', color: 'var(--muted)', maxWidth: '680px' }}>
-              {job.shortDesc}
+              {currentJob.shortDesc}
             </p>
           </div>
 
@@ -77,15 +78,15 @@ export default async function CareerDetailPage({ params }: PageProps) {
               <div>
                 <h3 style={{ marginBottom: '16px' }}>About the Role</h3>
                 <p style={{ color: 'var(--muted)', lineHeight: '1.7' }}>
-                  {job.fullDesc || job.shortDesc}
+                  {currentJob.fullDesc || currentJob.shortDesc}
                 </p>
               </div>
 
-              {job.requirements && job.requirements.length > 0 && (
+              {currentJob.requirements && currentJob.requirements.length > 0 && (
                 <div>
                   <h3 style={{ marginBottom: '16px' }}>What We Are Looking For</h3>
                   <ul style={{ paddingLeft: '20px', lineHeight: '1.8', color: 'var(--muted)' }}>
-                    {job.requirements.map((req, i) => (
+                    {currentJob.requirements.map((req, i) => (
                       <li key={i}>{req}</li>
                     ))}
                   </ul>
