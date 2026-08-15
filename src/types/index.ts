@@ -92,6 +92,8 @@ export interface Voice {
   wistiaId?: string;
   videoUrl?: string;
   bgClass: string;
+  order?: number;
+  isVisible?: boolean;
 }
 
 export interface HeroRotatorWord {
