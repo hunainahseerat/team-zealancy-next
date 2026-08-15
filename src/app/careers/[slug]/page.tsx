@@ -1,13 +1,3 @@
-'use client';
-
-import { MOCK_JOBS } from '@/data/jobs';
-
-export async function generateStaticParams() {
-  return MOCK_JOBS.map((job) => ({
-    slug: job.slug,
-  }));
-}
-
 import { use } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -15,9 +5,17 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CursorGlow from '@/components/CursorGlow';
 import { MOCK_JOBS } from '@/data/jobs';
+
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const FILLOUT_APPLY_URL = 'https://teamzealancy.fillout.com/t/t5KUpC3pEtus';
+
+export async function generateStaticParams() {
+  return MOCK_JOBS.map((job) => ({
+    slug: job.slug,
+  }));
+}
+
 
 interface Props {
   params: Promise<{ slug: string }>;
