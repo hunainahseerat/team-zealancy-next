@@ -45,15 +45,19 @@ export interface TeamMember {
   id: string;
   name: string;
   role: string;
-  avatarUrl: string;
+  avatarUrl?: string;
   bgClass?: string;
   bio: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
+  twitterUrl?: string;
   socials?: {
     instagram?: string;
     linkedin?: string;
     twitter?: string;
   };
   order?: number;
+  isVisible?: boolean;
 }
 
 export interface Benefit {
