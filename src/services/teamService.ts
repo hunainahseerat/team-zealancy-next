@@ -68,7 +68,7 @@ export async function deleteTeamMember(id: string): Promise<void> {
 }
 
 export async function getVoices(): Promise<Voice[]> {
-  return [...fallbackVoices].sort((a, b) => a.order - b.order);
+  return [...fallbackVoices].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 }
 
 export async function updateVoice(id: string, data: Partial<Voice>): Promise<Voice> {
