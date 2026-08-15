@@ -31,9 +31,9 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="bar" style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', background: 'rgba(0,0,0,0.8)' }}>
-      <div className="wrap row" style={{ gap: '24px', alignItems: 'center' }}>
-        {/* Logo → homepage with smooth scroll to top */}
+    <header className="bar" style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', background: 'rgba(9,7,13,0.88)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+      <div className="wrap" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        {/* Logo — far left: transparent white Zealancy Z mark */}
         <Link
           href="/"
           className="logo-wrap"
@@ -49,12 +49,16 @@ export default function Navbar() {
             }
           }}
           style={{ display: 'inline-flex', alignItems: 'center', cursor: 'pointer' }}
-          aria-label="Scroll to top of Team Zealancy homepage"
+          aria-label="Team Zealancy — scroll to top"
         >
-          <img src="/assets/logo/z-badge.svg" alt="Team Zealancy Z Badge Logo" style={{ height: '38px', width: '38px', objectFit: 'contain', borderRadius: '8px' }} />
+          <img
+            src="/assets/logo/z-logo-white.png"
+            alt="Team Zealancy Z Logo"
+            style={{ height: '34px', width: 'auto', objectFit: 'contain', display: 'block' }}
+          />
         </Link>
 
-        {/* Desktop CTA → careers page */}
+        {/* Desktop CTA — far right */}
         <Link href="/careers" className="btn sm desktop-only">
           See open roles
         </Link>

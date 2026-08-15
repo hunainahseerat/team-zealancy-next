@@ -43,9 +43,9 @@ export default function LoadingScreen() {
       <div className="loading-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
         <div className="loading-logo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <img
-            src="/assets/logo/z-badge.svg"
-            alt="Team Zealancy Z Mark"
-            style={{ width: '56px', height: '56px', objectFit: 'contain', filter: 'drop-shadow(0 4px 16px rgba(123,79,214,0.4))' }}
+            src="/assets/logo/z-logo-white.png"
+            alt="Team Zealancy Z Logo"
+            style={{ width: '52px', height: 'auto', objectFit: 'contain', filter: 'drop-shadow(0 4px 20px rgba(123,79,214,0.5))' }}
           />
         </div>
         <div

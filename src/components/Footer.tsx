@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="fgrid2">
           <div className="fcol fbrand">
             <Link href="/" className="logo-wrap" style={{ display: 'inline-flex', alignItems: 'center', marginBottom: '14px' }} aria-label="Team Zealancy Homepage">
-              <img src="/assets/logo/z-white.svg" alt="Team Zealancy Z Logo" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
+              <img src="/assets/logo/z-logo-white.png" alt="Team Zealancy Z Logo" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
             </Link>
             <p className="fblurb">
               The content agency behind some of the biggest channels in the creator economy.
