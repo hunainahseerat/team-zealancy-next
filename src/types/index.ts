@@ -79,12 +79,12 @@ export interface HiringStep {
 
 export interface Voice {
   id: string;
-  quote: string;
   name: string;
   role: string;
-  initials: string;
-  order: number;
-  isVisible: boolean;
+  quote: string;
+  wistiaId?: string;
+  videoUrl?: string;
+  bgClass: string;
 }
 
 export interface HeroRotatorWord {
