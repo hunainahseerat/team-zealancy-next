@@ -31,8 +31,8 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="bar" style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', background: 'rgba(9,7,13,0.88)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-      <div className="wrap" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+    <header className="bar">
+      <div className="wrap">
         {/* Logo — far left: transparent white Zealancy Z mark */}
         <Link
           href="/"
@@ -40,11 +40,10 @@ export default function Navbar() {
           onClick={(e) => {
             setIsOpen(false);
             if (typeof window !== 'undefined') {
-              e.preventDefault();
-              if (window.location.pathname === '/') {
+              const isHome = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '';
+              if (isHome) {
+                e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-              } else {
-                window.location.href = '/';
               }
             }
           }}
@@ -54,7 +53,7 @@ export default function Navbar() {
           <img
             src="/assets/logo/z-logo-white.png"
             alt="Team Zealancy Z Logo"
-            style={{ height: '34px', width: 'auto', objectFit: 'contain', display: 'block' }}
+            style={{ height: '32px', width: 'auto', objectFit: 'contain', display: 'block' }}
           />
         </Link>
 
@@ -68,6 +67,7 @@ export default function Navbar() {
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={isOpen}
+          style={{ color: '#fff' }}
         >
           {isOpen ? (
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -82,31 +82,31 @@ export default function Navbar() {
       </div>
 
       <nav className={`mobile-menu ${isOpen ? 'is-open' : ''}`} aria-label="Mobile Navigation">
-        <a className="mobile-nav-link" href="/#what-we-do" onClick={() => setIsOpen(false)}>
+        <a className="mobile-nav-link" href="/#what-we-do" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
           <span>What We Do</span>
-          <span style={{ fontSize: '13px', opacity: 0.6, fontFamily: 'sans-serif' }}>01</span>
+          <span style={{ fontSize: '13px', opacity: 0.5, fontFamily: 'sans-serif' }}>01</span>
         </a>
-        <a className="mobile-nav-link" href="/#why-we-exist" onClick={() => setIsOpen(false)}>
+        <a className="mobile-nav-link" href="/#why-we-exist" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
           <span>Why We Exist</span>
-          <span style={{ fontSize: '13px', opacity: 0.6, fontFamily: 'sans-serif' }}>02</span>
+          <span style={{ fontSize: '13px', opacity: 0.5, fontFamily: 'sans-serif' }}>02</span>
         </a>
-        <a className="mobile-nav-link" href="/#team-voices" onClick={() => setIsOpen(false)}>
+        <a className="mobile-nav-link" href="/#team-voices" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
           <span>Team Voices</span>
         </a>
-        <a className="mobile-nav-link" href="/#company-benefits" onClick={() => setIsOpen(false)}>
+        <a className="mobile-nav-link" href="/#company-benefits" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
           <span>Benefits</span>
         </a>
-        <a className="mobile-nav-link" href="/#core-leadership" onClick={() => setIsOpen(false)}>
+        <a className="mobile-nav-link" href="/#core-leadership" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
           <span>Leadership</span>
         </a>
-        <a className="mobile-nav-link" href="/careers" onClick={() => setIsOpen(false)}>
+        <a className="mobile-nav-link" href="/careers" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
           <span>Open Roles</span>
-          <span style={{ fontSize: '13px', opacity: 0.6, fontFamily: 'sans-serif' }}>03</span>
+          <span style={{ fontSize: '13px', opacity: 0.5, fontFamily: 'sans-serif' }}>03</span>
         </a>
-        <a className="mobile-nav-link" href="/#hiring" onClick={() => setIsOpen(false)}>
+        <a className="mobile-nav-link" href="/#hiring" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
           <span>Hiring Process</span>
         </a>
-        <a className="mobile-nav-link" href="/#faq" onClick={() => setIsOpen(false)}>
+        <a className="mobile-nav-link" href="/#faq" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
           <span>FAQ</span>
         </a>
         <Link href="/careers" className="btn sm"
