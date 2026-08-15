@@ -5,8 +5,7 @@ const nextConfig = {
     unoptimized: true,
   },
   typescript: {
-    // Allows production builds to complete successfully even if
-    // your project has TypeScript type errors.
+    // Build time type errors ko bypass karne ke liye
     ignoreBuildErrors: true,
   },
 };
