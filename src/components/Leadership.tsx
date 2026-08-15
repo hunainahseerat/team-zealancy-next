@@ -55,10 +55,7 @@ interface LeadershipProps {
   members?: TeamMember[];
 }
 
-export default function Leadership() {
-  const displayLeaders = DEFAULT_LEADERS;
-
-//export default function Leadership({ members }: LeadershipProps) {
+export default function Leadership({ members }: LeadershipProps) {
   // Directly render local array to prevent database prop overriding
   const displayLeaders = DEFAULT_LEADERS;
 
