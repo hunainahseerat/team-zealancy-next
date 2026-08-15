@@ -52,7 +52,7 @@ export default async function CareerDetailPage({ params }: PageProps) {
             <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
               <span className="badge">{job.department}</span>
               <span className="badge">{job.type}</span>
-              <span className="badge">{job.location}</span>
+              {job.location && <span className="badge">{job.location}</span>}
               {job.isUrgent && <span className="badge badge-urgent">Urgent</span>}
             </div>
 
