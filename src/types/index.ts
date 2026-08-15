@@ -8,21 +8,20 @@ export type ApplicationStatus = 'new' | 'reviewing' | 'shortlisted' | 'rejected'
 
 export interface Job {
   id: string;
-  slug: string; // URL-friendly identifier, e.g. "creative-video-editor"
+  slug: string;
   title: string;
   department: string;
-  type: 'Full-time' | 'Part-time' | 'Internship' | 'Contract';
-  mode: 'Remote' | 'Hybrid' | 'On-site';
-  experience: string;
-  description: string;
-  responsibilities?: string[];
+  type: string;
+  location?: string;
+  isUrgent?: boolean;
+  shortDesc: string;
+  fullDesc?: string;
   requirements?: string[];
-  niceToHave?: string[];
-  status: JobStatus;
-  isUrgent: boolean;
-  urgentLabel?: string;
-  postedAt: string; // ISO date string
-  updatedAt: string;
+  responsibilities?: string[];
+  skills?: string[];
+  applyUrl?: string;
+  order?: number;
+  isVisible?: boolean;
 }
 
 export interface Application {
