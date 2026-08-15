@@ -212,14 +212,14 @@ export default function TeamVoices() {
         </div>
 
         <div className="voice-scroller" id="voices" ref={scrollerRef}>
-          {TEAM_VOICES_DATA.map((item) => (
+          {TEAM_VOICES_DATA.map((voice) => (
             <div
-              key={item.id}
+              key={voice.id}
               className="voice reveal"
               style={{ position: 'relative' }}
             >
               <div
-                className={`vid ${item.bgClass}`}
+                className={`vid ${voice.bgClass}`}
                 style={{
                   position: 'relative',
                   overflow: 'hidden',
@@ -227,7 +227,7 @@ export default function TeamVoices() {
                   height: '100%',
                   cursor: 'pointer',
                 }}
-                onClick={() => setActiveVideo({ id: item.wistiaId, name: item.name })}
+                onClick={() => setActiveVideo({ id: voice.wistiaId, name: voice.name })}
               >
                 <span
                   className="play"
@@ -254,14 +254,20 @@ export default function TeamVoices() {
                     pointerEvents: 'none',
                   }}
                 >
-                  VOICE {item.id}
+                  VOICE {voice.id}
                 </span>
               </div>
 
-              <div className="vb">
-                <div className="vn">{item.name}</div>
-                <div className="vr">{item.role}</div>
-                <p className="vq">{item.quote}</p>
+              <div className="bg-[#FDFBF7] p-5 rounded-b-2xl border-t border-gray-100">
+                <h3 className="font-serif text-lg font-bold text-gray-900 mb-1">
+                  {voice.name}
+                </h3>
+                <p className="text-[11px] font-semibold tracking-wider text-purple-700 uppercase mb-2">
+                  {voice.role}
+                </p>
+                <p className="text-xs text-gray-600 leading-relaxed italic">
+                  "{voice.quote}"
+                </p>
               </div>
             </div>
           ))}

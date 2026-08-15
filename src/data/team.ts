@@ -22,8 +22,8 @@ export const MOCK_TEAM: TeamMember[] = [
     bgClass: 'g-violet',
     bio: 'The person who makes sure things actually happen. Shehroz left film school to go all-in on Zealancy and brought experience managing large teams and coaching creatives. From solving problems to building systems, he keeps the machine moving.',
     socials: {
-      instagram: 'https://www.instagram.com/teamzealancy/',
-      linkedin: 'https://www.linkedin.com/company/zealancy',
+      instagram: 'https://www.instagram.com/shehrozkhan10?igsh=MXM4MzE5MDk0eGZ2OA%3D%3D&utm_source=qr',
+      linkedin: 'https://www.linkedin.com/in/shehroz-khan-175240290/',
     },
     order: 2,
   },
@@ -48,8 +48,8 @@ export const MOCK_TEAM: TeamMember[] = [
     bgClass: 'g-plum',
     bio: "The person behind the quality bar at Zealancy. Kamal leads our creative team, challenges ideas, and pushes everyone to think bigger. He's the one making sure good work becomes great work.",
     socials: {
-      instagram: 'https://www.instagram.com/teamzealancy/',
-      linkedin: 'https://www.linkedin.com/company/zealancy',
+      instagram: 'https://www.instagram.com/kamalisbetter/',
+      linkedin: 'https://www.linkedin.com/in/kamal-ahmed-4775b22a3/',
     },
     order: 4,
   },

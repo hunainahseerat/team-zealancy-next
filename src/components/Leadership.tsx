@@ -24,12 +24,12 @@ const DEFAULT_LEADERS: LeaderItem[] = [
   },
   {
     name: 'Shehroz Khan',
-    role: 'Head of Fulfillment',
+    role: 'Head of Fulfilment',
     avatarUrl: '/assets/team/v2-shehroz.jpg',
     bgClass: 'g-violet',
     bio: 'The person who makes sure things actually happen. Shehroz left film school to go all-in on Zealancy and brought experience managing large teams and coaching creatives. From solving problems to building systems, he keeps the machine moving.',
-    instagramUrl: 'https://www.instagram.com/teamzealancy/',
-    linkedinUrl: 'https://www.linkedin.com/company/zealancy',
+    instagramUrl: 'https://www.instagram.com/shehrozkhan10?igsh=MXM4MzE5MDk0eGZ2OA%3D%3D&utm_source=qr',
+    linkedinUrl: 'https://www.linkedin.com/in/shehroz-khan-175240290/',
   },
   {
     name: 'Aribah Siddiqui',
@@ -46,8 +46,8 @@ const DEFAULT_LEADERS: LeaderItem[] = [
     avatarUrl: '/assets/team/v2-kamal.jpg',
     bgClass: 'g-plum',
     bio: "The person behind the quality bar at Zealancy. Kamal leads our creative team, challenges ideas, and pushes everyone to think bigger. He's the one making sure good work becomes great work.",
-    instagramUrl: 'https://www.instagram.com/teamzealancy/',
-    linkedinUrl: 'https://www.linkedin.com/company/zealancy',
+    instagramUrl: 'https://www.instagram.com/kamalisbetter/',
+    linkedinUrl: 'https://www.linkedin.com/in/kamal-ahmed-4775b22a3/',
   },
 ];
 
