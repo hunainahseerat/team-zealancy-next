@@ -1,5 +1,13 @@
 'use client';
 
+import { MOCK_JOBS } from '@/data/jobs';
+
+export async function generateStaticParams() {
+  return MOCK_JOBS.map((job) => ({
+    slug: job.slug,
+  }));
+}
+
 import { use } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
