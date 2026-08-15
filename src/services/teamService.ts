@@ -22,7 +22,7 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
   } catch {
     // Fallback to mock data
   }
-  return [...fallbackTeam].sort((a, b) => a.order - b.order);
+  return [...fallbackTeam].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 }
 
 export async function createTeamMember(data: Omit<TeamMember, 'id'>): Promise<TeamMember> {
