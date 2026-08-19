@@ -73,7 +73,11 @@ export default function HeroSection() {
     function fit() {
       if (!heading) return;
       heading.style.fontSize = '';
-      if (!oneLine.matches) return;
+      if (!oneLine.matches) {
+        heading.style.whiteSpace = 'normal';
+        return;
+      }
+      heading.style.whiteSpace = 'nowrap';
       heading.style.textAlign = 'left';
       const need = heading.scrollWidth, avail = heading.clientWidth;
       heading.style.textAlign = '';
@@ -119,8 +123,8 @@ export default function HeroSection() {
   return (
     <header className="hero" id="top">
       <div className="wrap">
-        <h1 ref={headingRef}>
-          Join Team Zealancy to <br className="h1br" />
+        <h1 ref={headingRef} style={{ whiteSpace: 'nowrap', maxWidth: '100%', overflow: 'hidden' }}>
+          Join Team Zealancy to{' '}
           <span className="rot" aria-hidden="true">
             <span className="rot-ghost">{longestPhrase}</span>
             <span className="rot-word">
