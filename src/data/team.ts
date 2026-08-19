@@ -9,7 +9,7 @@ export const MOCK_TEAM: TeamMember[] = [
     bgClass: 'g-royal',
     bio: "A founder on paper, but more of a mentor to the team. Hamza started as a freelance video editor at 19 and built Zealancy from scratch. Today he's focused on building a team where people take ownership, grow fast, and become better at their craft.",
     socials: {
-      instagram: 'https://www.instagram.com/teamzealancy/',
+      instagram: 'https://www.instagram.com/hamzachaudharyyyyyy/',
       linkedin: 'https://www.linkedin.com/company/zealancy',
     },
     order: 1,
@@ -36,7 +36,7 @@ export const MOCK_TEAM: TeamMember[] = [
     bio: "Aribah is the person behind Zealancy's growth engine. She works across marketing, sales, and strategy to bring in the right opportunities and turn creative work into measurable results.",
     socials: {
       instagram: 'https://www.instagram.com/teamzealancy/',
-      linkedin: 'https://www.linkedin.com/company/zealancy',
+      linkedin: 'https://www.linkedin.com/in/aribah-siddiqui-479625279',
     },
     order: 3,
   },

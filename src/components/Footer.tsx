@@ -18,7 +18,7 @@ export default function Footer() {
             <div className="flex items-center gap-5 mt-6">
               {/* Instagram */}
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/teamzealancy/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="inline-flex items-center gap-3 px-4.5 py-2.5 rounded-full border border-white/30 bg-white/5 hover:bg-white/10 text-white text-xs font-semibold tracking-wider hover:border-white transition-all"
@@ -35,7 +35,7 @@ export default function Footer() {
 
               {/* LinkedIn */}
               <a 
-                href="https://linkedin.com" 
+                href="https://www.linkedin.com/company/zealancy" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="inline-flex items-center gap-3 px-4.5 py-2.5 rounded-full border border-white/30 bg-white/5 hover:bg-white/10 text-white text-xs font-semibold tracking-wider hover:border-white transition-all"
@@ -55,7 +55,6 @@ export default function Footer() {
             <h4>Explore</h4>
             <a href="/#what-we-do">What We Do</a>
             <a href="/#why-we-exist">Why We Exist</a>
-            <a href="/#team-voices">Team Voices</a>
             <a href="/#company-benefits">Benefits</a>
           </div>
           <div className="fcol">
@@ -78,10 +77,6 @@ export default function Footer() {
         <div className="fbottom">
           <span>© 2026 Team Zealancy. All rights reserved.</span>
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-            <Link href="/careers" style={{ color: 'var(--muted-d)', fontSize: '12.5px', fontWeight: 500, letterSpacing: '.08em' }}>
-              SEE MORE →
-            </Link>
-            <span>&nbsp;·&nbsp;</span>
             <a role="button" tabIndex={0} style={{ color: 'var(--muted-d)', cursor: 'default' }}>Privacy</a>
             <span>&nbsp;·&nbsp;</span>
             <a role="button" tabIndex={0} style={{ color: 'var(--muted-d)', cursor: 'default' }}>Terms</a>

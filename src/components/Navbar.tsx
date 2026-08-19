@@ -90,9 +90,6 @@ export default function Navbar() {
           <span>Why We Exist</span>
           <span style={{ fontSize: '13px', opacity: 0.5, fontFamily: 'sans-serif' }}>02</span>
         </a>
-        <a className="mobile-nav-link" href="/#team-voices" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
-          <span>Team Voices</span>
-        </a>
         <a className="mobile-nav-link" href="/#company-benefits" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
           <span>Benefits</span>
         </a>

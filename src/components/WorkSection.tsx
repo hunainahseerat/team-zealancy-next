@@ -39,7 +39,7 @@ export default function WorkSection() {
           <div className="cases">
 
             {/* Card 1: Richard Yu — classic exponential, flat then explosive */}
-            <div className="case reveal">
+            <div className="case reveal" style={{ transitionDelay: '0s' }}>
               <div className="chead">
                 <div className="who">
                   <span className="pfp g-violet">
@@ -54,14 +54,14 @@ export default function WorkSection() {
               </div>
               <div className="case-duration">Oct 2025 – Present</div>
               <svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M0,75 C180,74 320,70 420,50 C500,34 560,14 600,3 L600,80 L0,80 Z" fill="url(#sparkFill)" />
-                <path d="M0,75 C180,74 320,70 420,50 C500,34 560,14 600,3" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
+                <path d="M0,75 L140,74 L280,68 L400,52 L480,30 L540,14 L600,3 L600,80 L0,80 Z" fill="url(#sparkFill)" />
+                <path d="M0,75 L140,74 L280,68 L400,52 L480,30 L540,14 L600,3" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
               </svg>
               <div className="axis"><span>Jan</span><span>Dec</span></div>
             </div>
 
             {/* Card 2: Assembly AI — viral spike then plateau */}
-            <div className="case reveal">
+            <div className="case reveal" style={{ transitionDelay: '0.15s' }}>
               <div className="chead">
                 <div className="who">
                   <span className="pfp g-dusk">
@@ -76,14 +76,14 @@ export default function WorkSection() {
               </div>
               <div className="case-duration">Oct 2024 – Aug 2025</div>
               <svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M0,70 C60,68 120,18 200,12 C270,8 340,22 440,24 C520,25 570,22 600,20 L600,80 L0,80 Z" fill="url(#sparkFill)" />
-                <path d="M0,70 C60,68 120,18 200,12 C270,8 340,22 440,24 C520,25 570,22 600,20" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
+                <path d="M0,70 L80,66 L140,18 L210,12 L280,10 L360,24 L440,25 L520,22 L600,20 L600,80 L0,80 Z" fill="url(#sparkFill)" />
+                <path d="M0,70 L80,66 L140,18 L210,12 L280,10 L360,24 L440,25 L520,22 L600,20" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
               </svg>
               <div className="axis"><span>Jan</span><span>Dec</span></div>
             </div>
 
             {/* Card 3: Josh Burns — growth, dip, strong recovery */}
-            <div className="case reveal">
+            <div className="case reveal" style={{ transitionDelay: '0.3s' }}>
               <div className="chead">
                 <div className="who">
                   <span className="pfp g-slate">
@@ -98,8 +98,8 @@ export default function WorkSection() {
               </div>
               <div className="case-duration">May 2024 – June/July</div>
               <svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M0,70 C80,55 160,35 240,30 C300,27 340,44 380,48 C440,54 520,18 600,5 L600,80 L0,80 Z" fill="url(#sparkFill)" />
-                <path d="M0,70 C80,55 160,35 240,30 C300,27 340,44 380,48 C440,54 520,18 600,5" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
+                <path d="M0,70 L90,54 L170,36 L240,30 L300,28 L350,46 L390,48 L460,32 L530,16 L600,5 L600,80 L0,80 Z" fill="url(#sparkFill)" />
+                <path d="M0,70 L90,54 L170,36 L240,30 L300,28 L350,46 L390,48 L460,32 L530,16 L600,5" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
               </svg>
               <div className="axis"><span>Jan</span><span>Dec</span></div>
             </div>
@@ -118,7 +118,7 @@ export default function WorkSection() {
           <div className="cases">
 
             {/* Card 4: Njord — steady gradual straight-line growth */}
-            <div className="case reveal">
+            <div className="case reveal" style={{ transitionDelay: '0s' }}>
               <div className="chead">
                 <div className="who">
                   <span className="pfp g-royal">
@@ -139,7 +139,7 @@ export default function WorkSection() {
             </div>
 
             {/* Card 5: Nuora — irregular fluctuating upward trend */}
-            <div className="case reveal">
+            <div className="case reveal" style={{ transitionDelay: '0.15s' }}>
               <div className="chead">
                 <div className="who">
                   <span className="pfp g-ink">
@@ -153,14 +153,14 @@ export default function WorkSection() {
                 <div className="subs">$50M<span>Revenue / yr</span></div>
               </div>
               <svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M0,68 C50,58 80,72 130,52 C170,36 200,55 250,38 C300,22 340,42 390,28 C440,16 500,30 550,14 C575,8 590,6 600,4 L600,80 L0,80 Z" fill="url(#sparkFill)" />
-                <path d="M0,68 C50,58 80,72 130,52 C170,36 200,55 250,38 C300,22 340,42 390,28 C440,16 500,30 550,14 C575,8 590,6 600,4" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
+                <path d="M0,68 L50,58 L80,72 L130,52 L170,36 L200,55 L250,38 L300,22 L340,42 L390,28 L440,16 L500,30 L550,14 L600,4 L600,80 L0,80 Z" fill="url(#sparkFill)" />
+                <path d="M0,68 L50,58 L80,72 L130,52 L170,36 L200,55 L250,38 L300,22 L340,42 L390,28 L440,16 L500,30 L550,14 L600,4" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
               </svg>
               <div className="axis"><span>Yr 1</span><span>Now</span></div>
             </div>
 
             {/* Card 6: Icon — sharp hockey stick */}
-            <div className="case reveal">
+            <div className="case reveal" style={{ transitionDelay: '0.3s' }}>
               <div className="chead">
                 <div className="who">
                   <span className="pfp g-violet" style={{ display: 'grid', placeItems: 'center', fontWeight: 600, color: '#fff', fontSize: '15px' }}>I</span>
@@ -172,8 +172,8 @@ export default function WorkSection() {
                 <div className="subs">$5M<span>Revenue / yr</span></div>
               </div>
               <svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M0,72 C150,71 300,69 400,65 C460,62 510,40 560,18 C580,10 592,5 600,3 L600,80 L0,80 Z" fill="url(#sparkFill)" />
-                <path d="M0,72 C150,71 300,69 400,65 C460,62 510,40 560,18 C580,10 592,5 600,3" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
+                <path d="M0,72 L150,71 L300,69 L400,65 L460,60 L510,38 L560,16 L600,3 L600,80 L0,80 Z" fill="url(#sparkFill)" />
+                <path d="M0,72 L150,71 L300,69 L400,65 L460,60 L510,38 L560,16 L600,3" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
               </svg>
               <div className="axis"><span>Yr 1</span><span>Now</span></div>
             </div>
@@ -192,7 +192,7 @@ export default function WorkSection() {
           <div className="cases">
 
             {/* Card 7: Iced Coffee Hour — smooth accelerating parabola */}
-            <div className="case reveal">
+            <div className="case reveal" style={{ transitionDelay: '0s' }}>
               <div className="chead">
                 <div className="who">
                   <span className="pfp g-plum">
@@ -206,14 +206,14 @@ export default function WorkSection() {
                 <div className="subs">1.9B<span>Views ↑</span></div>
               </div>
               <svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M0,74 C200,72 380,60 480,34 C540,18 575,9 600,4 L600,80 L0,80 Z" fill="url(#sparkFill)" />
-                <path d="M0,74 C200,72 380,60 480,34 C540,18 575,9 600,4" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
+                <path d="M0,74 L140,72 L280,64 L400,48 L480,28 L540,12 L600,4 L600,80 L0,80 Z" fill="url(#sparkFill)" />
+                <path d="M0,74 L140,72 L280,64 L400,48 L480,28 L540,12 L600,4" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
               </svg>
               <div className="axis"><span>Jan</span><span>Dec</span></div>
             </div>
 
             {/* Card 8: Alementary — double surge */}
-            <div className="case reveal">
+            <div className="case reveal" style={{ transitionDelay: '0.15s' }}>
               <div className="chead">
                 <div className="who">
                   <span className="pfp g-slate">
@@ -227,14 +227,14 @@ export default function WorkSection() {
                 <div className="subs">1.1B<span>Views ↑</span></div>
               </div>
               <svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M0,70 C60,50 100,40 160,35 C220,30 260,38 300,36 C350,33 400,18 460,12 C510,8 560,5 600,3 L600,80 L0,80 Z" fill="url(#sparkFill)" />
-                <path d="M0,70 C60,50 100,40 160,35 C220,30 260,38 300,36 C350,33 400,18 460,12 C510,8 560,5 600,3" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
+                <path d="M0,70 L60,50 L100,40 L160,35 L220,30 L260,38 L300,36 L380,24 L460,12 L540,7 L600,3 L600,80 L0,80 Z" fill="url(#sparkFill)" />
+                <path d="M0,70 L60,50 L100,40 L160,35 L220,30 L260,38 L300,36 L380,24 L460,12 L540,7 L600,3" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
               </svg>
               <div className="axis"><span>Jan</span><span>Dec</span></div>
             </div>
 
             {/* Card 9: Coding with Lewis */}
-            <div className="case reveal">
+            <div className="case reveal" style={{ transitionDelay: '0.3s' }}>
               <div className="chead">
                 <div className="who">
                   <span className="pfp g-dusk">
@@ -248,8 +248,8 @@ export default function WorkSection() {
                 <div className="subs">850K<span>Subs ↑</span></div>
               </div>
               <svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M0,75 C120,70 240,55 340,35 C420,20 520,10 600,4 L600,80 L0,80 Z" fill="url(#sparkFill)" />
-                <path d="M0,75 C120,70 240,55 340,35 C420,20 520,10 600,4" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
+                <path d="M0,75 L100,68 L200,58 L300,44 L400,28 L500,14 L600,4 L600,80 L0,80 Z" fill="url(#sparkFill)" />
+                <path d="M0,75 L100,68 L200,58 L300,44 L400,28 L500,14 L600,4" fill="none" stroke="#9A6CF0" strokeWidth="2.5" />
               </svg>
               <div className="axis"><span>Jan</span><span>Dec</span></div>
             </div>

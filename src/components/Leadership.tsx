@@ -19,7 +19,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
     avatarUrl: '/assets/team/v2-hamza.jpg',
     bgClass: 'g-royal',
     bio: "A founder on paper, but more of a mentor to the team. Hamza started as a freelance video editor at 19 and built Zealancy from scratch. Today he's focused on building a team where people take ownership, grow fast, and become better at their craft.",
-    instagramUrl: 'https://www.instagram.com/teamzealancy/',
+    instagramUrl: 'https://www.instagram.com/hamzachaudharyyyyyy/',
     linkedinUrl: 'https://www.linkedin.com/company/zealancy',
   },
   {
@@ -38,7 +38,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
     bgClass: 'g-dusk',
     bio: "Aribah is the person behind Zealancy's growth engine. She works across marketing, sales, and strategy to bring in the right opportunities and turn creative work into measurable results.",
     instagramUrl: 'https://www.instagram.com/teamzealancy/',
-    linkedinUrl: 'https://www.linkedin.com/company/zealancy',
+    linkedinUrl: 'https://www.linkedin.com/in/aribah-siddiqui-479625279',
   },
   {
     name: 'Kamal Ahmed',
