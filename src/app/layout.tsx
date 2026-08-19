@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import PasswordGate from '@/components/PasswordGate';
 
 export const viewport: Viewport = {
   themeColor: '#5D2DB0',
@@ -62,7 +63,7 @@ export default function RootLayout({
             </linearGradient>
           </defs>
         </svg>
-        {children}
+        <PasswordGate>{children}</PasswordGate>
       </body>
     </html>
   );
