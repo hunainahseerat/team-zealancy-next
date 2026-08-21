@@ -1,359 +1,347 @@
 'use client';
+import React, { useRef, useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import { useEffect, useRef, useState } from 'react';
-
-const TEAM_VOICES_DATA = [
-  {
-    id: '01',
-    name: 'Muhammad Usman Laghari',
-    role: 'Senior Project Manager',
-    quote: '"Managing complex productions daily — this team makes it genuinely exciting to deliver."',
-    wistiaId: '76pq9sletd',
-    bgClass: 'g-violet',
-  },
-  {
-    id: '02',
-    name: 'Shehroz Khan',
-    role: 'Head of Fulfilment',
-    quote: '"I oversee delivery for some of the biggest channels in the world. The scale here is real."',
-    wistiaId: 'xyrx926yn6',
-    bgClass: 'g-plum',
-  },
-  {
-    id: '03',
-    name: 'Fahad Ansari',
-    role: 'Junior Video Editor',
-    quote: '"No politics, no ego. Just people who care about the craft."',
-    wistiaId: 'ckriomzxeu',
-    bgClass: 'g-dusk',
-  },
-  {
-    id: '04',
-    name: 'Muhammad Aqib',
-    role: 'Junior Video Editor',
-    quote: '"I\'ve grown more here in one year than anywhere else I\'ve worked."',
-    wistiaId: '74spvaapv9',
-    bgClass: 'g-slate',
-  },
-  {
-    id: '05',
-    name: 'Moazam Naqvi',
-    role: 'Content Creator',
-    quote: '"Creating content that reaches millions — every single week. The opportunity here is unmatched."',
-    wistiaId: 'buwj25t5ln',
-    bgClass: 'g-royal',
-  },
-  {
-    id: '06',
-    name: 'Ashar Ullah Khan',
-    role: 'OPS Manager',
-    quote: '"The speed of execution here is unlike any agency I\'ve been part of."',
-    wistiaId: 'doiu7dd9iw',
-    bgClass: 'g-violet',
-  },
-  {
-    id: '07',
-    name: 'Shayan',
-    role: 'Junior Video Editor',
-    quote: '"High standards and full support — you\'re pushed to be genuinely great here."',
-    wistiaId: '43o80cxtqj',
-    bgClass: 'g-plum',
-  },
-  {
-    id: '08',
-    name: 'Muhammad Izhan Khan',
-    role: 'Accountant',
-    quote: '"Numbers meet creativity. Working behind the scenes of industry-leading productions."',
-    wistiaId: 'hccsfag3s7',
-    bgClass: 'g-dusk',
-  },
-  {
-    id: '09',
-    name: 'Syed Junaid Hussain',
-    role: 'Assistant Video Editor',
-    quote: '"Every edit matters. This team has taught me that obsession over detail is the standard."',
-    wistiaId: 'ai9gc5r5f5',
-    bgClass: 'g-slate',
-  },
-  {
-    id: '10',
-    name: 'Kamal Ahmed',
-    role: 'Lead Video Editor',
-    quote: '"Leading edits for channels with hundreds of millions of views — real work, real impact."',
-    wistiaId: 'ew2xs2jo5a',
-    bgClass: 'g-royal',
-  },
-  {
-    id: '11',
-    name: 'Syed Zeeshan Ali',
-    role: 'Intern Video Editor',
-    quote: '"From day one I was working on real productions. The learning curve is steep and worth it."',
-    wistiaId: 'tf6vvsadtv',
-    bgClass: 'g-violet',
-  },
-  {
-    id: '12',
-    name: 'Muhammad Ali Akbar',
-    role: 'Admin Assistant',
-    quote: '"I keep the engine running. Zealancy moves fast and it\'s energising to be part of it."',
-    wistiaId: '1wnmxc9c5q',
-    bgClass: 'g-plum',
-  },
+const VOICES = [
+  { id: '76pq9sletd', name: 'Muhammad Usman Laghari', role: 'SENIOR PROJECT MANAGER', quote: '"Managing complex productions daily — this team makes it genuinely exciting to deliver."' },
+  { id: 'xyrx926yn6', name: 'Shehroz Khan', role: 'HEAD OF FULFILMENT', quote: '"I oversee delivery for some of the biggest channels in the world. The scale here is real."' },
+  { id: 'ckriomzxeu', name: 'Fahad Ansari', role: 'JUNIOR VIDEO EDITOR', quote: '"No politics, no ego. Just people who care about the craft."' },
+  { id: '74spvaapv9', name: 'Muhammad Aqib', role: 'JUNIOR VIDEO EDITOR', quote: '"Great culture and constant learning every day."' },
+  { id: 'buwj25t5ln', name: 'Moazam Naqvi', role: 'CONTENT CREATOR', quote: '"Fast-paced environment with unmatched quality."' },
+  { id: 'doiu7dd9iw', name: 'Ashar Ullah Khan', role: 'OPS MANAGER', quote: '"Collaborating with global talent continuously."' },
+  { id: '43o80cxtqj', name: 'Shayan', role: 'JUNIOR VIDEO EDITOR', quote: '"Creating impact through powerful visual storytelling."' },
+  { id: 'hccsfag3s7', name: 'Muhammad Izhan Khan', role: 'ACCOUNTANT', quote: '"High standards, incredible team support always."' },
+  { id: 'ai9gc5r5f5', name: 'Syed Junaid Hussain', role: 'ASSISTANT VIDEO EDITOR', quote: '"Every project brings a fresh creative challenge."' },
+  { id: 'ew2xs2jo5a', name: 'Kamal Ahmed', role: 'LEAD VIDEO EDITOR', quote: '"Building world-class content with dedicated peers."' },
+  { id: 'tf6vvsadtv', name: 'Syed Zeeshan Ali', role: 'INTERN VIDEO EDITOR', quote: '"Ownership and creative freedom from day one."' },
+  { id: '1wnmxc9c5q', name: 'Muhammad Ali Akbar', role: 'ADMIN ASSISTANT', quote: '"The scale of production here is genuinely exciting."' },
 ];
 
 export default function TeamVoices() {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const dotWrapRef = useRef<HTMLDivElement>(null);
-  const [activeVideo, setActiveVideo] = useState<{ id: string; name: string } | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const handlePrev = () => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    scroller.scrollBy({
-      left: -scroller.clientWidth,
-      behavior: reduceMotion ? 'auto' : 'smooth',
-    });
-  };
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
-  const handleNext = () => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    scroller.scrollBy({
-      left: scroller.clientWidth,
-      behavior: reduceMotion ? 'auto' : 'smooth',
-    });
+  const checkScrollButtons = () => {
+    if (!scrollContainerRef.current) return;
+    const { scrollLeft: currentLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+    setCanScrollLeft(currentLeft > 10);
+    setCanScrollRight(currentLeft + clientWidth < scrollWidth - 10);
+
+    if (clientWidth > 0) {
+      const newIndex = Math.round(currentLeft / clientWidth);
+      setActiveIndex(Math.min(Math.max(newIndex, 0), Math.ceil(VOICES.length / 3) - 1));
+    }
   };
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const scroller = scrollerRef.current;
-    const dotWrap = dotWrapRef.current;
-    if (!scroller || !dotWrap) return;
-
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    const behavior = reduceMotion ? 'auto' : 'smooth';
-
-    const slides = scroller.querySelectorAll<HTMLElement>('.voice');
-    dotWrap.innerHTML = '';
-
-    if (slides.length) {
-      for (let i = 0; i < slides.length; i++) {
-        const dot = document.createElement('button');
-        dot.type = 'button';
-        dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
-
-        dot.addEventListener('click', () => {
-          const step = slides[0].getBoundingClientRect().width + 16;
-          scroller.scrollTo({ left: i * step, behavior });
-        });
-
-        dotWrap.appendChild(dot);
-      }
-
-      const dots = dotWrap.querySelectorAll<HTMLButtonElement>('button');
-      let dotQueued = false;
-
-      function syncDots() {
-        const step = slides[0].getBoundingClientRect().width + 16;
-        const idx = step > 0 ? Math.round(scroller!.scrollLeft / step) : 0;
-        const clampedIdx = Math.max(0, Math.min(idx, dots.length - 1));
-
-        dots.forEach((dot, k) => {
-          dot.classList.toggle('on', k === clampedIdx);
-        });
-        dotQueued = false;
-      }
-
-      const onScroll = () => {
-        if (!dotQueued) {
-          dotQueued = true;
-          requestAnimationFrame(syncDots);
-        }
-      };
-
-      scroller.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', syncDots);
-      syncDots();
-
-      return () => {
-        scroller.removeEventListener('scroll', onScroll);
-        window.removeEventListener('resize', syncDots);
-      };
-    }
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    checkScrollButtons();
+    container.addEventListener('scroll', checkScrollButtons, { passive: true });
+    return () => container.removeEventListener('scroll', checkScrollButtons);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <section className="section" id="team-voices">
-      <div className="wrap">
-        <div className="chapter reveal">
-          <span className="cnum">02</span>
-          <span className="clab">Team Voices</span>
-          <span className="cline"></span>
-        </div>
-        <div className="sec-head reveal" style={{ marginBottom: '32px' }}>
-          <span className="label">Team voices</span>
-          <h2>
-            Don&apos;t take our word. Hear what your <em>co-workers</em> say.
-          </h2>
-        </div>
+  const scrollByAmount = (direction: 'left' | 'right') => {
+    if (!scrollContainerRef.current) return;
+    const container = scrollContainerRef.current;
+    const scrollDistance = container.clientWidth;
+    container.scrollBy({
+      left: direction === 'left' ? -scrollDistance : scrollDistance,
+      behavior: 'smooth',
+    });
+  };
 
-        <div className="voice-head" style={{ justifyContent: 'flex-end' }}>
-          <div className="voice-nav">
-            <button id="vPrev" aria-label="Previous" onClick={handlePrev}>
-              ‹
+  const scrollToIndex = (pageIdx: number) => {
+    if (!scrollContainerRef.current) return;
+    const container = scrollContainerRef.current;
+    container.scrollTo({
+      left: pageIdx * container.clientWidth,
+      behavior: 'smooth',
+    });
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeft(scrollContainerRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => setIsDragging(false);
+  const handleMouseUp = () => setIsDragging(false);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const totalPages = Math.ceil(VOICES.length / 3);
+
+  return (
+    <section style={{ backgroundColor: '#FAF8F5', padding: '80px 24px', width: '100%', overflow: 'hidden' }}>
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
+        .smooth-scroll-container {
+          display: flex;
+          gap: 24px;
+          overflow-x: auto;
+          scroll-behavior: smooth;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          cursor: grab;
+        }
+        .smooth-scroll-container:active {
+          cursor: grabbing;
+        }
+        .smooth-scroll-container::-webkit-scrollbar {
+          display: none;
+        }
+
+        .team-card {
+          scroll-snap-align: start;
+          flex: 0 0 calc((100% - 48px) / 3);
+          transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @media (max-width: 1024px) {
+          .team-card {
+            flex: 0 0 calc((100% - 24px) / 2);
+          }
+        }
+        @media (max-width: 640px) {
+          .team-card {
+            flex: 0 0 100%;
+          }
+        }
+
+        .team-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.08);
+        }
+      `}</style>
+
+      <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
+
+        {/* Header row: text left, arrows right, aligned to bottom */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px' }}>
+          <div>
+            <p style={{
+              fontSize: '11px',
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              color: '#6D28D9',
+              fontWeight: 600,
+              fontFamily: 'Plus Jakarta Sans, sans-serif',
+              margin: '0 0 16px 0',
+            }}>
+              TEAM VOICES
+            </p>
+
+            <h2 style={{
+              fontSize: 'clamp(38px, 5.2vw, 64px)',
+              fontWeight: 700,
+              color: '#111827',
+              lineHeight: '1.1',
+              margin: '0 0 12px 0',
+              fontFamily: "'GT Super Display', 'Baskerville', 'Instrument Serif', Georgia, serif",
+              letterSpacing: '-0.03em',
+              maxWidth: '820px',
+            }}>
+              Don&apos;t take our word. Hear what your{' '}
+              <span style={{ color: '#6D28D9', fontStyle: 'italic', fontWeight: 500 }}>co-workers</span> say.
+            </h2>
+
+            <p style={{
+              fontSize: '16px',
+              color: '#6B7280',
+              margin: 0,
+              fontFamily: 'Plus Jakarta Sans, sans-serif',
+            }}>
+              The people already here, in their own words.
+            </p>
+          </div>
+
+          {/* Arrows aligned to bottom of header */}
+          <div style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
+            <button
+              onClick={() => scrollByAmount('left')}
+              disabled={!canScrollLeft}
+              aria-label="Scroll left"
+              style={{
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                border: '1px solid #E5E7EB',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: !canScrollLeft ? 'not-allowed' : 'pointer',
+                opacity: !canScrollLeft ? 0.35 : 1,
+                backgroundColor: '#FFF',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <ChevronLeft size={20} color="#111827" />
             </button>
-            <button id="vNext" aria-label="Next" onClick={handleNext}>
-              ›
+            <button
+              onClick={() => scrollByAmount('right')}
+              disabled={!canScrollRight}
+              aria-label="Scroll right"
+              style={{
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                border: '1px solid #E5E7EB',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: !canScrollRight ? 'not-allowed' : 'pointer',
+                opacity: !canScrollRight ? 0.35 : 1,
+                backgroundColor: '#FFF',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <ChevronRight size={20} color="#111827" />
             </button>
           </div>
         </div>
 
-        <div className="voice-scroller" id="voices" ref={scrollerRef}>
-          {TEAM_VOICES_DATA.map((voice) => (
+        {/* Smooth Touch & Scroll Cards */}
+        <div
+          ref={scrollContainerRef}
+          className="smooth-scroll-container"
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          style={{ padding: '8px 4px 16px 4px' }}
+        >
+          {VOICES.map((voice, idx) => (
             <div
               key={voice.id}
-              className="voice reveal"
-              style={{ position: 'relative' }}
+              className="team-card"
+              style={{
+                backgroundColor: '#F3EFEA',
+                borderRadius: '24px',
+                padding: '16px',
+                boxSizing: 'border-box',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
             >
               <div
-                className={`vid ${voice.bgClass}`}
                 style={{
                   position: 'relative',
-                  overflow: 'hidden',
                   width: '100%',
-                  height: '100%',
-                  cursor: 'pointer',
+                  paddingTop: '155%',
+                  backgroundColor: '#1E1B18',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  marginBottom: '20px',
                 }}
-                onClick={() => setActiveVideo({ id: voice.wistiaId, name: voice.name })}
               >
-                <span
-                  className="play"
-                  style={{
-                    zIndex: 2,
-                    pointerEvents: 'none',
-                  }}
-                />
-
-                <span
+                <span style={{
+                  position: 'absolute',
+                  top: '12px',
+                  left: '12px',
+                  backgroundColor: 'rgba(0,0,0,0.5)',
+                  backdropFilter: 'blur(4px)',
+                  color: '#FFF',
+                  padding: '4px 10px',
+                  borderRadius: '12px',
+                  fontSize: '10px',
+                  fontWeight: 600,
+                  letterSpacing: '0.05em',
+                  zIndex: 10,
+                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                }}>
+                  VOICE {String(idx + 1).padStart(2, '0')}
+                </span>
+                <iframe
+                  src={`https://fast.wistia.net/embed/iframe/${voice.id}?videoFoam=true`}
+                  title={voice.name}
+                  allow="autoplay; fullscreen"
                   style={{
                     position: 'absolute',
-                    top: 10,
-                    left: 12,
-                    zIndex: 3,
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    letterSpacing: '.12em',
-                    color: 'rgba(255,255,255,0.85)',
-                    background: 'rgba(0,0,0,0.45)',
-                    padding: '3px 8px',
-                    borderRadius: '999px',
-                    backdropFilter: 'blur(4px)',
-                    pointerEvents: 'none',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    border: 'none',
+                    pointerEvents: isDragging ? 'none' : 'auto',
                   }}
-                >
-                  VOICE {voice.id}
-                </span>
+                />
               </div>
 
-              <div className="bg-[#FDFBF7] p-5 rounded-b-2xl border-t border-gray-100">
-                <h3 className="font-serif text-lg font-bold text-gray-900 mb-1">
+              <div style={{ padding: '0 8px 12px 8px' }}>
+                <h3 style={{
+                  fontSize: '20px',
+                  fontWeight: 700,
+                  color: '#111827',
+                  margin: '0 0 6px 0',
+                  fontFamily: "'Instrument Serif', Georgia, serif",
+                  letterSpacing: '-0.01em',
+                }}>
                   {voice.name}
                 </h3>
-                <p className="text-[11px] font-semibold tracking-wider text-purple-700 uppercase mb-2">
+                <p style={{
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: '#6D28D9',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  margin: '0 0 10px 0',
+                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                }}>
                   {voice.role}
                 </p>
-                <p className="text-xs text-gray-600 leading-relaxed italic">
-                  "{voice.quote}"
+                <p style={{
+                  fontSize: '13.5px',
+                  color: '#4B5563',
+                  lineHeight: '1.5',
+                  margin: 0,
+                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                }}>
+                  {voice.quote}
                 </p>
               </div>
             </div>
           ))}
         </div>
 
-        <div
-          className="vdots"
-          id="vdots"
-          ref={dotWrapRef}
-          role="tablist"
-          aria-label="Testimonial position"
-        ></div>
-      </div>
-
-      {/* Modern High-Performance Video Modal */}
-      {activeVideo && (
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 999999,
-            background: 'rgba(0, 0, 0, 0.85)',
-            backdropFilter: 'blur(8px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '20px',
-          }}
-          onClick={() => setActiveVideo(null)}
-        >
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              maxWidth: '420px',
-              aspectRatio: '9/16',
-              background: '#000',
-              borderRadius: '16px',
-              overflow: 'hidden',
-              boxShadow: '0 25px 50px -12px rgba(0,0,0,0.7)',
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
+        {/* Dot Indicators */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '36px' }}>
+          {Array.from({ length: totalPages }).map((_, i) => (
             <button
-              onClick={() => setActiveVideo(null)}
+              key={i}
+              onClick={() => scrollToIndex(i)}
+              aria-label={`Go to slide page ${i + 1}`}
               style={{
-                position: 'absolute',
-                top: '12px',
-                right: '12px',
-                zIndex: 100,
-                background: 'rgba(0, 0, 0, 0.6)',
-                color: '#fff',
+                height: '8px',
+                width: activeIndex === i ? '28px' : '8px',
+                borderRadius: '4px',
+                backgroundColor: activeIndex === i ? '#6D28D9' : '#D1D5DB',
                 border: 'none',
-                width: '36px',
-                height: '36px',
-                borderRadius: '50%',
                 cursor: 'pointer',
-                fontSize: '18px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              aria-label="Close video"
-            >
-              ✕
-            </button>
-
-            {/* Direct Wistia Embed Player */}
-            <iframe
-              src={`https://fast.wistia.net/embed/iframe/${activeVideo.id}?autoPlay=1`}
-              title={`${activeVideo.name} Voice Story`}
-              allow="autoplay; fullscreen"
-              allowTransparency={true}
-              frameBorder="0"
-              scrolling="no"
-              style={{
-                width: '100%',
-                height: '100%',
-                border: 'none',
-                display: 'block',
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
               }}
             />
-          </div>
+          ))}
         </div>
-      )}
+      </div>
     </section>
   );
 }

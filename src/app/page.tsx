@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import WorkSection from '@/components/WorkSection';
 import WhyWeExist from '@/components/WhyWeExist';
+import TeamVoices from '@/components/TeamVoices';
 import Benefits from '@/components/Benefits';
 import Leadership from '@/components/Leadership';
 import RolesSection from '@/components/RolesSection';
@@ -28,6 +29,7 @@ export default function Home() {
       <HeroSection />
       <WorkSection />
       <WhyWeExist />
+      <TeamVoices />
       <Benefits />
       <Leadership />
       <RolesSection jobs={MOCK_JOBS} />
