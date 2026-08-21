@@ -90,7 +90,7 @@ export default function TeamVoices() {
   return (
     <section style={{ backgroundColor: '#FAF8F5', padding: '80px 24px', width: '100%', overflow: 'hidden' }}>
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
 
         .smooth-scroll-container {
           display: flex;
@@ -151,16 +151,24 @@ export default function TeamVoices() {
 
             <h2 style={{
               fontSize: 'clamp(38px, 5.2vw, 64px)',
-              fontWeight: 700,
+              fontWeight: 400,
               color: '#111827',
-              lineHeight: '1.1',
-              margin: '0 0 12px 0',
-              fontFamily: "'GT Super Display', 'Baskerville', 'Instrument Serif', Georgia, serif",
-              letterSpacing: '-0.03em',
-              maxWidth: '820px',
+              lineHeight: '1.15',
+              margin: '0 0 16px 0',
+              fontFamily: '"Playfair Display", Georgia, serif',
+              letterSpacing: '-0.02em',
+              maxWidth: '900px',
             }}>
               Don&apos;t take our word. Hear what your{' '}
-              <span style={{ color: '#6D28D9', fontStyle: 'italic', fontWeight: 500 }}>co-workers</span> say.
+              <span style={{
+                color: '#6D28D9',
+                fontStyle: 'italic',
+                fontWeight: 700,
+                whiteSpace: 'nowrap',
+              }}>
+                co-workers
+              </span>{' '}
+              say.
             </h2>
 
             <p style={{
