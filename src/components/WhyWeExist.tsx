@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const WHY_WE_EXIST_BG_IMAGE = 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000&auto=format&fit=crop';
+const OFFICE_BG_IMAGE = '/assets/office-bg.jpg';
 
 const CINEMATIC_STATS = [
   { value: '3.2B+', label: 'Total Views Generated' },
@@ -18,43 +18,42 @@ export default function WhyWeExist() {
       className="dark"
       id="why-we-exist"
       style={{
-        backgroundImage: `url(${WHY_WE_EXIST_BG_IMAGE})`,
+        backgroundImage: `url(${OFFICE_BG_IMAGE})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
         position: 'relative',
         minHeight: '85vh',
-        padding: '120px 0',
+        padding: '130px 0 110px 0',
         display: 'flex',
         alignItems: 'center',
         overflow: 'hidden',
       }}
     >
-      {/* Dark gradient overlay */}
+      {/* Mandatory Strong Linear Dark Gradient Overlay */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.88) 0%, rgba(11,9,20,0.92) 50%, rgba(0,0,0,0.95) 100%)',
+          background: 'linear-gradient(180deg, rgba(13,11,18,0.92) 0%, rgba(13,11,18,0.75) 100%)',
           pointerEvents: 'none',
           zIndex: 0,
         }}
       />
 
-      {/* Ambient subtle purple radial glow */}
       <div
-        aria-hidden="true"
+        className="wrap"
         style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'radial-gradient(circle at center, rgba(109,40,217,0.15) 0%, transparent 70%)',
-          pointerEvents: 'none',
-          zIndex: 1,
+          position: 'relative',
+          zIndex: 2,
+          width: '100%',
+          maxWidth: '1240px',
+          margin: '0 auto',
+          padding: '0 32px',
         }}
-      />
-
-      <div className="wrap" style={{ position: 'relative', zIndex: 2, width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+      >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -62,70 +61,89 @@ export default function WhyWeExist() {
           viewport={{ once: false, margin: '-80px' }}
         >
           {/* Section Tag */}
-          <span
+          <motion.span
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false, margin: '-80px' }}
             style={{
-              color: '#A855F7',
+              color: '#C084FC',
               fontWeight: 700,
               letterSpacing: '0.22em',
               fontSize: '11px',
               textTransform: 'uppercase',
               display: 'block',
-              marginBottom: '20px',
+              marginBottom: '24px',
             }}
           >
             WHY WE EXIST
-          </span>
+          </motion.span>
 
-          {/* Primary Focal Headline */}
-          <h2
+          {/* Primary Focal Headline - Asymmetrically Aligned Editorial Typography */}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false, margin: '-80px' }}
             style={{
               color: '#FFFFFF',
               fontFamily: '"Playfair Display", Georgia, serif',
               fontWeight: 400,
-              fontSize: 'clamp(32px, 4.8vw, 58px)',
+              fontSize: 'clamp(34px, 4.8vw, 60px)',
               lineHeight: '1.18',
-              margin: '0 0 28px 0',
-              maxWidth: '920px',
+              margin: '0 0 32px 0',
+              maxWidth: '960px',
               letterSpacing: '-0.02em',
             }}
           >
             The internet is full of{' '}
-            <em style={{ fontStyle: 'italic', color: '#A855F7', fontWeight: 600 }}>
+            <em style={{ fontStyle: 'italic', color: '#C084FC', fontWeight: 700 }}>
               average
             </em>{' '}
             content. We&apos;re not interested in making more of it.
-          </h2>
+          </motion.h2>
 
           {/* Body Paragraph */}
-          <p
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false, margin: '-80px' }}
             style={{
-              color: '#CBD5E1',
+              color: '#E2E8F0',
               fontSize: 'clamp(16px, 1.8vw, 20px)',
               lineHeight: '1.65',
-              maxWidth: '680px',
-              margin: '0 0 80px 0',
+              maxWidth: '720px',
+              margin: '0 0 90px 0',
               fontWeight: 400,
+              textShadow: '0 2px 10px rgba(0,0,0,0.5)',
             }}
           >
             We exist to help the top 1% of creators build work they&apos;re proud of, with a team that pushes each other to become ridiculously good at their craft.
-          </p>
+          </motion.p>
 
           {/* Border-separated Horizontal Statistics Strip */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false, margin: '-80px' }}
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-              padding: '40px 0',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+              borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+              padding: '44px 0',
+              backdropFilter: 'blur(4px)',
+              WebkitBackdropFilter: 'blur(4px)',
             }}
           >
             {CINEMATIC_STATS.map((stat, idx) => (
               <div
                 key={idx}
                 style={{
-                  padding: '12px 24px',
-                  borderRight: idx < CINEMATIC_STATS.length - 1 ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
+                  padding: '16px 28px',
+                  borderRight: idx < CINEMATIC_STATS.length - 1 ? '1px solid rgba(255, 255, 255, 0.12)' : 'none',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
@@ -134,8 +152,8 @@ export default function WhyWeExist() {
                 <div
                   style={{
                     fontFamily: '"Playfair Display", Georgia, serif',
-                    fontWeight: 500,
-                    fontSize: 'clamp(34px, 4.2vw, 56px)',
+                    fontWeight: 700,
+                    fontSize: 'clamp(36px, 4.4vw, 58px)',
                     color: '#FFFFFF',
                     lineHeight: 1,
                     letterSpacing: '-0.02em',
@@ -145,12 +163,12 @@ export default function WhyWeExist() {
                 </div>
                 <div
                   style={{
-                    color: '#94A3B8',
+                    color: '#D1D5DB',
                     fontSize: '12px',
                     letterSpacing: '0.12em',
                     textTransform: 'uppercase',
                     fontWeight: 600,
-                    marginTop: '10px',
+                    marginTop: '12px',
                     fontFamily: '"Plus Jakarta Sans", sans-serif',
                   }}
                 >
@@ -158,7 +176,7 @@ export default function WhyWeExist() {
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
