@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import type { FaqItem } from '@/types';
 
 const DEFAULT_FAQS = [
@@ -57,7 +60,13 @@ export default function FaqSection({ items }: FaqSectionProps) {
     : DEFAULT_FAQS;
   return (
     <section className="section" id="faq">
-      <div className="wrap">
+      <motion.div
+        className="wrap"
+        initial={{ opacity: 0.15, filter: 'blur(10px)', y: 20 }}
+        whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: false, margin: '-80px' }}
+      >
         <div className="sec-head reveal">
           <span className="label">Before you apply</span>
           <h2>
@@ -75,7 +84,7 @@ export default function FaqSection({ items }: FaqSectionProps) {
             </details>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

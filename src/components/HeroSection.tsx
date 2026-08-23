@@ -257,7 +257,7 @@ export default function HeroSection() {
                 animate={{ opacity: 1, letterSpacing: '8px',  scale: 1.0,  filter: 'blur(0px)' }}
                 transition={{ delay: 1.6, duration: 1.1, ease: LIQUID_EASE }}
                 style={{
-                  fontFamily: "'Bodoni Moda', 'Cinzel', Georgia, serif",
+                  fontFamily: "'Playfair Display', Georgia, serif",
                   fontSize: 'clamp(28px, 4.5vw, 52px)',
                   fontWeight: 700,
                   color: '#FFFFFF',

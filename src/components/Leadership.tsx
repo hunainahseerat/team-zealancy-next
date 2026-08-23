@@ -1,4 +1,7 @@
+'use client';
+
 import type { TeamMember } from '@/types';
+import { motion } from 'framer-motion';
 
 interface LeaderItem {
   name: string;
@@ -10,8 +13,6 @@ interface LeaderItem {
   linkedinUrl: string;
 }
 
-const BG_CLASSES = ['g-royal', 'g-violet', 'g-dusk', 'g-plum'];
-
 const DEFAULT_LEADERS: LeaderItem[] = [
   {
     name: 'Hamza Chaudhry',
@@ -20,7 +21,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
     bgClass: 'g-royal',
     bio: "A founder on paper, but more of a mentor to the team. Hamza started as a freelance video editor at 19 and built Zealancy from scratch. Today he's focused on building a team where people take ownership, grow fast, and become better at their craft.",
     instagramUrl: 'https://www.instagram.com/hamzachaudharyyyyyy/',
-    linkedinUrl: 'https://www.linkedin.com/company/zealancy',
+    linkedinUrl: 'https://www.linkedin.com/in/hamza-chaudhary-4a215042a/',
   },
   {
     name: 'Shehroz Khan',
@@ -37,7 +38,7 @@ const DEFAULT_LEADERS: LeaderItem[] = [
     avatarUrl: '/assets/team/v2-aribah.jpg',
     bgClass: 'g-dusk',
     bio: "Aribah is the person behind Zealancy's growth engine. She works across marketing, sales, and strategy to bring in the right opportunities and turn creative work into measurable results.",
-    instagramUrl: 'https://www.instagram.com/teamzealancy/',
+    instagramUrl: 'https://www.instagram.com/aribahsiddiqui_?igsi=Mmw0cnR6dHY2NXY1',
     linkedinUrl: 'https://www.linkedin.com/in/aribah-siddiqui-479625279',
   },
   {
@@ -70,7 +71,13 @@ export default function Leadership({ members }: LeadershipProps) {
 
   return (
     <section className="section" id="core-leadership">
-      <div className="wrap">
+      <motion.div
+        className="wrap"
+        initial={{ opacity: 0.15, filter: 'blur(10px)', y: 20 }}
+        whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: false, margin: '-80px' }}
+      >
         <div className="sec-head reveal">
           <span className="label">Core Leadership</span>
 
@@ -189,7 +196,7 @@ export default function Leadership({ members }: LeadershipProps) {
             </article>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -1,6 +1,8 @@
 'use client';
+
 import React, { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const VOICES = [
   { id: '76pq9sletd', name: 'Muhammad Usman Laghari', role: 'SENIOR PROJECT MANAGER', quote: '"Managing complex productions daily — this team makes it genuinely exciting to deliver."' },
@@ -26,6 +28,9 @@ export default function TeamVoices() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+
+  /* Track playing state per video card */
+  const [playingId, setPlayingId] = useState<string | null>(null);
 
   const checkScrollButtons = () => {
     if (!scrollContainerRef.current) return;
@@ -116,14 +121,10 @@ export default function TeamVoices() {
         }
 
         @media (max-width: 1024px) {
-          .team-card {
-            flex: 0 0 calc((100% - 24px) / 2);
-          }
+          .team-card { flex: 0 0 calc((100% - 24px) / 2); }
         }
         @media (max-width: 640px) {
-          .team-card {
-            flex: 0 0 100%;
-          }
+          .team-card { flex: 0 0 100%; }
         }
 
         .team-card:hover {
@@ -132,8 +133,13 @@ export default function TeamVoices() {
         }
       `}</style>
 
-      <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
-
+      <motion.div
+        style={{ maxWidth: '1240px', margin: '0 auto' }}
+        initial={{ opacity: 0.15, filter: 'blur(10px)', y: 20 }}
+        whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: false, margin: '-80px' }}
+      >
         {/* Header row: text left, arrows right, aligned to bottom */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px' }}>
           <div>
@@ -236,98 +242,135 @@ export default function TeamVoices() {
           onMouseMove={handleMouseMove}
           style={{ padding: '8px 4px 16px 4px' }}
         >
-          {VOICES.map((voice, idx) => (
-            <div
-              key={voice.id}
-              className="team-card"
-              style={{
-                backgroundColor: '#F3EFEA',
-                borderRadius: '24px',
-                padding: '16px',
-                boxSizing: 'border-box',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-              }}
-            >
+          {VOICES.map((voice, idx) => {
+            const isPlaying = playingId === voice.id;
+
+            return (
               <div
+                key={voice.id}
+                className="team-card"
                 style={{
-                  position: 'relative',
-                  width: '100%',
-                  paddingTop: '155%',
-                  backgroundColor: '#1E1B18',
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  marginBottom: '20px',
+                  backgroundColor: '#F3EFEA',
+                  borderRadius: '24px',
+                  padding: '16px',
+                  boxSizing: 'border-box',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
                 }}
               >
-                <span style={{
-                  position: 'absolute',
-                  top: '12px',
-                  left: '12px',
-                  backgroundColor: 'rgba(0,0,0,0.5)',
-                  backdropFilter: 'blur(4px)',
-                  color: '#FFF',
-                  padding: '4px 10px',
-                  borderRadius: '12px',
-                  fontSize: '10px',
-                  fontWeight: 600,
-                  letterSpacing: '0.05em',
-                  zIndex: 10,
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
-                }}>
-                  VOICE {String(idx + 1).padStart(2, '0')}
-                </span>
-                <iframe
-                  src={`https://fast.wistia.net/embed/iframe/${voice.id}?videoFoam=true`}
-                  title={voice.name}
-                  allow="autoplay; fullscreen"
+                <div
                   style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
+                    position: 'relative',
                     width: '100%',
-                    height: '100%',
-                    border: 'none',
-                    pointerEvents: isDragging ? 'none' : 'auto',
+                    paddingTop: '155%',
+                    backgroundColor: '#1E1B18',
+                    borderRadius: '16px',
+                    overflow: 'hidden',
+                    marginBottom: '20px',
                   }}
-                />
-              </div>
+                >
+                  {/* Voice badge */}
+                  <span style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: '12px',
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    backdropFilter: 'blur(4px)',
+                    color: '#FFF',
+                    padding: '4px 10px',
+                    borderRadius: '12px',
+                    fontSize: '10px',
+                    fontWeight: 600,
+                    letterSpacing: '0.05em',
+                    zIndex: 10,
+                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  }}>
+                    VOICE {String(idx + 1).padStart(2, '0')}
+                  </span>
 
-              <div style={{ padding: '0 8px 12px 8px' }}>
-                <h3 style={{
-                  fontSize: '20px',
-                  fontWeight: 700,
-                  color: '#111827',
-                  margin: '0 0 6px 0',
-                  fontFamily: "'Instrument Serif', Georgia, serif",
-                  letterSpacing: '-0.01em',
-                }}>
-                  {voice.name}
-                </h3>
-                <p style={{
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  color: '#6D28D9',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  margin: '0 0 10px 0',
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
-                }}>
-                  {voice.role}
-                </p>
-                <p style={{
-                  fontSize: '13.5px',
-                  color: '#4B5563',
-                  lineHeight: '1.5',
-                  margin: 0,
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
-                }}>
-                  {voice.quote}
-                </p>
+                  {/* Wistia iframe */}
+                  <iframe
+                    src={`https://fast.wistia.net/embed/iframe/${voice.id}?videoFoam=true&playerColor=6D28D9&playButton=false${isPlaying ? '&autoPlay=true' : ''}`}
+                    title={voice.name}
+                    allow="autoplay; fullscreen"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      border: 'none',
+                      pointerEvents: isDragging ? 'none' : 'auto',
+                    }}
+                  />
+
+                  {/* Micro 32x32 purple play button overlay — HIDES COMPLETELY WHEN PLAYING */}
+                  {!isPlaying && (
+                    <button
+                      onClick={() => setPlayingId(voice.id)}
+                      aria-label={`Play ${voice.name} video`}
+                      style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        backgroundColor: '#6D28D9',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 4px 14px rgba(109, 40, 217, 0.5)',
+                        border: 'none',
+                        cursor: 'pointer',
+                        zIndex: 20,
+                        transition: 'transform 0.2s ease, opacity 0.3s ease',
+                      }}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <polygon points="4,2.5 9.5,6 4,9.5" fill="white" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+
+                <div style={{ padding: '0 8px 12px 8px' }}>
+                  <h3 style={{
+                    fontSize: '20px',
+                    fontWeight: 700,
+                    color: '#111827',
+                    margin: '0 0 6px 0',
+                    fontFamily: "'Instrument Serif', Georgia, serif",
+                    letterSpacing: '-0.01em',
+                  }}>
+                    {voice.name}
+                  </h3>
+                  <p style={{
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    color: '#6D28D9',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    margin: '0 0 10px 0',
+                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  }}>
+                    {voice.role}
+                  </p>
+                  <p style={{
+                    fontSize: '13.5px',
+                    color: '#4B5563',
+                    lineHeight: '1.5',
+                    margin: 0,
+                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  }}>
+                    {voice.quote}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Dot Indicators */}
@@ -349,7 +392,7 @@ export default function TeamVoices() {
             />
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

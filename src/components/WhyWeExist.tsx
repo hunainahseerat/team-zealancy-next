@@ -1,87 +1,18 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 
-// ASSET: Drop the background image at public/assets/images/why-we-exist-bg.jpg
-// When the file is present, it will render automatically as the section background.
-const WHY_WE_EXIST_BG_IMAGE = '/assets/images/why-we-exist-bg.jpg';
+const WHY_WE_EXIST_BG_IMAGE = 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000&auto=format&fit=crop';
 
-const STATS_DATA = [
-  { initial: '3.2B+', label: 'Views shipped' },
-  { initial: '50+', label: 'Channels grown' },
-  { initial: '5M+', label: 'Followers added' },
-  { initial: '22+', label: 'People on the team' },
+const CINEMATIC_STATS = [
+  { value: '3.2B+', label: 'Total Views Generated' },
+  { value: '50+', label: 'Active Brand Partners' },
+  { value: '5M+', label: 'Audience Reached' },
+  { value: '22+', label: 'Team Specialists' },
 ];
 
 export default function WhyWeExist() {
-  const statWrapRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    const statWrap = statWrapRef.current;
-    if (!statWrap) return;
-
-    const figures = statWrap.querySelectorAll<HTMLElement>('.stat .sv');
-    figures.forEach((el) => {
-      el.dataset.final = el.textContent?.trim() || '';
-    });
-
-    function countUp(el: HTMLElement, delay: number) {
-      const finalVal = el.dataset.final || '';
-      const parts = finalVal.match(/^([\d.]+)(.*)$/);
-      if (!parts) return;
-
-      const target = parseFloat(parts[1]);
-      const suffix = parts[2];
-      const dot = parts[1].indexOf('.');
-      const decimals = dot === -1 ? 0 : parts[1].length - dot - 1;
-      const duration = 2600;
-      let startedAt: number | null = null;
-
-      el.textContent = (0).toFixed(decimals) + suffix;
-
-      function frame(now: number) {
-        if (startedAt === null) startedAt = now;
-        const p = Math.min((now - startedAt) / duration, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-
-        if (p < 1) {
-          el.textContent = (eased * target).toFixed(decimals) + suffix;
-          requestAnimationFrame(frame);
-        } else {
-          el.textContent = finalVal;
-        }
-      }
-
-      setTimeout(() => {
-        requestAnimationFrame(frame);
-      }, delay);
-    }
-
-    if (!reduceMotion && 'IntersectionObserver' in window && figures.length) {
-      let counted = false;
-      const statObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting || counted) return;
-            counted = true;
-            statWrap.classList.add('counted');
-            figures.forEach((el, i) => countUp(el, i * 150));
-            statObserver.disconnect();
-          });
-        },
-        { threshold: 0.15, rootMargin: '0px 0px -12% 0px' }
-      );
-
-      statObserver.observe(statWrap);
-      return () => statObserver.disconnect();
-    } else {
-      statWrap.classList.add('counted');
-    }
-  }, []);
-
   return (
     <section
       className="dark"
@@ -92,37 +23,143 @@ export default function WhyWeExist() {
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         position: 'relative',
+        minHeight: '85vh',
+        padding: '120px 0',
+        display: 'flex',
+        alignItems: 'center',
+        overflow: 'hidden',
       }}
     >
-      {/* Dark overlay — ensures legibility over background image */}
+      {/* Dark gradient overlay */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'rgba(20,16,25,0.84)',
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.88) 0%, rgba(11,9,20,0.92) 50%, rgba(0,0,0,0.95) 100%)',
           pointerEvents: 'none',
           zIndex: 0,
         }}
       />
-      <div className="wrap" style={{ position: 'relative', zIndex: 1 }}>
-        <div className="sec-head" style={{ maxWidth: '760px', marginBottom: 0 }}>
-          <span className="label">Why we exist</span>
-          <h2 style={{ color: 'var(--cream)' }}>
-            The internet is full of <em>average</em> content. We're not interested in making more of it.
+
+      {/* Ambient subtle purple radial glow */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at center, rgba(109,40,217,0.15) 0%, transparent 70%)',
+          pointerEvents: 'none',
+          zIndex: 1,
+        }}
+      />
+
+      <div className="wrap" style={{ position: 'relative', zIndex: 2, width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: false, margin: '-80px' }}
+        >
+          {/* Section Tag */}
+          <span
+            style={{
+              color: '#A855F7',
+              fontWeight: 700,
+              letterSpacing: '0.22em',
+              fontSize: '11px',
+              textTransform: 'uppercase',
+              display: 'block',
+              marginBottom: '20px',
+            }}
+          >
+            WHY WE EXIST
+          </span>
+
+          {/* Primary Focal Headline */}
+          <h2
+            style={{
+              color: '#FFFFFF',
+              fontFamily: '"Playfair Display", Georgia, serif',
+              fontWeight: 400,
+              fontSize: 'clamp(32px, 4.8vw, 58px)',
+              lineHeight: '1.18',
+              margin: '0 0 28px 0',
+              maxWidth: '920px',
+              letterSpacing: '-0.02em',
+            }}
+          >
+            The internet is full of{' '}
+            <em style={{ fontStyle: 'italic', color: '#A855F7', fontWeight: 600 }}>
+              average
+            </em>{' '}
+            content. We&apos;re not interested in making more of it.
           </h2>
-          <p>
-            We exist help the top 1% of creators build work they're proud of, with a team that pushes each other to become ridiculously good at their craft.
+
+          {/* Body Paragraph */}
+          <p
+            style={{
+              color: '#CBD5E1',
+              fontSize: 'clamp(16px, 1.8vw, 20px)',
+              lineHeight: '1.65',
+              maxWidth: '680px',
+              margin: '0 0 80px 0',
+              fontWeight: 400,
+            }}
+          >
+            We exist to help the top 1% of creators build work they&apos;re proud of, with a team that pushes each other to become ridiculously good at their craft.
           </p>
-        </div>
-        <div className="stats" ref={statWrapRef}>
-          {STATS_DATA.map((item, index) => (
-            <div key={index} className="stat reveal">
-              <div className="sv">{item.initial}</div>
-              <div className="sl">{item.label}</div>
-            </div>
-          ))}
-        </div>
+
+          {/* Border-separated Horizontal Statistics Strip */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+              padding: '40px 0',
+            }}
+          >
+            {CINEMATIC_STATS.map((stat, idx) => (
+              <div
+                key={idx}
+                style={{
+                  padding: '12px 24px',
+                  borderRight: idx < CINEMATIC_STATS.length - 1 ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: '"Playfair Display", Georgia, serif',
+                    fontWeight: 500,
+                    fontSize: 'clamp(34px, 4.2vw, 56px)',
+                    color: '#FFFFFF',
+                    lineHeight: 1,
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  {stat.value}
+                </div>
+                <div
+                  style={{
+                    color: '#94A3B8',
+                    fontSize: '12px',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    fontWeight: 600,
+                    marginTop: '10px',
+                    fontFamily: '"Plus Jakarta Sans", sans-serif',
+                  }}
+                >
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

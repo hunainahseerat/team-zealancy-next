@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import type { HiringStep } from '@/types';
 
 const DEFAULT_STEPS = [
@@ -84,7 +85,13 @@ export default function HiringTimeline({ steps }: HiringTimelineProps) {
 
   return (
     <section className="section" id="hiring">
-      <div className="wrap">
+      <motion.div
+        className="wrap"
+        initial={{ opacity: 0.15, filter: 'blur(10px)', y: 20 }}
+        whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: false, margin: '-80px' }}
+      >
         <div className="chapter reveal">
           <span className="cnum">04</span>
           <span className="clab">How We Hire</span>
@@ -134,7 +141,7 @@ export default function HiringTimeline({ steps }: HiringTimelineProps) {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
