@@ -80,7 +80,7 @@ export const portfolioCardsData = [
     statType: 'Revenue / yr',
     timelineStart: 'Yr 1',
     timelineEnd: 'Now',
-    avatar: null,
+    avatar: '/images/logos/icon-logo.png',
     initialLetter: 'I',
     bgClass: 'g-violet',
     areaPath: 'M0,72 L150,71 L300,69 L400,65 L460,60 L510,38 L560,16 L600,3 L600,80 L0,80 Z',

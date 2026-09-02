@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { MapPin, Briefcase, Clock, Globe, Check, ArrowUpRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { MOCK_JOBS } from '@/data/jobs';
@@ -10,7 +11,7 @@ const FILLOUT_APPLY_URL = 'https://teamzealancy.fillout.com/t/t5KUpC3pEtus';
 
 export function getRoleBannerImage(slug: string): string {
   switch (slug) {
-    // â”€â”€ Video Production (Unique per role) â”€â”€
+    // -- Video Production (Unique per role) --
     case 'long-form-video-editor':
       return 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=1600&auto=format&fit=crop';
     case 'short-form-video-editor-ugc-ads':
@@ -20,19 +21,19 @@ export function getRoleBannerImage(slug: string): string {
     case 'senior-video-editor':
       return 'https://images.unsplash.com/photo-1535016120720-40c646be5580?q=80&w=1600&auto=format&fit=crop';
 
-    // â”€â”€ Design & Creative (Unique per role) â”€â”€
+    // -- Design & Creative (Unique per role) --
     case 'thumbnail-designer':
       return 'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=1600&auto=format&fit=crop';
     case 'graphics-designer':
       return 'https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1600&auto=format&fit=crop';
 
-    // â”€â”€ Content & Writing (Unique per role) â”€â”€
+    // -- Content & Writing (Unique per role) --
     case 'content-writer':
       return 'https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1600&auto=format&fit=crop';
     case 'scriptwriter':
       return 'https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=1600&auto=format&fit=crop';
 
-    // â”€â”€ Business Development (Unique per role) â”€â”€
+    // -- Business Development (Unique per role) --
     case 'business-development-representative':
       return 'https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1600&auto=format&fit=crop';
     case 'proposal-writer':
@@ -40,13 +41,13 @@ export function getRoleBannerImage(slug: string): string {
     case 'business-development-manager':
       return 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop';
 
-    // â”€â”€ Engineering & Tech (Unique per role) â”€â”€
+    // -- Engineering & Tech (Unique per role) --
     case 'full-stack-developer':
       return 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop';
     case 'it-system-administrator':
       return 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop';
 
-    // â”€â”€ Operations & Management (Unique per role) â”€â”€
+    // -- Operations & Management (Unique per role) --
     case 'project-manager':
       return 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1600&auto=format&fit=crop';
     case 'account-manager':
@@ -56,7 +57,7 @@ export function getRoleBannerImage(slug: string): string {
     case 'admin':
       return 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1600&auto=format&fit=crop';
 
-    // â”€â”€ People & Culture (Unique per role) â”€â”€
+    // -- People & Culture (Unique per role) --
     case 'creative-recruiter':
       return 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1600&auto=format&fit=crop';
     case 'hr-people-operations':
@@ -83,12 +84,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!job) {
     return {
-      title: 'Role Not Found â€” Team Zealancy Careers',
+      title: 'Role Not Found - Team Zealancy Careers',
       description: 'The requested job opening could not be found.',
     };
   }
 
-  const title = `${job.title} â€” Team Zealancy Careers`;
+  const title = `${job.title} - Team Zealancy Careers`;
   const description = job.shortDesc || job.description || `Join Team Zealancy as a ${job.title}. Apply now for open positions.`;
   const bannerImage = getRoleBannerImage(job.slug);
 
@@ -175,25 +176,25 @@ export default async function DynamicJobDescriptionPage({ params }: PageProps) {
           {/* Info-bar Metadata (.meta-row) */}
           <div className="meta-row">
             <div className="meta-item">
-              <span className="meta-icon">ðŸ“</span>
+              <span className="meta-icon"><MapPin className="w-4 h-4 text-purple-600 inline mr-1" /></span>
               <span className="meta-label">Location:</span>
               <span className="meta-val">{job.location || 'Pakistan (Remote)'}</span>
             </div>
             <div className="meta-divider" />
             <div className="meta-item">
-              <span className="meta-icon">ðŸ’¼</span>
+              <span className="meta-icon"><Briefcase className="w-4 h-4 text-purple-600 inline mr-1" /></span>
               <span className="meta-label">Employment:</span>
               <span className="meta-val">{job.type || 'Full-time'}</span>
             </div>
             <div className="meta-divider" />
             <div className="meta-item">
-              <span className="meta-icon">â±ï¸</span>
+              <span className="meta-icon"><Clock className="w-4 h-4 text-purple-600 inline mr-1" /></span>
               <span className="meta-label">Experience:</span>
               <span className="meta-val">{job.experience || '2+ years'}</span>
             </div>
             <div className="meta-divider" />
             <div className="meta-item">
-              <span className="meta-icon">ðŸ¢</span>
+              <span className="meta-icon"><Globe className="w-4 h-4 text-purple-600 inline mr-1" /></span>
               <span className="meta-label">Mode:</span>
               <span className="meta-val">{job.mode || 'Remote'}</span>
             </div>
@@ -258,7 +259,7 @@ export default async function DynamicJobDescriptionPage({ params }: PageProps) {
                 </section>
               )}
 
-              {/* Section 4: Company Benefits â€” 100% Synced with Live Site Grid & Symmetry */}
+              {/* Section 4: Company Benefits - 100% Synced with Live Site Grid & Symmetry */}
               <section id="benefits" className="jd-section jd-benefits-section">
                 <div className="jd-sec-header">
                   <span className="jd-sec-num">04</span>
@@ -403,7 +404,7 @@ export default async function DynamicJobDescriptionPage({ params }: PageProps) {
                 <h3 className="jd-sidebar-role-title">{job.title}</h3>
                 <div className="jd-sidebar-meta">
                   <span>{job.department}</span>
-                  <i>â€¢</i>
+                  <i>•</i>
                   <span>{job.type}</span>
                 </div>
 
@@ -411,15 +412,15 @@ export default async function DynamicJobDescriptionPage({ params }: PageProps) {
 
                 <div className="jd-sidebar-highlights">
                   <div className="jd-highlight-item">
-                    <span className="hl-icon">âš¡</span>
+                    <span className="hl-icon"><Check className="w-4 h-4 text-purple-600 inline mr-1" /></span>
                     <span>Direct review by leadership</span>
                   </div>
                   <div className="jd-highlight-item">
-                    <span className="hl-icon">â±ï¸</span>
-                    <span>24â€“48h initial review time</span>
+                    <span className="hl-icon"><Clock className="w-4 h-4 text-purple-600 inline mr-1" /></span>
+                    <span>24-48h initial review time</span>
                   </div>
                   <div className="jd-highlight-item">
-                    <span className="hl-icon">ðŸ’¼</span>
+                    <span className="hl-icon"><Briefcase className="w-4 h-4 text-purple-600 inline mr-1" /></span>
                     <span>{job.mode} setup</span>
                   </div>
                 </div>
@@ -430,7 +431,7 @@ export default async function DynamicJobDescriptionPage({ params }: PageProps) {
                   rel="noopener noreferrer"
                   className="btn jd-sidebar-apply-btn"
                 >
-                  Apply Now â†’
+                  Apply Now <ArrowUpRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
 
                 <p className="jd-sidebar-apply-note">
@@ -516,7 +517,7 @@ export default async function DynamicJobDescriptionPage({ params }: PageProps) {
           transform: translateX(-3px);
         }
 
-        /* Hero Banner (.banner) â€” Exact radial gradient overlay & compact padding */
+        /* Hero Banner (.banner) - Exact radial gradient overlay & compact padding */
         .banner {
           position: relative;
           border-radius: 24px;

@@ -49,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="js">
+    <html lang="en" className="js" suppressHydrationWarning={true}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -59,7 +59,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
-      <body>
+      <body suppressHydrationWarning={true}>
         <SmoothScroll />
         <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true" focusable="false">
           <defs>
