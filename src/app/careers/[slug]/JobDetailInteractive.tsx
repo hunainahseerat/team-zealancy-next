@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ThumbsUp, ThumbsDown } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, Copy } from 'lucide-react';
+import { FaLinkedinIn, FaXTwitter, FaWhatsapp } from 'react-icons/fa6';
 
 interface JobDetailInteractiveProps {
   jobTitle: string;
@@ -107,27 +108,24 @@ export function CopyShareBar({ jobTitle, slug }: JobDetailInteractiveProps) {
   return (
     <div className="jd-share-wrap">
       <div className="jd-share-label">Share this role:</div>
-      <div className="jd-share-actions">
+      <div className="jd-share-actions flex gap-3 items-center">
         <button
           type="button"
           onClick={handleCopy}
-          className={`jd-copy-btn ${copied ? 'is-copied' : ''}`}
+          className={`h-11 px-4 rounded-full border border-zinc-200/60 bg-stone-100/80 flex items-center justify-center transition-all duration-300 ease-in-out hover:bg-purple-600 hover:text-white hover:border-purple-600 hover:shadow-md ${copied ? 'bg-purple-600 text-white border-purple-600' : 'text-zinc-700'}`}
           aria-label="Copy job link"
         >
           {copied ? (
             <>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
                 <path d="M20 6L9 17l-5-5" />
               </svg>
-              <span>Link Copied!</span>
+              <span className="font-medium text-sm">Link Copied!</span>
             </>
           ) : (
             <>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-              </svg>
-              <span>Copy Link</span>
+              <Copy className="w-4 h-4 mr-2" />
+              <span className="font-medium text-sm">Copy Link</span>
             </>
           )}
         </button>
@@ -135,40 +133,31 @@ export function CopyShareBar({ jobTitle, slug }: JobDetailInteractiveProps) {
         <button
           type="button"
           onClick={() => handleShare('linkedin')}
-          className="w-10 h-10 rounded-full border border-zinc-200 flex items-center justify-center transition-colors hover:bg-zinc-50"
+          className="jd-share-icon-btn linkedin"
           title="Share on LinkedIn"
           aria-label="Share on LinkedIn"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-700">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-            <rect width="4" height="12" x="2" y="9" />
-            <circle cx="4" cy="4" r="2" />
-          </svg>
+          <FaLinkedinIn className="w-4 h-4" />
         </button>
 
         <button
           type="button"
           onClick={() => handleShare('twitter')}
-          className="w-10 h-10 rounded-full border border-zinc-200 flex items-center justify-center transition-colors hover:bg-zinc-50"
+          className="jd-share-icon-btn x-twitter"
           title="Share on X / Twitter"
           aria-label="Share on X / Twitter"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-700">
-            <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
-            <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
-          </svg>
+          <FaXTwitter className="w-4 h-4" />
         </button>
 
         <button
           type="button"
           onClick={() => handleShare('whatsapp')}
-          className="w-10 h-10 rounded-full border border-zinc-200 flex items-center justify-center transition-colors hover:bg-zinc-50"
+          className="jd-share-icon-btn whatsapp"
           title="Share on WhatsApp"
           aria-label="Share on WhatsApp"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-700">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-          </svg>
+          <FaWhatsapp className="w-4 h-4" />
         </button>
       </div>
     </div>

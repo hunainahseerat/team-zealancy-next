@@ -1089,74 +1089,99 @@ export default async function DynamicJobDescriptionPage({ params }: PageProps) {
           margin: 12px 0 0;
         }
 
-        /* Share & Copy Bar */
+        /* Share & Copy Bar — Premium Redesign */
         .jd-share-wrap {
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 12px;
         }
 
         .jd-share-label {
-          font-size: 12px;
-          font-weight: 600;
-          color: #6C6575;
+          font-size: 11px;
+          font-weight: 700;
+          color: #9E98A8;
           text-transform: uppercase;
-          letter-spacing: 0.06em;
+          letter-spacing: 0.10em;
         }
 
         .jd-share-actions {
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 10px;
         }
 
         .jd-copy-btn {
-          flex: 1;
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 6px;
-          background: #FBF9F3;
-          border: 1px solid rgba(25, 21, 33, 0.14);
+          gap: 7px;
+          height: 44px;
+          padding: 0 20px;
+          background: #F4F0FB;
+          border: 1.5px solid rgba(93, 45, 176, 0.18);
           border-radius: 999px;
-          padding: 8px 14px;
-          font-size: 12.5px;
+          font-size: 13px;
           font-weight: 600;
-          color: #191521;
+          color: #5D2DB0;
           cursor: pointer;
-          transition: all 0.2s ease;
+          transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+          letter-spacing: 0.01em;
+          box-shadow: 0 1px 4px rgba(93, 45, 176, 0.08);
         }
 
         .jd-copy-btn:hover {
-          background: #FFFFFF;
+          background: #5D2DB0;
           border-color: #5D2DB0;
-          color: #5D2DB0;
+          color: #FFFFFF;
+          box-shadow: 0 6px 20px -4px rgba(93, 45, 176, 0.45);
+          transform: translateY(-1px);
         }
 
         .jd-copy-btn.is-copied {
-          background: rgba(93, 45, 176, 0.1);
+          background: #5D2DB0;
           border-color: #5D2DB0;
-          color: #5D2DB0;
+          color: #FFFFFF;
+          box-shadow: 0 6px 20px -4px rgba(93, 45, 176, 0.35);
         }
 
         .jd-share-icon-btn {
-          width: 36px;
-          height: 36px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
-          background: #FBF9F3;
-          border: 1px solid rgba(25, 21, 33, 0.14);
-          color: #6C6575;
+          background: #F7F5FB;
+          border: 1.5px solid rgba(93, 45, 176, 0.12);
+          color: #7B6B8A;
           display: grid;
           place-items: center;
           cursor: pointer;
-          transition: all 0.2s ease;
+          transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+          box-shadow: 0 1px 4px rgba(25, 21, 33, 0.05);
         }
 
         .jd-share-icon-btn:hover {
-          background: #FFFFFF;
-          border-color: #5D2DB0;
-          color: #5D2DB0;
-          transform: translateY(-2px);
+          transform: translateY(-2px) scale(1.06);
+          box-shadow: 0 8px 22px -4px rgba(25, 21, 33, 0.18);
+        }
+
+        .jd-share-icon-btn.linkedin:hover {
+          background: #0A66C2;
+          border-color: #0A66C2;
+          color: #FFFFFF;
+          box-shadow: 0 8px 22px -4px rgba(10, 102, 194, 0.45);
+        }
+
+        .jd-share-icon-btn.x-twitter:hover {
+          background: #000000;
+          border-color: #000000;
+          color: #FFFFFF;
+          box-shadow: 0 8px 22px -4px rgba(0, 0, 0, 0.30);
+        }
+
+        .jd-share-icon-btn.whatsapp:hover {
+          background: #25D366;
+          border-color: #25D366;
+          color: #FFFFFF;
+          box-shadow: 0 8px 22px -4px rgba(37, 211, 102, 0.45);
         }
 
         /* Pitch Mini Card */
