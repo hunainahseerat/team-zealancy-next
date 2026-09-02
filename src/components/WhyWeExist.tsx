@@ -24,8 +24,8 @@ export default function WhyWeExist() {
         backgroundRepeat: 'no-repeat',
         backgroundAttachment: 'fixed',
         position: 'relative',
-        minHeight: '85vh',
-        padding: '130px 0 110px 0',
+        minHeight: 'auto',
+        padding: '76px 0 68px 0',
         display: 'flex',
         alignItems: 'center',
         overflow: 'hidden',
@@ -55,17 +55,17 @@ export default function WhyWeExist() {
         }}
       >
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: false, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: false, margin: '-60px' }}
         >
           {/* Section Tag */}
           <motion.span
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: false, margin: '-80px' }}
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false, margin: '-60px' }}
             style={{
               color: '#C084FC',
               fontWeight: 700,
@@ -73,25 +73,25 @@ export default function WhyWeExist() {
               fontSize: '11px',
               textTransform: 'uppercase',
               display: 'block',
-              marginBottom: '24px',
+              marginBottom: '16px',
             }}
           >
             WHY WE EXIST
           </motion.span>
 
-          {/* Primary Focal Headline - Asymmetrically Aligned Editorial Typography */}
+          {/* Primary Focal Headline */}
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: false, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false, margin: '-60px' }}
             style={{
               color: '#FFFFFF',
               fontFamily: '"Playfair Display", Georgia, serif',
               fontWeight: 400,
-              fontSize: 'clamp(34px, 4.8vw, 60px)',
+              fontSize: 'clamp(32px, 4.4vw, 54px)',
               lineHeight: '1.18',
-              margin: '0 0 32px 0',
+              margin: '0 0 20px 0',
               maxWidth: '960px',
               letterSpacing: '-0.02em',
             }}
@@ -105,16 +105,16 @@ export default function WhyWeExist() {
 
           {/* Body Paragraph */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: false, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false, margin: '-60px' }}
             style={{
               color: '#E2E8F0',
-              fontSize: 'clamp(16px, 1.8vw, 20px)',
-              lineHeight: '1.65',
+              fontSize: 'clamp(15px, 1.6vw, 18.5px)',
+              lineHeight: '1.6',
               maxWidth: '720px',
-              margin: '0 0 90px 0',
+              margin: '0 0 44px 0',
               fontWeight: 400,
               textShadow: '0 2px 10px rgba(0,0,0,0.5)',
             }}
@@ -124,16 +124,16 @@ export default function WhyWeExist() {
 
           {/* Border-separated Horizontal Statistics Strip */}
           <motion.div
-            initial={{ opacity: 0, y: 25 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: false, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false, margin: '-60px' }}
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
               borderTop: '1px solid rgba(255, 255, 255, 0.12)',
               borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
-              padding: '44px 0',
+              padding: '28px 0',
               backdropFilter: 'blur(4px)',
               WebkitBackdropFilter: 'blur(4px)',
             }}
@@ -142,7 +142,7 @@ export default function WhyWeExist() {
               <div
                 key={idx}
                 style={{
-                  padding: '16px 28px',
+                  padding: '12px 24px',
                   borderRight: idx < CINEMATIC_STATS.length - 1 ? '1px solid rgba(255, 255, 255, 0.12)' : 'none',
                   display: 'flex',
                   flexDirection: 'column',
@@ -153,7 +153,7 @@ export default function WhyWeExist() {
                   style={{
                     fontFamily: '"Playfair Display", Georgia, serif',
                     fontWeight: 700,
-                    fontSize: 'clamp(36px, 4.4vw, 58px)',
+                    fontSize: 'clamp(32px, 3.8vw, 50px)',
                     color: '#FFFFFF',
                     lineHeight: 1,
                     letterSpacing: '-0.02em',
@@ -164,11 +164,11 @@ export default function WhyWeExist() {
                 <div
                   style={{
                     color: '#D1D5DB',
-                    fontSize: '12px',
+                    fontSize: '11.5px',
                     letterSpacing: '0.12em',
                     textTransform: 'uppercase',
                     fontWeight: 600,
-                    marginTop: '12px',
+                    marginTop: '8px',
                     fontFamily: '"Plus Jakarta Sans", sans-serif',
                   }}
                 >

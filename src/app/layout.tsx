@@ -1,12 +1,14 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import PasswordGate from '@/components/PasswordGate';
+import SmoothScroll from '@/components/SmoothScroll';
 
 export const viewport: Viewport = {
   themeColor: '#5D2DB0',
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://teamzealancy.com'),
   title: 'Team Zealancy - Make Content for Top 1%',
   description: 'Make content for the top 1% of creators. Team Zealancy is actively hiring for creative roles.',
   openGraph: {
@@ -49,12 +51,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="js">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
         <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
       <body>
+        <SmoothScroll />
         <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true" focusable="false">
           <defs>
             <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
