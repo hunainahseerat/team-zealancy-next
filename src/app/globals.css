@@ -237,7 +237,7 @@ footer h2 em{color:var(--purple-lift)}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 
-/* ── UPGRADED HERO LOGO SHOWCASE ANIMATION & AMBIENT MESH ── */
+/* - UPGRADED HERO LOGO SHOWCASE ANIMATION & AMBIENT MESH - */
 @keyframes meshPulse {
   0% { opacity: 0.55; transform: scale(1) rotate(0deg); }
   50% { opacity: 0.92; transform: scale(1.15) rotate(2.5deg); }
@@ -323,7 +323,7 @@ footer h2 em{color:var(--purple-lift)}
   box-shadow: 0 4px 20px rgba(93, 45, 176, 0.3);
 }
 
-/* ── PART 2: Work Section Cards Cinematic Reveal ── */
+/* - PART 2: Work Section Cards Cinematic Reveal - */
 .reveal {
   opacity: 0;
   filter: blur(6px);

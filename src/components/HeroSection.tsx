@@ -11,14 +11,14 @@ const PHRASES = [
 ];
 
 export default function HeroSection() {
-  /* ── typewriter ── */
+  /* - typewriter - */
   const headingRef = useRef<HTMLHeadingElement>(null);
   const textRef    = useRef<HTMLSpanElement>(null);
   const caretRef   = useRef<HTMLSpanElement>(null);
   const srRef      = useRef<HTMLSpanElement>(null);
   const [displayText, setDisplayText] = useState(PHRASES[0]);
 
-  /* ── typewriter effect ── */
+  /* - typewriter effect - */
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -104,11 +104,11 @@ export default function HeroSection() {
   return (
     <header className="hero" id="top">
       <div className="wrap">
-        {/* ══════════════════════════════════════════════════════════
+        {/* -
             HERO HEADLINE: DUAL FONT SPECIFICATION
             - "Join Team Zealancy to ": Clean, elegant serif in Dark Charcoal (#18181B)
             - "become the 1%": Elegant stylized italicized serif in Purple Accent (#6D28D9)
-        ══════════════════════════════════════════════════════════ */}
+        - */}
         <h1
           ref={headingRef}
           style={{

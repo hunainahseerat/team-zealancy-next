@@ -1,7 +1,7 @@
-﻿import type { Job } from '@/types';
+import type { Job } from '@/types';
 
 export const MOCK_JOBS: Job[] = [
-  // ── VIDEO PRODUCTION ──────────────────────────────────────────────────────
+  // - VIDEO PRODUCTION -
   {
     id: 'job-001',
     slug: 'long-form-video-editor',
@@ -131,7 +131,7 @@ export const MOCK_JOBS: Job[] = [
     postedAt: '2026-07-08T00:00:00Z',
     updatedAt: '2026-08-01T00:00:00Z',
   },
-  // ── CONTENT ───────────────────────────────────────────────────────────────
+  // - CONTENT -
   {
     id: 'job-005',
     slug: 'content-writer',
@@ -196,7 +196,7 @@ export const MOCK_JOBS: Job[] = [
     postedAt: '2026-07-15T00:00:00Z',
     updatedAt: '2026-08-01T00:00:00Z',
   },
-  // ── DESIGN ────────────────────────────────────────────────────────────────
+  // - DESIGN -
   {
     id: 'job-007',
     slug: 'thumbnail-designer',
@@ -262,7 +262,7 @@ export const MOCK_JOBS: Job[] = [
     postedAt: '2026-07-12T00:00:00Z',
     updatedAt: '2026-08-01T00:00:00Z',
   },
-  // ── BUSINESS DEVELOPMENT ──────────────────────────────────────────────────
+  // - BUSINESS DEVELOPMENT -
   {
     id: 'job-009',
     slug: 'business-development-representative',
@@ -359,7 +359,7 @@ export const MOCK_JOBS: Job[] = [
     postedAt: '2026-07-15T00:00:00Z',
     updatedAt: '2026-08-01T00:00:00Z',
   },
-  // ── OPERATIONS ────────────────────────────────────────────────────────────
+  // - OPERATIONS -
   {
     id: 'job-012',
     slug: 'project-manager',
@@ -424,7 +424,7 @@ export const MOCK_JOBS: Job[] = [
     postedAt: '2026-07-20T00:00:00Z',
     updatedAt: '2026-08-01T00:00:00Z',
   },
-  // ── PEOPLE & CULTURE ─────────────────────────────────────────────────────
+  // - PEOPLE & CULTURE -
   {
     id: 'job-014',
     slug: 'creative-recruiter',
@@ -489,7 +489,7 @@ export const MOCK_JOBS: Job[] = [
     postedAt: '2026-07-22T00:00:00Z',
     updatedAt: '2026-08-01T00:00:00Z',
   },
-  // ── TECHNOLOGY ────────────────────────────────────────────────────────────
+  // - TECHNOLOGY -
   {
     id: 'job-016',
     slug: 'full-stack-developer',
