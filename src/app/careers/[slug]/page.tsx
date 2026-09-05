@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { MapPin, Briefcase, Clock, Globe, Check, ArrowUpRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { MOCK_JOBS } from '@/data/jobs';
+import { getJobBySlug, getAllJobSlugs } from '@/lib/sanity';
 import { DynamicTOC, CopyShareBar, ClarityFeedbackWidget } from './JobDetailInteractive';
 
 const FILLOUT_APPLY_URL = 'https://teamzealancy.fillout.com/t/t5KUpC3pEtus';
@@ -69,8 +69,9 @@ export function getRoleBannerImage(slug: string): string {
 }
 
 export async function generateStaticParams() {
-  return MOCK_JOBS.map((job) => ({
-    slug: job.slug,
+  const slugs = await getAllJobSlugs();
+  return slugs.map((slug) => ({
+    slug,
   }));
 }
 
@@ -80,7 +81,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const job = MOCK_JOBS.find((j) => j.slug === slug);
+  const job = await getJobBySlug(slug);
 
   if (!job) {
     return {
@@ -121,13 +122,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function DynamicJobDescriptionPage({ params }: PageProps) {
   const { slug } = await params;
-  const job = MOCK_JOBS.find((j) => j.slug === slug);
+  const job = await getJobBySlug(slug);
 
   if (!job) {
     notFound();
   }
 
-  const bannerImage = getRoleBannerImage(job.slug);
+  const bannerImage = (job as any).bannerImage || getRoleBannerImage(job.slug);
   const applyHref = `${FILLOUT_APPLY_URL}?role=${encodeURIComponent(job.title)}`;
 
   return (

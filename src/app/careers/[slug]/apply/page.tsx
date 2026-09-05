@@ -1,12 +1,13 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { MOCK_JOBS } from '@/data/jobs';
+import { getJobBySlug, getAllJobSlugs } from '@/lib/sanity';
 
 const FILLOUT_APPLY_URL = 'https://teamzealancy.fillout.com/t/t5KUpC3pEtus';
 
 export async function generateStaticParams() {
-  return MOCK_JOBS.map((job) => ({
-    slug: job.slug,
+  const slugs = await getAllJobSlugs();
+  return slugs.map((slug) => ({
+    slug,
   }));
 }
 
@@ -16,7 +17,7 @@ interface PageProps {
 
 export default async function CareerApplyPage({ params }: PageProps) {
   const { slug } = await params;
-  const job = MOCK_JOBS.find((j) => j.slug === slug);
+  const job = await getJobBySlug(slug);
 
   if (!job) {
     notFound();
