@@ -161,10 +161,11 @@ export const role = defineType({
       status: 'status',
       media: 'bannerImage',
     },
-    prepare({ title, department, status, media }) {
+    prepare(selection: { title?: string; department?: string; status?: string; media?: any }) {
+      const { title, department, status, media } = selection;
       return {
-        title,
-        subtitle: ${department || 'No dept'} • [],
+        title: title || 'Untitled Role',
+        subtitle: `${department || 'No department'} • ${status || 'Draft'}`,
         media,
       };
     },

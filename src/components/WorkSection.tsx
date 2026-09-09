@@ -131,21 +131,21 @@ export const portfolioCardsData = [
 const CATEGORY_META = [
   {
     num: '01',
-    title: 'Founder-led Content',
-    desc: 'Personal brands for founders and experts. Talking-head content that turns knowledge into authority, and authority into an audience that buys.',
-    cases: portfolioCardsData.slice(0, 3),
+    title: 'Edutainment Content',
+    desc: 'We turn complex topics into content people actually want to watch pulling billions of views by making learning feel fun.',
+    cases: portfolioCardsData.slice(6, 9),
   },
   {
     num: '02',
-    title: 'Performance Creative',
-    desc: 'We run paid campaigns for niche brands. VSLs, BoF ads, and full creatives built around one goal: measurable revenue growth.',
-    cases: portfolioCardsData.slice(3, 6),
+    title: 'Founder-led Content',
+    desc: 'We also build personal brands for founders and experts. Mostly talking head videos that turn knowledge into authority, and authority into an audience that buys.',
+    cases: portfolioCardsData.slice(0, 3),
   },
   {
     num: '03',
-    title: 'Brand & Edutainment',
-    desc: 'Boring topics turned into things people can\'t stop watching. Channels pulling billions of views by making learning fun.',
-    cases: portfolioCardsData.slice(6, 9),
+    title: 'Performance Marketing',
+    desc: 'We run paid campaigns built to sell things. From VSLs, BoFs ADs, and full creatives built around one goal: revenue.',
+    cases: portfolioCardsData.slice(3, 6),
   },
 ];
 
