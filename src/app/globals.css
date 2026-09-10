@@ -9,7 +9,8 @@
   --maxw:1140px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;overflow-x:clip;width:100%}
+html{scroll-behavior: smooth;
+  scroll-padding-top: 80px;overflow-x:clip;width:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip;width:100%}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px}
@@ -1584,4 +1585,39 @@ footer {
   .pitch-what-grid{grid-template-columns:1fr;gap:28px}
   .pitch-checklist{grid-template-columns:1fr}
   .pitch-what-section{padding:28px 24px}
+}
+
+
+/* Desktop Navigation Links & CTA */
+.nav-item-link {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  white-space: nowrap;
+}
+.nav-item-link:hover {
+  color: #FFFFFF;
+}
+.nav-cta-btn {
+  background: #5D2DB0 !important;
+  color: #FFFFFF !important;
+  border-radius: 999px !important;
+  padding: 8px 20px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 14px rgba(93, 45, 176, 0.35) !important;
+}
+.nav-cta-btn:hover {
+  background: #6E39D0 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 18px rgba(93, 45, 176, 0.45) !important;
+}
+@media (max-width: 767px) {
+  .nav-desktop-group, .desktop-only {
+    display: none !important;
+  }
 }

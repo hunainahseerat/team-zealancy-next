@@ -102,7 +102,7 @@ export default function HeroSection() {
   const longestPhrase = PHRASES.reduce((a, b) => (b.length > a.length ? b : a));
 
   return (
-    <header className="hero" id="top">
+    <header className="hero" id="top" style={{ paddingTop: "24px", paddingBottom: "20px" }}>
       <div className="wrap">
         {/* -
             HERO HEADLINE: DUAL FONT SPECIFICATION
@@ -159,16 +159,16 @@ export default function HeroSection() {
             VIZITIA VIDEO EMBED PLACEHOLDER - SWAP EMBED URL HERE LATER 
         */}
         <div
-          className="hero-video-container"
+          className="hero-video-container max-w-3xl mx-auto"
           style={{
             position: 'relative',
             width: '100%',
-            maxWidth: '1060px',
-            margin: '28px auto 0',
+            maxWidth: '768px',
+            margin: '18px auto 0',
             aspectRatio: '16/9',
-            borderRadius: '24px',
+            borderRadius: '20px',
             overflow: 'hidden',
-            boxShadow: '0 24px 60px -15px rgba(25, 21, 33, 0.35), 0 0 35px rgba(109, 40, 217, 0.18)',
+            boxShadow: '0 20px 50px -12px rgba(25, 21, 33, 0.35), 0 0 30px rgba(109, 40, 217, 0.16)',
             border: '1px solid rgba(25, 21, 33, 0.12)',
             background: '#07040E',
           }}
@@ -184,13 +184,13 @@ export default function HeroSection() {
               height: '100%',
               border: 'none',
               display: 'block',
-              borderRadius: '24px',
+              borderRadius: '20px',
             }}
-            className="w-full h-full rounded-2xl"
+            className="w-full h-full aspect-video rounded-2xl"
           />
         </div>
 
-        <div className="cta-row" style={{ marginTop: '28px' }}>
+        <div className="cta-row" style={{ marginTop: '20px' }}>
           <Link href="/careers" className="btn">See open roles →</Link>
           <a className="sbtn" href="https://www.instagram.com/teamzealancy/" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">

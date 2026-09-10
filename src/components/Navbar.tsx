@@ -30,6 +30,24 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', handleKey);
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    setIsOpen(false);
+    if (typeof window !== 'undefined') {
+      const isHome =
+        window.location.pathname === '/' ||
+        window.location.pathname === '/index.html' ||
+        window.location.pathname === '';
+      if (isHome) {
+        e.preventDefault();
+        const el = document.getElementById(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+          window.history.pushState(null, '', `#${targetId}`);
+        }
+      }
+    }
+  };
+
   return (
     <header className="bar">
       <div className="wrap">
@@ -40,7 +58,10 @@ export default function Navbar() {
           onClick={(e) => {
             setIsOpen(false);
             if (typeof window !== 'undefined') {
-              const isHome = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '';
+              const isHome =
+                window.location.pathname === '/' ||
+                window.location.pathname === '/index.html' ||
+                window.location.pathname === '';
               if (isHome) {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -57,11 +78,81 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop CTA — far right */}
-        <Link href="/careers" className="btn sm desktop-only">
-          See open roles
-        </Link>
+        {/* Right-Aligned Grouping: Navigation Links + Divider + CTA Button */}
+        <div
+          className="nav-desktop-group desktop-only"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '24px',
+          }}
+        >
+          <nav
+            aria-label="Section Navigation"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '22px',
+            }}
+          >
+            <a
+              href="/#our-work"
+              onClick={(e) => handleNavClick(e, 'our-work')}
+              className="nav-item-link"
+            >
+              OUR WORK
+            </a>
+            <a
+              href="/#why-we-exist"
+              onClick={(e) => handleNavClick(e, 'why-we-exist')}
+              className="nav-item-link"
+            >
+              WHY WE EXIST
+            </a>
+            <a
+              href="/#benefits"
+              onClick={(e) => handleNavClick(e, 'benefits')}
+              className="nav-item-link"
+            >
+              COMPANY BENEFITS
+            </a>
+            <a
+              href="/#open-roles"
+              onClick={(e) => handleNavClick(e, 'open-roles')}
+              className="nav-item-link"
+            >
+              OPEN ROLES
+            </a>
+          </nav>
 
+          {/* Subtle vertical divider line */}
+          <div
+            className="nav-divider"
+            style={{
+              height: '16px',
+              width: '1px',
+              backgroundColor: 'rgba(156, 163, 175, 0.3)',
+            }}
+            aria-hidden="true"
+          />
+
+          {/* Primary CTA Button */}
+          <Link
+            href="/careers"
+            className="btn sm nav-cta-btn"
+            style={{
+              borderRadius: '999px',
+              padding: '8px 20px',
+              fontWeight: 600,
+              fontSize: '13px',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Apply Now
+          </Link>
+        </div>
+
+        {/* Mobile Hamburger Toggle Button */}
         <button
           className="nav-toggle"
           onClick={() => setIsOpen(!isOpen)}
@@ -81,39 +172,34 @@ export default function Navbar() {
         </button>
       </div>
 
+      {/* Mobile Drawer Menu */}
       <nav className={`mobile-menu ${isOpen ? 'is-open' : ''}`} aria-label="Mobile Navigation">
-        <a className="mobile-nav-link" href="/#what-we-do" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
-          <span>What We Do</span>
+        <a className="mobile-nav-link" href="/#our-work" onClick={(e) => handleNavClick(e, 'our-work')} style={{ color: 'rgba(255,255,255,0.92)' }}>
+          <span>OUR WORK</span>
           <span style={{ fontSize: '13px', opacity: 0.5, fontFamily: 'sans-serif' }}>01</span>
         </a>
-        <a className="mobile-nav-link" href="/#why-we-exist" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
-          <span>Why We Exist</span>
+        <a className="mobile-nav-link" href="/#why-we-exist" onClick={(e) => handleNavClick(e, 'why-we-exist')} style={{ color: 'rgba(255,255,255,0.92)' }}>
+          <span>WHY WE EXIST</span>
           <span style={{ fontSize: '13px', opacity: 0.5, fontFamily: 'sans-serif' }}>02</span>
         </a>
-        <a className="mobile-nav-link" href="/#company-benefits" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
-          <span>Benefits</span>
-        </a>
-        <a className="mobile-nav-link" href="/#core-leadership" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
-          <span>Leadership</span>
-        </a>
-        <a className="mobile-nav-link" href="/careers" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
-          <span>Open Roles</span>
+        <a className="mobile-nav-link" href="/#benefits" onClick={(e) => handleNavClick(e, 'benefits')} style={{ color: 'rgba(255,255,255,0.92)' }}>
+          <span>COMPANY BENEFITS</span>
           <span style={{ fontSize: '13px', opacity: 0.5, fontFamily: 'sans-serif' }}>03</span>
         </a>
-        <a className="mobile-nav-link" href="/#hiring" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
-          <span>Hiring Process</span>
+        <a className="mobile-nav-link" href="/#open-roles" onClick={(e) => handleNavClick(e, 'open-roles')} style={{ color: 'rgba(255,255,255,0.92)' }}>
+          <span>OPEN ROLES</span>
+          <span style={{ fontSize: '13px', opacity: 0.5, fontFamily: 'sans-serif' }}>04</span>
         </a>
-        <a className="mobile-nav-link" href="/#faq" onClick={() => setIsOpen(false)} style={{ color: 'rgba(255,255,255,0.92)' }}>
-          <span>FAQ</span>
-        </a>
-        <Link href="/careers" className="btn sm"
-          style={{ marginTop: '8px', width: '100%', justifyContent: 'center' }}
-          onClick={() => setIsOpen(false)}>
-          See open roles →
+        <Link
+          href="/careers"
+          className="btn sm"
+          style={{ marginTop: '10px', width: '100%', justifyContent: 'center', borderRadius: '999px' }}
+          onClick={() => setIsOpen(false)}
+        >
+          Apply Now
         </Link>
       </nav>
-
-      <div className="scrub">
+            <div className="scrub">
         <i id="scrubFill" ref={scrubRef}></i>
       </div>
     </header>

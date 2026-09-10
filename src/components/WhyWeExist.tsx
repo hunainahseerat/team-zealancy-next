@@ -31,6 +31,7 @@ export default function WhyWeExist() {
         overflow: 'hidden',
       }}
     >
+      <div id="about" style={{ position: "relative", top: "-80px", height: 0, visibility: "hidden" }} />
       {/* Mandatory Strong Linear Dark Gradient Overlay */}
       <div
         aria-hidden="true"

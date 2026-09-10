@@ -151,7 +151,10 @@ const CATEGORY_META = [
 
 export default function WorkSection() {
   return (
-    <section className="section" id="what-we-do">
+    <section className="section" id="work">
+      <div id="our-work" style={{ position: "relative", top: "-80px", height: 0, visibility: "hidden" }} />
+      <div id="what-we-do" style={{ position: "relative", top: "-80px", height: 0, visibility: "hidden" }} />
+      <div id="services" style={{ position: "relative", top: "-80px", height: 0, visibility: "hidden" }} />
       <div className="wrap">
         <div className="chapter">
           <span className="cnum">01</span>

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 export default function Benefits() {
   return (
     <section className="section" id="company-benefits">
+      <div id="benefits" style={{ position: "relative", top: "-80px", height: 0, visibility: "hidden" }} />
       <motion.div
         className="wrap"
         initial={{ opacity: 0.15, filter: 'blur(10px)', y: 20 }}
