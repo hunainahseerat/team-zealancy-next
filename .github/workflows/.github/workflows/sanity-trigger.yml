@@ -1,0 +1,12 @@
+name: Sanity Trigger Rebuild
+
+on:
+  repository_dispatch:
+    types: [sanity-update]
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Hostinger Rebuild
+        run: echo "Sanity content updated. Triggering deployment build."
