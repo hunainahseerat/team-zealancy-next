@@ -95,54 +95,81 @@ export function mapSanityRoleToJob(doc: SanityRoleDocument): Job {
 
 /**
  * Fetch all active job listings for /careers and landing pages.
- * Falls back to local MOCK_JOBS if Sanity is offline or unconfigured.
+ * ALWAYS merges hardcoded MOCK_JOBS with live Sanity jobs.
+ * Sanity is queried with cache: 'no-store' to guarantee fresh data on every build.
+ * Supports status values: "active", "open", "Open", or undefined/null (treated as active).
  */
 export async function getActiveJobs(): Promise<Job[]> {
+  const hardcodedJobs = MOCK_JOBS.filter((j) => j.status === 'active');
+
   if (isSanityConfigured && sanityClient) {
     try {
+      const GROQ = `*[_type == "role" && (
+        status == "active" ||
+        status == "open" ||
+        status == "Open" ||
+        !defined(status)
+      )] | order(order asc, _createdAt desc)`;
+
       const docs = await sanityClient.fetch<SanityRoleDocument[]>(
-        '*[_type == "role" && status == "active"] | order(order asc, _createdAt desc)'
+        GROQ,
+        {},
+        { cache: 'no-store', next: { revalidate: 0 } } as any
       );
+
       if (Array.isArray(docs) && docs.length > 0) {
-        return docs.map(mapSanityRoleToJob);
+        const sanityJobs = docs.map(mapSanityRoleToJob);
+        // Merge: hardcoded first, then Sanity jobs (deduped by slug)
+        const hardcodedSlugs = new Set(hardcodedJobs.map((j) => j.slug));
+        const newSanityJobs = sanityJobs.filter((j) => !hardcodedSlugs.has(j.slug));
+        return [...hardcodedJobs, ...newSanityJobs];
       }
     } catch (error) {
-      console.warn('[Sanity] Could not fetch active jobs from Sanity, falling back to local roles:', error);
+      console.warn('[Sanity] Could not fetch active jobs from Sanity, using only local roles:', error);
     }
   }
-  return MOCK_JOBS.filter((j) => j.status === 'active');
+
+  return hardcodedJobs;
 }
 
 /**
  * Fetch all job slugs for static site generation (generateStaticParams).
- * Combines Sanity published slugs with local mock slugs to guarantee zero 404s.
+ * ALWAYS merges Sanity published slugs with local mock slugs — zero 404s guaranteed.
  */
 export async function getAllJobSlugs(): Promise<string[]> {
+  const mockSlugs = MOCK_JOBS.map((j) => j.slug);
+
   if (isSanityConfigured && sanityClient) {
     try {
-      const slugs = await sanityClient.fetch<string[]>(
-        '*[_type == "role" && defined(slug.current)][].slug.current'
+      const sanitySlugs = await sanityClient.fetch<string[]>(
+        `*[_type == "role" && defined(slug.current) && (
+          status == "active" || status == "open" || status == "Open" || !defined(status)
+        )][].slug.current`,
+        {},
+        { cache: 'no-store' } as any
       );
-      if (Array.isArray(slugs) && slugs.length > 0) {
-        const unique = new Set([...slugs, ...MOCK_JOBS.map((j) => j.slug)]);
+      if (Array.isArray(sanitySlugs)) {
+        const unique = new Set([...mockSlugs, ...sanitySlugs]);
         return Array.from(unique);
       }
     } catch (error) {
-      console.warn('[Sanity] Could not fetch job slugs from Sanity, falling back to local roles:', error);
+      console.warn('[Sanity] Could not fetch job slugs from Sanity, using local slugs only:', error);
     }
   }
-  return MOCK_JOBS.map((j) => j.slug);
+
+  return mockSlugs;
 }
 
 /**
  * Fetch a single job role by slug.
  * Checks Sanity first, then falls back to local MOCK_JOBS.
+ * Note: no cache override here — this runs during generateStaticParams (SSG).
  */
 export async function getJobBySlug(slug: string): Promise<Job | undefined> {
   if (isSanityConfigured && sanityClient) {
     try {
       const doc = await sanityClient.fetch<SanityRoleDocument>(
-        '*[_type == "role" && slug.current == $slug][0]',
+        `*[_type == "role" && slug.current == $slug][0]`,
         { slug }
       );
       if (doc) {

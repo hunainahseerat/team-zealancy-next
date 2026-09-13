@@ -1,6 +1,3 @@
-'use client';
-
-import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import WorkSection from '@/components/WorkSection';
@@ -15,11 +12,12 @@ import Footer from '@/components/Footer';
 import StickyCta from '@/components/StickyCta';
 import LoadingScreen from '@/components/LoadingScreen';
 import CursorGlow from '@/components/CursorGlow';
-import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { MOCK_JOBS } from '@/data/jobs';
+import { getActiveJobs } from '@/lib/sanity';
+import HomeClient from './HomeClient';
 
-export default function Home() {
-  useScrollReveal();
+export default async function Home() {
+  // Fetch live Sanity jobs merged with hardcoded jobs at build time
+  const jobs = await getActiveJobs();
 
   return (
     <main>
@@ -32,11 +30,12 @@ export default function Home() {
       <TeamVoices />
       <Benefits />
       <Leadership />
-      <RolesSection jobs={MOCK_JOBS} />
+      <RolesSection jobs={jobs} />
       <HiringTimeline />
       <FaqSection />
       <Footer />
       <StickyCta />
+      <HomeClient />
     </main>
   );
 }
