@@ -1621,3 +1621,25 @@ footer {
     display: none !important;
   }
 }
+
+
+/* ============================================================
+   MOBILE VIEWPORT & AUTO-ZOOM FIXES
+   ============================================================ */
+
+/* Prevent iOS Safari auto-zoom on input focus (triggered when font-size < 16px) */
+@media screen and (max-width: 768px) {
+  input,
+  textarea,
+  select,
+  button {
+    font-size: 16px !important;
+  }
+}
+
+/* Prevent accidental horizontal overflow / scaling on mobile */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  touch-action: manipulation;
+}

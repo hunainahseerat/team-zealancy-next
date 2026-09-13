@@ -113,8 +113,7 @@ export async function getActiveJobs(): Promise<Job[]> {
 
       const docs = await sanityClient.fetch<SanityRoleDocument[]>(
         GROQ,
-        {},
-        { cache: 'no-store', next: { revalidate: 0 } } as any
+        {}
       );
 
       if (Array.isArray(docs) && docs.length > 0) {
@@ -145,8 +144,7 @@ export async function getAllJobSlugs(): Promise<string[]> {
         `*[_type == "role" && defined(slug.current) && (
           status == "active" || status == "open" || status == "Open" || !defined(status)
         )][].slug.current`,
-        {},
-        { cache: 'no-store' } as any
+        {}
       );
       if (Array.isArray(sanitySlugs)) {
         const unique = new Set([...mockSlugs, ...sanitySlugs]);
