@@ -5,6 +5,7 @@ export const role = defineType({
   title: 'Job Role',
   type: 'document',
   fields: [
+    // ── Core identity ──────────────────────────────────────────────
     defineField({
       name: 'title',
       title: 'Job Title',
@@ -15,12 +16,30 @@ export const role = defineType({
       name: 'slug',
       title: 'Slug (URL path)',
       type: 'slug',
+      options: { source: 'title', maxLength: 96 },
+      validation: (Rule) => Rule.required(),
+    }),
+
+    // ── Status ────────────────────────────────────────────────────
+    defineField({
+      name: 'status',
+      title: 'Posting Status',
+      type: 'string',
+      initialValue: 'open',
       options: {
-        source: 'title',
-        maxLength: 96,
+        list: [
+          { title: 'Open (Visible on site)', value: 'open' },
+          { title: 'Closed (Hidden from site)', value: 'closed' },
+          { title: 'Active (Legacy / visible)', value: 'active' },
+          { title: 'Paused', value: 'paused' },
+          { title: 'Archived', value: 'archived' },
+        ],
+        layout: 'radio',
       },
       validation: (Rule) => Rule.required(),
     }),
+
+    // ── Classification ────────────────────────────────────────────
     defineField({
       name: 'department',
       title: 'Department',
@@ -29,7 +48,9 @@ export const role = defineType({
         list: [
           'Video Production',
           'Design & Creative',
+          'Design',
           'Content & Writing',
+          'Content',
           'Business Development',
           'Technology',
           'Operations',
@@ -48,13 +69,19 @@ export const role = defineType({
       },
     }),
     defineField({
+      name: 'employmentType',
+      title: 'Employment Type (alias)',
+      type: 'string',
+      initialValue: 'Full-time',
+      description: 'Alias field for API compatibility. Use "type" field above.',
+      hidden: true,
+    }),
+    defineField({
       name: 'mode',
       title: 'Work Mode',
       type: 'string',
       initialValue: 'Remote',
-      options: {
-        list: ['Remote', 'Hybrid', 'On-site'],
-      },
+      options: { list: ['Remote', 'Hybrid', 'On-site'] },
     }),
     defineField({
       name: 'location',
@@ -69,27 +96,14 @@ export const role = defineType({
       initialValue: '2+ years',
     }),
     defineField({
-      name: 'status',
-      title: 'Posting Status',
-      type: 'string',
-      initialValue: 'active',
-      options: {
-        list: [
-          { title: 'Active (Visible on site)', value: 'active' },
-          { title: 'Paused', value: 'paused' },
-          { title: 'Archived', value: 'archived' },
-        ],
-        layout: 'radio',
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: 'order',
       title: 'Display Order',
       type: 'number',
       initialValue: 0,
       description: 'Lower numbers display first.',
     }),
+
+    // ── Urgency ───────────────────────────────────────────────────
     defineField({
       name: 'isUrgent',
       title: 'Urgent Hiring?',
@@ -97,63 +111,88 @@ export const role = defineType({
       initialValue: false,
     }),
     defineField({
+      name: 'urgentHiring',
+      title: 'Urgent Hiring (alias)',
+      type: 'boolean',
+      initialValue: false,
+      description: 'Alias for isUrgent.',
+      hidden: true,
+    }),
+    defineField({
       name: 'urgentLabel',
       title: 'Urgent Badge Label',
       type: 'string',
       initialValue: 'Hiring urgently',
-      hidden: ({ document }) => !document?.isUrgent,
+      hidden: ({ document }) => !document?.isUrgent && !document?.urgentHiring,
     }),
+
+    // ── Descriptions ──────────────────────────────────────────────
     defineField({
       name: 'shortDesc',
       title: 'Short Description',
       type: 'text',
       rows: 3,
-      description: 'Displayed under the title in the hero banner and on role cards.',
+      description: 'Shown on role cards and hero banner.',
+    }),
+    defineField({
+      name: 'shortDescription',
+      title: 'Short Description (alias)',
+      type: 'text',
+      rows: 3,
+      description: 'Alias for shortDesc.',
+      hidden: true,
     }),
     defineField({
       name: 'description',
       title: 'Full Role Description',
       type: 'text',
       rows: 5,
-      description: 'The narrative overview rendered in Section 01: The Role.',
+      description: 'Narrative overview — Section 01: The Role.',
     }),
+    defineField({
+      name: 'fullDescription',
+      title: 'Full Description & Requirements (Rich Text)',
+      type: 'array',
+      of: [{ type: 'block' }],
+      description: 'Rich text version. Supports bold, lists, and headings.',
+    }),
+
+    // ── Responsibilities & Requirements ──────────────────────────
     defineField({
       name: 'responsibilities',
       title: 'Responsibilities',
       type: 'array',
       of: [{ type: 'string' }],
-      description: 'List of key responsibilities (rendered as checklist items).',
+      description: 'Key responsibilities (rendered as checklist).',
     }),
     defineField({
       name: 'requirements',
       title: 'Requirements & Qualifications',
       type: 'array',
       of: [{ type: 'string' }],
-      description: 'Key skills and experience required.',
     }),
     defineField({
       name: 'niceToHave',
-      title: 'Bonus Points / Nice to Have',
+      title: 'Bonus / Nice to Have',
       type: 'array',
       of: [{ type: 'string' }],
-      description: 'Optional nice-to-have qualifications.',
     }),
+
+    // ── Media & Links ─────────────────────────────────────────────
     defineField({
       name: 'bannerImage',
       title: 'Custom Hero Banner Image',
       type: 'image',
-      options: {
-        hotspot: true,
-      },
-      description: 'Optional: Upload a high-res custom banner. If unset, the default theme image is used.',
+      options: { hotspot: true },
     }),
     defineField({
       name: 'applyUrl',
       title: 'Custom Apply Form URL',
       type: 'url',
-      description: 'Optional: Custom link for this role. Defaults to the Team Zealancy Fillout form if empty.',
+      description: 'Overrides default Fillout form URL if set.',
     }),
   ],
+
   preview: {
     select: {
       title: 'title',
@@ -163,9 +202,13 @@ export const role = defineType({
     },
     prepare(selection: { title?: string; department?: string; status?: string; media?: any }) {
       const { title, department, status, media } = selection;
+      const dot =
+        status === 'active' || status === 'open' ? '[OPEN]' :
+        status === 'closed' ? '[CLOSED]' :
+        status === 'paused' ? '[PAUSED]' : '[DRAFT]';
       return {
         title: title || 'Untitled Role',
-        subtitle: `${department || 'No department'} • ${status || 'Draft'}`,
+        subtitle: `${dot} ${department || 'No department'}`,
         media,
       };
     },

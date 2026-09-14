@@ -40,20 +40,38 @@ export interface SanityRoleDocument {
   slug: { current: string } | string;
   department?: string;
   type?: string;
+  employmentType?: string;          // alias
   mode?: string;
   location?: string;
   experience?: string;
-  status?: 'active' | 'paused' | 'archived';
+  status?: 'active' | 'open' | 'closed' | 'paused' | 'archived';
   order?: number;
   isUrgent?: boolean;
+  urgentHiring?: boolean;           // alias
   urgentLabel?: string;
   shortDesc?: string;
+  shortDescription?: string;        // alias
   description?: string;
+  fullDescription?: any;            // rich text (block array) or string
   responsibilities?: string[];
   requirements?: string[];
   niceToHave?: string[];
   bannerImage?: any;
   applyUrl?: string;
+}
+
+function extractTextFromBlocks(blocks: any): string {
+  if (typeof blocks === 'string') return blocks;
+  if (!Array.isArray(blocks)) return '';
+  return blocks
+    .map((block) => {
+      if (block?._type === 'block' && Array.isArray(block.children)) {
+        return block.children.map((c: any) => c.text || '').join('');
+      }
+      return '';
+    })
+    .filter(Boolean)
+    .join('\n\n');
 }
 
 export function mapSanityRoleToJob(doc: SanityRoleDocument): Job {
@@ -67,22 +85,35 @@ export function mapSanityRoleToJob(doc: SanityRoleDocument): Job {
     }
   }
 
+  // Resolve field aliases & formatting
+  const resolvedType = doc.type || doc.employmentType || 'Full-time';
+  const resolvedIsUrgent = Boolean(doc.isUrgent || doc.urgentHiring);
+  const resolvedShortDesc = doc.shortDesc || doc.shortDescription || '';
+  const fullDescFromBlocks = extractTextFromBlocks(doc.fullDescription);
+  const resolvedDescription = doc.description || fullDescFromBlocks || resolvedShortDesc || '';
+
+  // Map Sanity status: 'open' / 'active' -> active; 'closed' / 'archived' -> archived; 'paused' -> paused
+  const rawStatus = (doc.status || 'open').toLowerCase();
+  const resolvedStatus: 'active' | 'paused' | 'archived' =
+    rawStatus === 'open' || rawStatus === 'active' ? 'active' :
+    rawStatus === 'paused' ? 'paused' : 'archived';
+
   return {
     id: doc._id,
     slug,
     title: doc.title || '',
     department: doc.department || 'General',
-    type: doc.type || 'Full-time',
+    type: resolvedType,
     mode: doc.mode || 'Remote',
     location: doc.location || 'Pakistan (Remote)',
     experience: doc.experience || '2+ years',
-    status: (doc.status as any) || 'active',
+    status: resolvedStatus,
     order: typeof doc.order === 'number' ? doc.order : 0,
-    isUrgent: Boolean(doc.isUrgent),
-    urgentLabel: doc.urgentLabel || (doc.isUrgent ? 'Hiring urgently' : undefined),
-    shortDesc: doc.shortDesc || '',
-    description: doc.description || doc.shortDesc || '',
-    fullDesc: doc.description || doc.shortDesc || '',
+    isUrgent: resolvedIsUrgent,
+    urgentLabel: doc.urgentLabel || (resolvedIsUrgent ? 'Hiring urgently' : undefined),
+    shortDesc: resolvedShortDesc,
+    description: resolvedDescription,
+    fullDesc: resolvedDescription,
     responsibilities: Array.isArray(doc.responsibilities) ? doc.responsibilities : [],
     requirements: Array.isArray(doc.requirements) ? doc.requirements : [],
     niceToHave: Array.isArray(doc.niceToHave) ? doc.niceToHave : [],
@@ -95,45 +126,67 @@ export function mapSanityRoleToJob(doc: SanityRoleDocument): Job {
 
 /**
  * Fetch all active job listings for /careers and landing pages.
- * ALWAYS merges hardcoded MOCK_JOBS with live Sanity jobs.
- * Sanity is queried with cache: 'no-store' to guarantee fresh data on every build.
- * Supports status values: "active", "open", "Open", or undefined/null (treated as active).
+ * Prioritizes Sanity Studio as the authoritative CMS:
+ * - If a job exists in Sanity, the Sanity document (and its status) takes precedence.
+ * - Closing or unpublishing a job in Sanity will hide it from the active list.
+ * - New jobs published in Sanity appear immediately.
+ * - Falls back to local MOCK_JOBS if Sanity is unreachable or unseeded.
  */
 export async function getActiveJobs(): Promise<Job[]> {
-  const hardcodedJobs = MOCK_JOBS.filter((j) => j.status === 'active');
-
   if (isSanityConfigured && sanityClient) {
     try {
-      const GROQ = `*[_type == "role" && (
-        status == "active" ||
-        status == "open" ||
-        status == "Open" ||
-        !defined(status)
-      )] | order(order asc, _createdAt desc)`;
-
-      const docs = await sanityClient.fetch<SanityRoleDocument[]>(
-        GROQ,
-        {}
-      );
+      const GROQ = `*[_type == "role"] | order(order asc, _createdAt desc)`;
+      const docs = await sanityClient.fetch<SanityRoleDocument[]>(GROQ, {});
 
       if (Array.isArray(docs) && docs.length > 0) {
         const sanityJobs = docs.map(mapSanityRoleToJob);
-        // Merge: hardcoded first, then Sanity jobs (deduped by slug)
-        const hardcodedSlugs = new Set(hardcodedJobs.map((j) => j.slug));
-        const newSanityJobs = sanityJobs.filter((j) => !hardcodedSlugs.has(j.slug));
-        return [...hardcodedJobs, ...newSanityJobs];
+
+        const sanityJobMap = new Map<string, Job>();
+        sanityJobs.forEach((job) => {
+          if (job.slug) {
+            sanityJobMap.set(job.slug, job);
+          }
+        });
+
+        const mergedJobs: Job[] = [];
+        const handledSlugs = new Set<string>();
+
+        // 1. Process MOCK_JOBS with Sanity precedence
+        for (const mockJob of MOCK_JOBS) {
+          handledSlugs.add(mockJob.slug);
+          if (sanityJobMap.has(mockJob.slug)) {
+            const sanityJob = sanityJobMap.get(mockJob.slug)!;
+            if (sanityJob.status === 'active') {
+              mergedJobs.push(sanityJob);
+            }
+          } else if (mockJob.status === 'active') {
+            mergedJobs.push(mockJob);
+          }
+        }
+
+        // 2. Add any newly created Sanity jobs not present in MOCK_JOBS
+        for (const sanityJob of sanityJobs) {
+          if (!handledSlugs.has(sanityJob.slug)) {
+            handledSlugs.add(sanityJob.slug);
+            if (sanityJob.status === 'active') {
+              mergedJobs.push(sanityJob);
+            }
+          }
+        }
+
+        return mergedJobs;
       }
     } catch (error) {
-      console.warn('[Sanity] Could not fetch active jobs from Sanity, using only local roles:', error);
+      console.warn('[Sanity] Could not fetch active jobs from Sanity, using local roles fallback:', error);
     }
   }
 
-  return hardcodedJobs;
+  return MOCK_JOBS.filter((j) => j.status === 'active');
 }
 
 /**
  * Fetch all job slugs for static site generation (generateStaticParams).
- * ALWAYS merges Sanity published slugs with local mock slugs — zero 404s guaranteed.
+ * Merges all Sanity slugs with local mock slugs to guarantee zero 404s.
  */
 export async function getAllJobSlugs(): Promise<string[]> {
   const mockSlugs = MOCK_JOBS.map((j) => j.slug);
@@ -141,9 +194,7 @@ export async function getAllJobSlugs(): Promise<string[]> {
   if (isSanityConfigured && sanityClient) {
     try {
       const sanitySlugs = await sanityClient.fetch<string[]>(
-        `*[_type == "role" && defined(slug.current) && (
-          status == "active" || status == "open" || status == "Open" || !defined(status)
-        )][].slug.current`,
+        `*[_type == "role" && defined(slug.current)][].slug.current`,
         {}
       );
       if (Array.isArray(sanitySlugs)) {
@@ -160,8 +211,7 @@ export async function getAllJobSlugs(): Promise<string[]> {
 
 /**
  * Fetch a single job role by slug.
- * Checks Sanity first, then falls back to local MOCK_JOBS.
- * Note: no cache override here — this runs during generateStaticParams (SSG).
+ * Checks Sanity first (ensuring full CMS editability for any role), then falls back to MOCK_JOBS.
  */
 export async function getJobBySlug(slug: string): Promise<Job | undefined> {
   if (isSanityConfigured && sanityClient) {
