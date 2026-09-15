@@ -1,4 +1,4 @@
-name: Sanity Trigger Rebuild
+name: Sanity Trigger Rebuild & Deploy
 
 on:
   push:
@@ -8,8 +8,35 @@ on:
   workflow_dispatch:
 
 jobs:
-  trigger:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Acknowledge Rebuild
-        run: echo "Code or Sanity content change received. Rebuild triggered."
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Static Site with Fresh Sanity Data
+        env:
+          NEXT_PUBLIC_SANITY_PROJECT_ID: '07a4uqvi'
+          NEXT_PUBLIC_SANITY_DATASET: 'production'
+          NEXT_PUBLIC_SANITY_API_VERSION: '2024-03-01'
+        run: npm run build
+
+      - name: Verify Export Output
+        run: |
+          echo "Build successful! Exported files in out/:"
+          ls -la out/
+
+      - name: Trigger Hostinger Webhook (If configured)
+        if: env.HOSTINGER_WEBHOOK_URL != ''
+        env:
+          HOSTINGER_WEBHOOK_URL: ${{ secrets.HOSTINGER_WEBHOOK_URL }}
+        run: curl -X POST "$HOSTINGER_WEBHOOK_URL"
