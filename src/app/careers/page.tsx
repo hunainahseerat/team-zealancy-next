@@ -1,3 +1,5 @@
+
+export const revalidate = 0;
 import type { Metadata } from 'next';
 import { getActiveJobs } from '@/lib/sanity';
 import CareersClient from './CareersClient';

@@ -2,7 +2,8 @@ name: Sanity Trigger Rebuild
 
 on:
   repository_dispatch:
-    types: [sanity-update]
+    types: [sanity-update, build, webhook, sanity]
+  workflow_dispatch:
 
 jobs:
   trigger:
