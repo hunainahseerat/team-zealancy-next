@@ -1,6 +1,8 @@
 name: Sanity Trigger Rebuild
 
 on:
+  push:
+    branches: [main]
   repository_dispatch:
     types: [sanity-update, build, webhook, sanity]
   workflow_dispatch:
@@ -10,4 +12,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Acknowledge Rebuild
-        run: echo "Sanity content change received. Hostinger build triggered."
+        run: echo "Code or Sanity content change received. Rebuild triggered."
