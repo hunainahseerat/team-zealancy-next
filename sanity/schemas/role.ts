@@ -39,6 +39,21 @@ export const role = defineType({
       validation: (Rule) => Rule.required(),
     }),
 
+    // ── Sequence & Ordering ───────────────────────────────────────
+    defineField({
+      name: 'sequence',
+      title: 'Sequence / Sort Order',
+      type: 'number',
+      initialValue: 0,
+      description: 'Numeric position (1, 2, 3...). Lower numbers display first.',
+    }),
+    defineField({
+      name: 'order',
+      title: 'Display Order',
+      type: 'number',
+      initialValue: 0,
+    }),
+
     // ── Classification & Types ────────────────────────────────────
     defineField({
       name: 'department',
@@ -74,12 +89,6 @@ export const role = defineType({
       title: 'Experience Level',
       type: 'string',
       initialValue: '2+ years',
-    }),
-    defineField({
-      name: 'order',
-      title: 'Display Order',
-      type: 'number',
-      initialValue: 0,
     }),
 
     // ── Urgency ───────────────────────────────────────────────────

@@ -20,7 +20,7 @@ export const sanityClient = isSanityConfigured
       projectId,
       dataset,
       apiVersion,
-      useCdn: false,
+      useCdn: false, // CRITICAL: Disable CDN caching for real-time reads & instant deletions
       token,
     })
   : null;
@@ -45,6 +45,7 @@ export interface SanityRoleDocument {
   location?: string;
   experience?: string;
   status?: 'active' | 'open' | 'closed' | 'paused' | 'archived';
+  sequence?: number;
   order?: number;
   isUrgent?: boolean;
   urgentHiring?: boolean;           // alias
@@ -58,6 +59,7 @@ export interface SanityRoleDocument {
   niceToHave?: string[];
   bannerImage?: any;
   applyUrl?: string;
+  customApplyUrl?: string;
 }
 
 function extractTextFromBlocks(blocks: any): string {
@@ -91,6 +93,10 @@ export function mapSanityRoleToJob(doc: SanityRoleDocument): Job {
   const resolvedShortDesc = doc.shortDesc || doc.shortDescription || '';
   const fullDescFromBlocks = extractTextFromBlocks(doc.fullDescription);
   const resolvedDescription = doc.description || fullDescFromBlocks || resolvedShortDesc || '';
+  const resolvedApplyUrl = doc.applyUrl || doc.customApplyUrl || undefined;
+
+  // Resolve ordering position (sequence taking precedence over order)
+  const resolvedOrder = typeof doc.sequence === 'number' ? doc.sequence : (typeof doc.order === 'number' ? doc.order : 0);
 
   // Map Sanity status: 'open' / 'active' -> active; 'closed' / 'archived' -> archived; 'paused' -> paused
   const rawStatus = (doc.status || 'open').toLowerCase();
@@ -108,7 +114,7 @@ export function mapSanityRoleToJob(doc: SanityRoleDocument): Job {
     location: doc.location || 'Pakistan (Remote)',
     experience: doc.experience || '2+ years',
     status: resolvedStatus,
-    order: typeof doc.order === 'number' ? doc.order : 0,
+    order: resolvedOrder,
     isUrgent: resolvedIsUrgent,
     urgentLabel: doc.urgentLabel || (resolvedIsUrgent ? 'Hiring urgently' : undefined),
     shortDesc: resolvedShortDesc,
@@ -118,7 +124,7 @@ export function mapSanityRoleToJob(doc: SanityRoleDocument): Job {
     requirements: Array.isArray(doc.requirements) ? doc.requirements : [],
     niceToHave: Array.isArray(doc.niceToHave) ? doc.niceToHave : [],
     bannerImage: bannerImageUrl,
-    applyUrl: doc.applyUrl || undefined,
+    applyUrl: resolvedApplyUrl,
     postedAt: doc._createdAt,
     updatedAt: doc._updatedAt,
   } as Job;
@@ -126,55 +132,24 @@ export function mapSanityRoleToJob(doc: SanityRoleDocument): Job {
 
 /**
  * Fetch all active job listings for /careers and landing pages.
- * Prioritizes Sanity Studio as the authoritative CMS:
- * - If a job exists in Sanity, the Sanity document (and its status) takes precedence.
- * - Closing or unpublishing a job in Sanity will hide it from the active list.
- * - New jobs published in Sanity appear immediately.
- * - Falls back to local MOCK_JOBS if Sanity is unreachable or unseeded.
+ * Directly queries Sanity CMS with strict sequence ordering:
+ * - Order: sequence asc, order asc, _createdAt desc
+ * - Deletions: Deleted Sanity records vanish immediately from the response.
+ * - Cache: useCdn: false and { cache: 'no-store' } bypass edge caching.
+ * - Fallback: Uses local MOCK_JOBS only if Sanity is completely empty or offline.
  */
 export async function getActiveJobs(): Promise<Job[]> {
   if (isSanityConfigured && sanityClient) {
     try {
-      const GROQ = `*[_type == "role"] | order(order asc, _createdAt desc)`;
-      const docs = await sanityClient.fetch<SanityRoleDocument[]>(GROQ, {});
+      const GROQ = `*[_type == "role" && (status == "open" || status == "active" || status == "Open" || !defined(status))] | order(sequence asc, order asc, _createdAt desc)`;
+      const docs = await sanityClient.fetch<SanityRoleDocument[]>(
+        GROQ,
+        {},
+        { cache: 'no-store' }
+      );
 
       if (Array.isArray(docs) && docs.length > 0) {
-        const sanityJobs = docs.map(mapSanityRoleToJob);
-
-        const sanityJobMap = new Map<string, Job>();
-        sanityJobs.forEach((job) => {
-          if (job.slug) {
-            sanityJobMap.set(job.slug, job);
-          }
-        });
-
-        const mergedJobs: Job[] = [];
-        const handledSlugs = new Set<string>();
-
-        // 1. Process MOCK_JOBS with Sanity precedence
-        for (const mockJob of MOCK_JOBS) {
-          handledSlugs.add(mockJob.slug);
-          if (sanityJobMap.has(mockJob.slug)) {
-            const sanityJob = sanityJobMap.get(mockJob.slug)!;
-            if (sanityJob.status === 'active') {
-              mergedJobs.push(sanityJob);
-            }
-          } else if (mockJob.status === 'active') {
-            mergedJobs.push(mockJob);
-          }
-        }
-
-        // 2. Add any newly created Sanity jobs not present in MOCK_JOBS
-        for (const sanityJob of sanityJobs) {
-          if (!handledSlugs.has(sanityJob.slug)) {
-            handledSlugs.add(sanityJob.slug);
-            if (sanityJob.status === 'active') {
-              mergedJobs.push(sanityJob);
-            }
-          }
-        }
-
-        return mergedJobs;
+        return docs.map(mapSanityRoleToJob);
       }
     } catch (error) {
       console.warn('[Sanity] Could not fetch active jobs from Sanity, using local roles fallback:', error);
@@ -195,7 +170,8 @@ export async function getAllJobSlugs(): Promise<string[]> {
     try {
       const sanitySlugs = await sanityClient.fetch<string[]>(
         `*[_type == "role" && defined(slug.current)][].slug.current`,
-        {}
+        {},
+        { cache: 'no-store' }
       );
       if (Array.isArray(sanitySlugs)) {
         const unique = new Set([...mockSlugs, ...sanitySlugs]);
@@ -218,7 +194,8 @@ export async function getJobBySlug(slug: string): Promise<Job | undefined> {
     try {
       const doc = await sanityClient.fetch<SanityRoleDocument>(
         `*[_type == "role" && slug.current == $slug][0]`,
-        { slug }
+        { slug },
+        { cache: 'no-store' }
       );
       if (doc) {
         return mapSanityRoleToJob(doc);
