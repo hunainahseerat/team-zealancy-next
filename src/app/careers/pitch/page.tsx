@@ -49,7 +49,7 @@ export default function PitchPage() {
                 rel="noopener noreferrer"
                 className="btn pitch-cta-btn"
               >
-                OPEN PITCH FORM →
+                OPEN PITCH FORM
               </a>
               <p className="pitch-cta-note">
                 Opens in a new tab · Takes under 10 minutes
@@ -157,7 +157,7 @@ export default function PitchPage() {
               className="btn"
               style={{ padding: '14px 32px', fontSize: '14px', fontWeight: 700 }}
             >
-              SEND YOUR PITCH →
+              SEND YOUR PITCH
             </a>
           </div>
         </div>

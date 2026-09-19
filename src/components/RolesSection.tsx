@@ -154,7 +154,7 @@ export default function RolesSection({ jobs }: RolesSectionProps) {
             </p>
           </div>
           <Link href="/careers/pitch" className="btn">
-            Open application →
+            Open application
           </Link>
         </div>
       </motion.div>

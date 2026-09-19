@@ -69,7 +69,7 @@ export default async function CareerApplyPage({ params }: PageProps) {
             marginBottom: '16px',
           }}
         >
-          Open Application Form →
+          Open Application Form
         </a>
 
         <div>
@@ -81,7 +81,7 @@ export default async function CareerApplyPage({ params }: PageProps) {
               textDecoration: 'none',
             }}
           >
-            ← Cancel and return to job details
+            Cancel and return to job details
           </Link>
         </div>
       </div>

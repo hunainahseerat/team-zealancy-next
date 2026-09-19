@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { MapPin, Briefcase, Clock, Globe, Check, ArrowUpRight } from 'lucide-react';
+import { MapPin, Briefcase, Clock, Globe, Check, ArrowUpRight, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { getJobBySlug, getAllJobSlugs } from '@/lib/sanity';
@@ -450,8 +450,9 @@ export default async function DynamicJobDescriptionPage({ params }: PageProps) {
               <div className="jd-pitch-mini-card">
                 <h4>Have a different vision?</h4>
                 <p>If you think your specific skillset can elevate Team Zealancy in a custom role, we&apos;d love to hear from you.</p>
-                <Link href="/careers/pitch" className="jd-pitch-link">
-                  Pitch a custom role â†’
+                <Link href="/careers/pitch" className="jd-pitch-link inline-flex items-center group">
+                  <span>Pitch a custom role</span>
+                  <ArrowRight className="w-4 h-4 ml-1.5 inline-block transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
             </aside>
@@ -469,9 +470,10 @@ export default async function DynamicJobDescriptionPage({ params }: PageProps) {
               href={applyHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn jd-bottom-btn"
+              className="btn jd-bottom-btn inline-flex items-center group"
             >
-              Apply for {job.title} â†’
+              <span>Apply for {job.title}</span>
+              <ArrowRight className="w-4 h-4 ml-2 inline-block transition-transform group-hover:translate-x-1" />
             </a>
           </section>
         </div>
@@ -1163,6 +1165,20 @@ export default async function DynamicJobDescriptionPage({ params }: PageProps) {
         .jd-share-icon-btn:hover {
           transform: translateY(-2px) scale(1.06);
           box-shadow: 0 8px 22px -4px rgba(25, 21, 33, 0.18);
+        }
+
+        .jd-share-icon-btn.copy:hover {
+          background: #5D2DB0;
+          border-color: #5D2DB0;
+          color: #FFFFFF;
+          box-shadow: 0 8px 22px -4px rgba(93, 45, 176, 0.45);
+        }
+
+        .jd-share-icon-btn.copy.is-copied {
+          background: #ECFDF5;
+          border-color: #10B981;
+          color: #10B981;
+          box-shadow: 0 8px 22px -4px rgba(16, 185, 129, 0.35);
         }
 
         .jd-share-icon-btn.linkedin:hover {

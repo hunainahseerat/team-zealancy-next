@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ThumbsUp, ThumbsDown, Copy } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, Copy, Check } from 'lucide-react';
 import { FaLinkedinIn, FaXTwitter, FaWhatsapp } from 'react-icons/fa6';
 
 interface JobDetailInteractiveProps {
@@ -109,26 +109,27 @@ export function CopyShareBar({ jobTitle, slug }: JobDetailInteractiveProps) {
     <div className="jd-share-wrap">
       <div className="jd-share-label">Share this role:</div>
       <div className="jd-share-actions flex gap-3 items-center">
-        <button
-          type="button"
-          onClick={handleCopy}
-          className={`h-11 px-4 rounded-full border border-zinc-200/60 bg-stone-100/80 flex items-center justify-center transition-all duration-300 ease-in-out hover:bg-purple-600 hover:text-white hover:border-purple-600 hover:shadow-md ${copied ? 'bg-purple-600 text-white border-purple-600' : 'text-zinc-700'}`}
-          aria-label="Copy job link"
-        >
-          {copied ? (
-            <>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                <path d="M20 6L9 17l-5-5" />
-              </svg>
-              <span className="font-medium text-sm">Link Copied!</span>
-            </>
-          ) : (
-            <>
-              <Copy className="w-4 h-4 mr-2" />
-              <span className="font-medium text-sm">Copy Link</span>
-            </>
+        <div className="relative inline-flex items-center">
+          <button
+            type="button"
+            onClick={handleCopy}
+            className={`jd-share-icon-btn copy ${copied ? 'is-copied' : ''}`}
+            title={copied ? "Link Copied!" : "Copy Link"}
+            aria-label="Copy job link"
+          >
+            {copied ? (
+              <Check className="w-4 h-4 text-emerald-500" />
+            ) : (
+              <Copy className="w-4 h-4" />
+            )}
+          </button>
+          {copied && (
+            <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-stone-900 text-white text-xs font-semibold rounded-md shadow-lg pointer-events-none whitespace-nowrap animate-fade-in flex items-center gap-1 z-20">
+              <span>Link Copied!</span>
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-stone-900 rotate-45" />
+            </div>
           )}
-        </button>
+        </div>
 
         <button
           type="button"

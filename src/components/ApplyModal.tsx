@@ -288,7 +288,7 @@ export default function ApplyModal({ isOpen, selectedRole = '', onClose }: Apply
             </p>
             <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
               <button className="btn" onClick={handleResetAndClose}>
-                Close Window →
+                Close Window
               </button>
               <span className="auto-close-hint">Closing automatically in {countdown}s</span>
             </div>
@@ -473,7 +473,7 @@ export default function ApplyModal({ isOpen, selectedRole = '', onClose }: Apply
                       <span className="spinner"></span> Submitting Application...
                     </>
                   ) : (
-                    'Submit Application →'
+                    'Submit Application'
                   )}
                 </button>
               </div>

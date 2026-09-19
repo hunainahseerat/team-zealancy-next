@@ -194,7 +194,7 @@ export default function PasswordGate({ children }: { children: React.ReactNode }
                 transition: 'opacity 0.2s, transform 0.15s',
               }}
             >
-              Unlock Access →
+              Unlock Access
             </button>
           </form>
         </div>

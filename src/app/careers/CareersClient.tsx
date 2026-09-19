@@ -143,7 +143,7 @@ export default function CareersClient({ activeJobs }: CareersClientProps) {
               <p>Any discipline. Send your reel or portfolio and tell us where you&apos;d fit. We read every one.</p>
             </div>
             <Link href="/careers/pitch" className="btn">
-              Open application →
+              Open application
             </Link>
           </div>
         </div>
