@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import PasswordGate from '@/components/PasswordGate';
 import SmoothScroll from '@/components/SmoothScroll';
 
 export const viewport: Viewport = {
@@ -73,7 +72,7 @@ export default function RootLayout({
             </linearGradient>
           </defs>
         </svg>
-        <PasswordGate>{children}</PasswordGate>
+        {children}
       </body>
     </html>
   );
