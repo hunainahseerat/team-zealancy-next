@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 
 const PHRASES = [
   'become the 1%',
@@ -17,6 +18,8 @@ export default function HeroSection() {
   const caretRef   = useRef<HTMLSpanElement>(null);
   const srRef      = useRef<HTMLSpanElement>(null);
   const [displayText, setDisplayText] = useState(PHRASES[0]);
+
+  const wistiaId = 'n7izw776pu';
 
   /* - typewriter effect - */
   useEffect(() => {
@@ -103,6 +106,10 @@ export default function HeroSection() {
 
   return (
     <header className="hero" id="top" style={{ paddingTop: "24px", paddingBottom: "20px" }}>
+      {/* Wistia Embed Scripts */}
+      <Script src="https://fast.wistia.com/assets/external/E-v1.js" strategy="lazyOnload" />
+      <Script src={`https://fast.wistia.com/embed/medias/${wistiaId}.jsonp`} strategy="lazyOnload" />
+
       <div className="wrap">
         {/* -
             HERO HEADLINE: DUAL FONT SPECIFICATION
@@ -154,10 +161,7 @@ export default function HeroSection() {
           <span className="sr" ref={srRef}>become the 1%</span>
         </h1>
 
-        {/* 
-            GAME DISTRICT YOUTUBE VIDEO EMBED
-            VIZITIA VIDEO EMBED PLACEHOLDER - SWAP EMBED URL HERE LATER 
-        */}
+        {/* WISTIA VIDEO EMBED (ID: n7izw776pu) */}
         <div
           className="hero-video-container max-w-3xl mx-auto"
           style={{
@@ -173,21 +177,46 @@ export default function HeroSection() {
             background: '#07040E',
           }}
         >
-          {/* VIZITIA VIDEO EMBED PLACEHOLDER - SWAP EMBED URL HERE LATER */}
-          <iframe
-            src="https://www.youtube.com/embed/E8oHkGfYqYs?rel=0"
-            title="Game District Video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            style={{
-              width: '100%',
-              height: '100%',
-              border: 'none',
-              display: 'block',
-              borderRadius: '20px',
-            }}
-            className="w-full h-full aspect-video rounded-2xl"
-          />
+          <div 
+            className={`wistia_embed wistia_async_${wistiaId} seo=false videoFoam=true`} 
+            style={{ position: 'relative', width: '100%', height: '100%' }}
+          >
+            <div 
+              className="wistia_swatch" 
+              style={{ 
+                height: '100%', 
+                left: 0, 
+                opacity: 0, 
+                overflow: 'hidden', 
+                position: 'absolute', 
+                top: 0, 
+                transition: 'opacity 200ms', 
+                width: '100%' 
+              }}
+            >
+              <img 
+                src={`https://fast.wistia.com/embed/medias/${wistiaId}/swatch`} 
+                style={{ filter: 'blur(5px)', height: '100%', objectFit: 'contain', width: '100%' }} 
+                alt="Video Thumbnail" 
+                aria-hidden="true" 
+              />
+            </div>
+            <iframe
+              src={`https://fast.wistia.net/embed/iframe/${wistiaId}?videoFoam=true`}
+              title="Team Zealancy Video"
+              allow="autoplay; fullscreen"
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                border: 'none',
+                borderRadius: '20px',
+              }}
+              className="w-full h-full aspect-video rounded-2xl"
+            />
+          </div>
         </div>
 
         <div className="cta-row" style={{ marginTop: '20px' }}>
