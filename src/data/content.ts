@@ -103,7 +103,7 @@ export const MOCK_HERO_WORDS: HeroRotatorWord[] = [
 export const MOCK_SETTINGS: SiteSettings = {
   siteName: 'Team Zealancy',
   tagline: 'Make content for the top 1% of creators.',
-  contactEmail: 'careers@teamzealancy.com',
+  contactEmail: 'hiring@zealancy.com',
   whatsappNumber: '+923001234567',
   instagramUrl: 'https://www.instagram.com/teamzealancy/',
   linkedinUrl: 'https://www.linkedin.com/company/zealancy',

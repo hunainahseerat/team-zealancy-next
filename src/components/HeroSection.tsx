@@ -178,7 +178,7 @@ export default function HeroSection() {
           }}
         >
           <div 
-            className={`wistia_embed wistia_async_${wistiaId} seo=false videoFoam=true`} 
+            className={`wistia_embed wistia_async_${wistiaId} seo=false videoFoam=true playerColor=6D28D9`} 
             style={{ position: 'relative', width: '100%', height: '100%' }}
           >
             <div 
@@ -202,7 +202,7 @@ export default function HeroSection() {
               />
             </div>
             <iframe
-              src={`https://fast.wistia.net/embed/iframe/${wistiaId}?videoFoam=true`}
+              src={`https://fast.wistia.net/embed/iframe/${wistiaId}?videoFoam=true&playerColor=6D28D9`}
               title="Team Zealancy Video"
               allow="autoplay; fullscreen"
               style={{

@@ -133,7 +133,7 @@ export default function Footer() {
           </div>
           <div className="fcol">
             <h4>Get in touch</h4>
-            <a href="mailto:hiring@teamzealancy.com">hiring@teamzealancy.com</a>
+            <a href="mailto:hiring@zealancy.com">hiring@zealancy.com</a>
             <a href="https://wa.me/923272987768" target="_blank" rel="noopener noreferrer">
               +92 327 2987768
             </a>
