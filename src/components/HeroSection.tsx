@@ -21,6 +21,20 @@ export default function HeroSection() {
 
   const wistiaId = 'n7izw776pu';
 
+  /* - shrink Wistia big play button to minimal size - */
+  useEffect(() => {
+    const w = window as typeof window & { _wq?: Array<unknown> };
+    w._wq = w._wq || [];
+    w._wq.push({
+      id: wistiaId,
+      options: {
+        playerColor: '6D28D9',
+        bigPlayButton: false,
+        smallPlayButton: true,
+      },
+    });
+  }, []);
+
   /* - typewriter effect - */
   useEffect(() => {
     if (typeof window === 'undefined') return;
